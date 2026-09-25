@@ -1,7 +1,5 @@
 # μ(ζ(2)) ≤ 5.0495243, machine-checked in Lean 4
 
-> **DRAFT wording.** The proof, the from-scratch build and its receipts are final; the prose is still being edited.
-
 This repository contains a complete, machine-checked proof that the irrationality measure of
 ζ(2) = π²/6 is at most **5.0495243**. The previous published bound was 5.095412 (Zudilin, 2014),
 which improved 5.441243 (Rhin–Viola, 1996).
