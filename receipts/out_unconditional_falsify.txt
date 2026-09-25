@@ -1,0 +1,20 @@
+--- Zeta2Hpsi.lean / Zeta2Unconditional.lean
+ARM H-ctl GREEN (wanted GREEN) — Zeta2Hpsi unperturbed
+ARM H-ctl/type PASS — hψ : Zeta2LegA.psiErrorBoundStatement, no binder; MediumPNT and hψ read the allowlist
+ARM H-B1 RED (wanted RED) — hψ at the STRONGER exponent 1/2: MediumPNT delivers (log x)^(1/10) only
+      first refusal: Zeta2Hpsi.lean:45:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern (victim span 35-48)
+ARM H-B2 RED (wanted RED) — hψ with the constant 2c: the witness MediumPNT supplies is c
+      first refusal: Zeta2Hpsi.lean:45:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern (victim span 35-48)
+ARM U-ctl GREEN (wanted GREEN) — Zeta2Unconditional unperturbed — a suite whose control is red measures nothing
+ARM U-ctl/type PASS — the headline, its measure form and its rational-approximation form name NO hypothesis; every receipt reads the allowlist
+ARM U-C RED (wanted RED) — the headline at the retired 5.04952429, strictly stronger than the certified V
+      first refusal: Zeta2Unconditional.lean:39:2: error: Type mismatch (victim span 38-39)
+ARM U-C2 RED (wanted RED) — the measure form from 5.04952429 upward
+      first refusal: Zeta2Unconditional.lean:44:2: error: Type mismatch (victim span 42-44)
+ARM U-E RED (wanted RED) — hψ not supplied: the conditional theorem is not the unconditional one
+      first refusal: Zeta2Unconditional.lean:39:2: error: Type mismatch (victim span 38-39)
+ARM U-D GREEN rc, footprint IDENTICAL to the control's /'Zeta2Unconditional.zeta2_not_liouvilleWith' depends on axioms: [propext, Classical.choice, Quot.sound]/, TYPE CHECK REFUSED (wanted) — a binder is not an axiom
+      printed: Zeta2Unconditional.zeta2_not_liouvilleWith : Zeta2LegA.psiErrorBoundStatement → ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2 'Zeta2Unconditional.zeta2_irrationality_measure_le' depends on axioms: [propext, Classical.choice, Quot.sound] 
+--- restore control
+      Zeta2Unconditional.lean and Zeta2Hpsi.lean byte-identical
+--- 10 passed, 0 failed

@@ -1,0 +1,12 @@
+# RUN OF RECORD — clean store ~/mathlib-current/probes/vclose-nosorry (buildbox), /home/jonathan/cas-zeta2-close @ e6b3c1a08
+# 748/748 modules (cleanbuild END done=748 failed=0, zero sorry warnings in either quote style);
+# the 7 whose closure changed (Zeta2TWire, QGrow, RDecay, Capstone, Final, Unconditional, Target) rebuilt
+# from committed sources, the other 741 linked read-only from vclose-pntport / vclose-f04f359ab after an
+# md5 (sha256 for STAR) check of source and closure. toolchain v4.34.0-rc2, mathlib 5aedf732.
+# Runner: clean_close/run_clean_final.sh.
+--- compiling Zeta2Target
+'Zeta2Target.zeta2_not_liouvilleWith' depends on axioms: [propext, Classical.choice, Quot.sound]
+zeta2_not_liouvilleWith : ¬LiouvilleWith 5.0495243 zeta2
+'Zeta2Target.zeta2_irrationality_measure_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+zeta2_irrationality_measure_le : ∀ (p : ℝ), 5.0495243 ≤ p → ¬LiouvilleWith p zeta2
+rc=0

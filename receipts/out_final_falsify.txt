@@ -1,0 +1,22 @@
+--- Zeta2Final.lean
+ARM F-ctl GREEN (wanted GREEN) — unperturbed — a suite whose control is red measures nothing
+ARM F-ctl/type PASS — T-WIRE and its measure form name exactly hψ and PolyHalfOpen; the L1-ASM export names PolyHalfOpen alone
+ARM F1a RED (wanted RED) — hpoly dropped from the _of_poly form: its body applies hpoly, which is then unbound
+      first refusal: /home/jonathan/mathlib-current/probes/vclose-nosorry/vfinal.69Z13M/Zeta2Final.lean:132:58: error(lean.unknownIdentifier): Unknown identifier `hpoly` (victim span 129-132)
+ARM F1b RED (wanted RED) — the PROVED harmonic half fed where PolyHalfOpen is asked (a silent discharge of the open row)
+      first refusal: /home/jonathan/mathlib-current/probes/vclose-nosorry/vfinal.2FMqeI/Zeta2Final.lean:132:58: error: Application type mismatch: The argument (victim span 129-132)
+ARM F2 RED (wanted RED) — the L1-ASM export restated at the undivided Δ 16 15: the landed binders are pinned to ΔT
+      first refusal: /home/jonathan/mathlib-current/probes/vclose-nosorry/vfinal.BNfV78/Zeta2Final.lean:98:48: error: Application type mismatch: The argument (victim span 82-99)
+ARM F3a RED (wanted RED) — T-WIRE at the retired 5.04952429, strictly stronger than the certified V
+      first refusal: /home/jonathan/mathlib-current/probes/vclose-nosorry/vfinal.cHqNNS/Zeta2Final.lean:132:2: error: Type mismatch (victim span 129-132)
+ARM F3b RED (wanted RED) — the measure form from 5.04952429 upward, strictly stronger than LiouvilleWith.mono reaches
+      first refusal: /home/jonathan/mathlib-current/probes/vclose-nosorry/vfinal.BRfTBj/Zeta2Final.lean:139:2: error: Type mismatch (victim span 136-139)
+ARM F4 RED (wanted RED) — the CLOSING STEP fed the harmonic half in place of polyHalfOpen: only the polynomial half discharges hpoly
+      first refusal: /home/jonathan/mathlib-current/probes/vclose-nosorry/vfinal.zjkUy8/Zeta2Final.lean:199:55: error: Application type mismatch: The argument (victim span 197-199)
+ARM F5 RED (wanted RED) — the CLOSING STEP at the retired 5.04952429: the hψ-only headline is 5.0495243
+      first refusal: /home/jonathan/mathlib-current/probes/vclose-nosorry/vfinal.dyFOR5/Zeta2Final.lean:199:2: error: Type mismatch (victim span 197-199)
+ARM FB GREEN rc, footprint IDENTICAL to the control's /'Zeta2Final.zeta2_not_liouvilleWith_of_psi_of_poly' depends on axioms: [propext, Classical.choice, Quot.sound]/, TYPE CHECK REFUSED (wanted) — a binder is not an axiom
+      printed: Zeta2Final.zeta2_not_liouvilleWith_of_psi_of_poly : Zeta2LegA.psiErrorBoundStatement →   Zeta2PtpPolar.PolyHalfOpen → Zeta2PtpPolar.AHalfOpen → ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2 
+--- restore control
+      Zeta2Final.lean byte-identical
+--- 10 passed, 0 failed

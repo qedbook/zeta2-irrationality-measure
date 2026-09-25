@@ -1,0 +1,20 @@
+# sorry census of record — Zeta2Target @ e6b3c1a08, store ~/mathlib-current/probes/vclose-nosorry
+SELF-TEST (source + log detectors on planted hits): PASS
+CLOSURE of Zeta2Target: 748 modules (189 committed + 559 generated STAR)
+
+(i) `sorry` TOKENS IN CODE (comments and strings stripped)
+  TOTAL outside the allowlist: 0
+
+(ii) `axiom` DECLARATIONS IN CODE
+  TOTAL: 0 (expected: 0 — AdditiveCombination's qc/hqc are in a doc comment)
+
+(iii) BUILD LOGS: 'declaration uses sorry' warnings, both quote styles
+  TOTAL warnings: 0   modules without a log: 0   logs read: 748
+
+(iv) KERNEL ENVIRONMENT after `import Zeta2Target`
+  lean rc=0
+  LOCAL-CONSTANTS 345875 in 746 modules
+  KERNEL-SELF-TEST PASS
+  constants using sorryAx directly: 0   axioms: 0
+
+VERDICT: CLEAN (0 failing channel(s))

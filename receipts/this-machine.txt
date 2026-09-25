@@ -1,0 +1,15 @@
+src/Receipts.lean:9:0: error: unknown module prefix 'Zeta2Target'
+
+No directory 'Zeta2Target' or file 'Zeta2Target.olean' in the search path entries:
+/home/jonathan/mathlib-current/.lake/packages/Cli/.lake/build/lib/lean
+/home/jonathan/mathlib-current/.lake/packages/batteries/.lake/build/lib/lean
+/home/jonathan/mathlib-current/.lake/packages/Qq/.lake/build/lib/lean
+/home/jonathan/mathlib-current/.lake/packages/aesop/.lake/build/lib/lean
+/home/jonathan/mathlib-current/.lake/packages/proofwidgets/.lake/build/lib/lean
+/home/jonathan/mathlib-current/.lake/packages/importGraph/.lake/build/lib/lean
+/home/jonathan/mathlib-current/.lake/packages/LeanSearchClient/.lake/build/lib/lean
+/home/jonathan/mathlib-current/.lake/packages/plausible/.lake/build/lib/lean
+/home/jonathan/mathlib-current/.lake/packages/mathlib/.lake/build/lib/lean
+/home/jonathan/zeta2-export/.lake/build/lib/lean
+/home/jonathan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/lib/lean
+/home/jonathan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/lib/lean

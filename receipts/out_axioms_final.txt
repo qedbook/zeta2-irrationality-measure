@@ -1,0 +1,96 @@
+Zeta2Final.lean — receipts of record, 2026-09-24 14:24 UTC, commit beb2a75be
+elaborated by clean_close/run_clean_final.sh against ~/mathlib-current/probes/vclose-f04f359ab
+
+'Zeta2Final.ptpOpen_of_poly' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.ptpOpen_of_poly : Zeta2PtpPolar.PolyHalfOpen → Zeta2TWire.PT_P_open
+'Zeta2Final.l1asm_binders_of_poly' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.l1asm_binders_of_poly : Zeta2PtpPolar.PolyHalfOpen →
+  ∃ P,
+    (∀ (n : ℕ),
+        Zeta2L1Asm.N0 ≤ n →
+          Zeta2L1Asm.αR 0 n * ↑(Zeta2Defs.candidateM.qn n) + Zeta2L1Asm.αR 1 n * ↑(Zeta2Defs.candidateM.qn (n + 1)) +
+                Zeta2L1Asm.αR 2 n * ↑(Zeta2Defs.candidateM.qn (n + 2)) +
+              Zeta2L1Asm.αR 3 n * ↑(Zeta2Defs.candidateM.qn (n + 3)) =
+            0) ∧
+      (∀ (n : ℕ),
+          Zeta2L1Asm.N0 ≤ n →
+            Zeta2L1Asm.αR 0 n * ↑(Zeta2Defs.candidateM.pn n) + Zeta2L1Asm.αR 1 n * ↑(Zeta2Defs.candidateM.pn (n + 1)) +
+                  Zeta2L1Asm.αR 2 n * ↑(Zeta2Defs.candidateM.pn (n + 2)) +
+                Zeta2L1Asm.αR 3 n * ↑(Zeta2Defs.candidateM.pn (n + 3)) =
+              0) ∧
+        (∀ (n : ℕ), Zeta2PhiT.ΔT n ≠ 0) ∧
+          (∀ (n : ℕ), ↑(Zeta2HatAssemble.QT n) = Zeta2PhiT.ΔT n * ↑(Zeta2Defs.candidateM.qn n)) ∧
+            ∀ (n : ℕ), ↑(P n) = Zeta2PhiT.ΔT n * ↑(Zeta2Defs.candidateM.pn n)
+'Zeta2Final.target_of_poly_and_rates' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.target_of_poly_and_rates : Zeta2PtpPolar.PolyHalfOpen →
+  ∀ {Nr Nq : ℕ} {Cr Cq c0 c1 c2 δ : ℝ},
+    29.10787127 ≤ c0 →
+      c1 ≤ 42.03361581 →
+        c2 ≤ 15.01912095 →
+          δ ≤ 1 / 10 ^ 16 →
+            0 < Cr →
+              (∀ (n : ℕ), Nr ≤ n → |Zeta2PhiT.ΔT n * Zeta2Defs.candidateM.rn n| ≤ Cr * Real.exp (-(c0 - c2 - δ)) ^ n) →
+                0 < Cq →
+                  (∀ (n : ℕ), Nq ≤ n → |↑(Zeta2HatAssemble.QT n)| ≤ Cq * Real.exp (c1 + c2) ^ n) →
+                    ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2
+'Zeta2Final.zeta2_not_liouvilleWith_of_psi_of_poly' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.zeta2_not_liouvilleWith_of_psi_of_poly : Zeta2LegA.psiErrorBoundStatement →
+  Zeta2PtpPolar.PolyHalfOpen → ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2
+'Zeta2Final.zeta2_irrationality_measure_le_of_psi_of_poly' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.zeta2_irrationality_measure_le_of_psi_of_poly : Zeta2LegA.psiErrorBoundStatement →
+  Zeta2PtpPolar.PolyHalfOpen → ∀ (p : ℝ), 5.0495243 ≤ p → ¬LiouvilleWith p Zeta2Defs.zeta2
+'Zeta2Final.harmonic_half_is_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.harmonic_half_is_proved : Zeta2PtpPolar.AHalfOpen
+'Zeta2Final.delta_is_nonzero' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.delta_is_nonzero : ∀ (n : ℕ), Zeta2PhiT.ΔT n ≠ 0
+'Zeta2Final.the_literal_is_the_chains' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.the_literal_is_the_chains : 5.04952429 < 5.0495243
+def Zeta2PtpPolar.PolyHalfOpen : Prop :=
+∀ (n p : ℕ),
+  p ∈ Zeta2PhiT.phiWindow n →
+    Zeta2PtpPolar.PVal p (Zeta2PhiT.phiT (Int.fract (↑n / ↑p)))
+      (↑(Zeta2Arith.Δ 16 15 n) * (Zeta2Defs.candidateM.Pin n * Zeta2Defs.candidateM.pnPoly n))
+def Zeta2TWire.PT_P_open : Prop :=
+∃ P, ∀ (n : ℕ), ↑(P n) = Zeta2PhiT.ΔT n * ↑(Zeta2Defs.candidateM.pn n)
+'Zeta2Final.zeta2_not_liouvilleWith_of_psi' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.zeta2_not_liouvilleWith_of_psi : Zeta2LegA.psiErrorBoundStatement → ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2
+'Zeta2Final.zeta2_irrationality_measure_le_of_psi' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.zeta2_irrationality_measure_le_of_psi : Zeta2LegA.psiErrorBoundStatement →
+  ∀ (p : ℝ), 5.0495243 ≤ p → ¬LiouvilleWith p Zeta2Defs.zeta2
+'Zeta2Final.l1asm_binders' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.l1asm_binders : ∃ P,
+  (∀ (n : ℕ),
+      Zeta2L1Asm.N0 ≤ n →
+        Zeta2L1Asm.αR 0 n * ↑(Zeta2Defs.candidateM.qn n) + Zeta2L1Asm.αR 1 n * ↑(Zeta2Defs.candidateM.qn (n + 1)) +
+              Zeta2L1Asm.αR 2 n * ↑(Zeta2Defs.candidateM.qn (n + 2)) +
+            Zeta2L1Asm.αR 3 n * ↑(Zeta2Defs.candidateM.qn (n + 3)) =
+          0) ∧
+    (∀ (n : ℕ),
+        Zeta2L1Asm.N0 ≤ n →
+          Zeta2L1Asm.αR 0 n * ↑(Zeta2Defs.candidateM.pn n) + Zeta2L1Asm.αR 1 n * ↑(Zeta2Defs.candidateM.pn (n + 1)) +
+                Zeta2L1Asm.αR 2 n * ↑(Zeta2Defs.candidateM.pn (n + 2)) +
+              Zeta2L1Asm.αR 3 n * ↑(Zeta2Defs.candidateM.pn (n + 3)) =
+            0) ∧
+      (∀ (n : ℕ), Zeta2PhiT.ΔT n ≠ 0) ∧
+        (∀ (n : ℕ), ↑(Zeta2HatAssemble.QT n) = Zeta2PhiT.ΔT n * ↑(Zeta2Defs.candidateM.qn n)) ∧
+          ∀ (n : ℕ), ↑(P n) = Zeta2PhiT.ΔT n * ↑(Zeta2Defs.candidateM.pn n)
+'Zeta2PtpMbigS2.polyHalfOpen' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2PtpMbigS2.polyHalfOpen : Zeta2PtpPolar.PolyHalfOpen
+'Zeta2Final.zeta2_eq_riemannZeta_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.zeta2_eq_riemannZeta_two : ↑Zeta2Defs.zeta2 = riemannZeta 2
+'Zeta2Final.zeta2_eq_tsum_from_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.zeta2_eq_tsum_from_one : Zeta2Defs.zeta2 = ∑' (n : ℕ), 1 / (↑n + 1) ^ 2
+'Zeta2Final.not_liouvilleWith_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.not_liouvilleWith_iff : ∀ (p x : ℝ),
+  ¬LiouvilleWith p x ↔ ∀ (C : ℝ), ∀ᶠ (n : ℕ) in Filter.atTop, ∀ (m : ℤ), x ≠ ↑m / ↑n → C / ↑n ^ p ≤ |x - ↑m / ↑n|
+'Zeta2Final.zeta2_rational_approximation_of_psi' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.zeta2_rational_approximation_of_psi : Zeta2LegA.psiErrorBoundStatement →
+  ∀ (C : ℝ),
+    ∀ᶠ (n : ℕ) in Filter.atTop, ∀ (m : ℤ), Zeta2Defs.zeta2 ≠ ↑m / ↑n → C / ↑n ^ 5.0495243 ≤ |Zeta2Defs.zeta2 - ↑m / ↑n|
+'Zeta2Target.zeta2_not_liouvilleWith_of_psi' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Target.zeta2_not_liouvilleWith_of_psi : Zeta2LegA.psiErrorBoundStatement → ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2
+def LiouvilleWith : ℝ → ℝ → Prop :=
+fun p x => ∃ C, ∃ᶠ (n : ℕ) in Filter.atTop, ∃ m, x ≠ ↑m / ↑n ∧ |x - ↑m / ↑n| < C / ↑n ^ p
+def Zeta2Defs.zeta2 : ℝ :=
+Real.pi ^ 2 / 6
+LEAN_RC=0

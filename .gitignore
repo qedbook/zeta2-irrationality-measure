@@ -1,0 +1,9 @@
+.lake/
+*.olean
+*.ilean
+*.trace
+*.hash
+build.log
+build.time
+lake-smoke*.log
+*.log

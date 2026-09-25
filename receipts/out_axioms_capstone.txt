@@ -1,0 +1,36 @@
+=== DEP Zeta2RDecay RC 0 WALL 17s
+=== DEP Zeta2PpolMoment RC 0 WALL 9s
+=== RC 0 WALL 11s
+=== ERROR LINES 0
+'Zeta2Capstone.moment_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Capstone.moment_all : ∀ (n : ℕ), 1 ≤ n → Zeta2L7IdSum.PpolMomentValue n
+'Zeta2Capstone.target_of_psi_and_ptp_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Capstone.target_of_psi_and_ptp_at : Zeta2LegA.psiErrorBoundStatement →
+  ∀ {ε' : ℝ}, 0 < ε' → ε' ≤ 1 / 10 ^ 8 → Zeta2TWire.PT_P_open → ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2
+'Zeta2Capstone.epsCap_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Capstone.epsCap_pos : 0 < Zeta2Capstone.epsCap
+'Zeta2Capstone.epsCap_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Capstone.epsCap_le : Zeta2Capstone.epsCap ≤ 1 / 10 ^ 8
+'Zeta2Capstone.target_of_psi_and_ptp' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Capstone.target_of_psi_and_ptp : Zeta2LegA.psiErrorBoundStatement →
+  Zeta2TWire.PT_P_open → ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2
+'Zeta2Capstone.zeta2_irrationality_measure_le_of_psi_of_ptp' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Capstone.zeta2_irrationality_measure_le_of_psi_of_ptp : Zeta2LegA.psiErrorBoundStatement →
+  Zeta2TWire.PT_P_open → ∀ (p : ℝ), 5.0495243 ≤ p → ¬LiouvilleWith p Zeta2Defs.zeta2
+'Zeta2Capstone.moment_is_the_identification_across_modules' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Zeta2Capstone.moment_is_the_identification_across_modules : ∀ {n : ℕ}, 1 ≤ n → Zeta2L7IdSum.PpolMomentValue n
+'Zeta2Capstone.moment_is_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Capstone.moment_is_unconditional : ∀ (n : ℕ), Zeta2L7IdSum.PpolMomentValue n
+'Zeta2Capstone.both_hypotheses_are_still_asked_for' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Capstone.both_hypotheses_are_still_asked_for : Zeta2LegA.psiErrorBoundStatement →
+  Zeta2TWire.PT_P_open → Zeta2LegA.psiErrorBoundStatement ∧ Zeta2TWire.PT_P_open
+'Zeta2Capstone.the_literal_is_the_chains' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Capstone.the_literal_is_the_chains : 5.04952429 < 5.0495243
+Zeta2TWire.PT_P_open : Prop
+def Zeta2TWire.PT_P_open : Prop :=
+∃ P, ∀ (n : ℕ), ↑(P n) = Zeta2PhiT.ΔT n * ↑(Zeta2Defs.candidateM.pn n)
+Zeta2PpolMoment.ppolMomentValue : ∀ (n : ℕ), Zeta2L7IdSum.PpolMomentValue n
+Zeta2RDecay.target_of_one_open_row : Zeta2LegA.psiErrorBoundStatement →
+  (∀ (n : ℕ), 1 ≤ n → Zeta2L7IdSum.PpolMomentValue n) →
+    ∀ {ε' : ℝ}, 0 < ε' → ε' ≤ 1 / 10 ^ 8 → Zeta2TWire.PT_P_open → ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2
+=== run_capstone.sh EXIT 0

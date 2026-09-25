@@ -1,0 +1,13 @@
+=== DEP Zeta2PtpAHalf RC 0
+=== DEP Zeta2Capstone RC 0
+'Zeta2PtpClose.pt_p' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2PtpClose.pt_p : Zeta2TWire.PT_P_open
+'Zeta2PtpClose.target_of_psi' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2PtpClose.target_of_psi : Zeta2LegA.psiErrorBoundStatement → ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2
+'Zeta2PtpClose.zeta2_irrationality_measure_le_of_psi' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2PtpClose.zeta2_irrationality_measure_le_of_psi : Zeta2LegA.psiErrorBoundStatement →
+  ∀ (q : ℝ), 5.0495243 ≤ q → ¬LiouvilleWith q Zeta2Defs.zeta2
+def Zeta2TWire.PT_P_open : Prop :=
+∃ P, ∀ (n : ℕ), ↑(P n) = Zeta2PhiT.ΔT n * ↑(Zeta2Defs.candidateM.pn n)
+lean_falsifier_restore: receipt audit GREEN (Zeta2PtpClose.lean): 3 footprint(s) read, all inside ['propext', 'Classical.choice', 'Quot.sound'], and no Lean `error:` in the output. This reads the OUTPUT, not the run's EXIT CODE — read `rc` too (LEAN.md §1: both channels are necessary, neither is sufficient).
+run_close.sh: Zeta2PtpClose.lean exited 0 (receipt audit exit 0)
