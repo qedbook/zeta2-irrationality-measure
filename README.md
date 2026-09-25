@@ -1,9 +1,6 @@
 # μ(ζ(2)) ≤ 5.0495243, machine-checked in Lean 4
 
-> **DRAFT.** This repository is being assembled: the from-scratch verification build, its receipts, the resource numbers marked [FILL], and the final wording will follow.
-
-<!-- DRAFT — raw material for the owner's wording. Numbers marked [FILL] come from the export
-     summary and the fresh-machine build; everything else is taken from the receipts of record. -->
+> **DRAFT wording.** The proof, the from-scratch build and its receipts are final; the prose is still being edited.
 
 This repository contains a complete, machine-checked proof that the irrationality measure of
 ζ(2) = π²/6 is at most **5.0495243**. The previous published bound was 5.095412 (Zudilin, 2014),
@@ -41,8 +38,13 @@ import closure.
 
 Requirements: [elan](https://github.com/leanprover/elan), the pinned toolchain
 (`leanprover/lean4:v4.34.0-rc2`, installed automatically by elan from `lean-toolchain`), roughly
-[FILL] GB of disk for Mathlib's cache plus the build, and [FILL] GB of RAM at the default
-parallelism. A full build took [FILL] wall-clock minutes on [FILL] cores.
+13 GB of disk (Mathlib's prebuilt cache is about 8 GB; this build adds 4.8 GB), and about
+4 GB of RAM per parallel job (the 559 generated modules each peak at 3.5–4 GB; the two
+assembly modules that import them peak near 18 GB). Lake runs one job per hardware thread
+unless `LEAN_NUM_THREADS` bounds it, so on a 16 GB machine set `LEAN_NUM_THREADS=2`.
+The build that produced `receipts/this-machine.txt` took 12.6 CPU-hours: 2 h 32 min of wall
+clock with 7 concurrent jobs on a 12-thread / 62 GB server that was carrying other load
+(`receipts/build-stats.txt`); an idle machine of that size should finish in under two hours.
 
 ```sh
 git clone https://github.com/qedbook/zeta2-irrationality-measure
@@ -63,7 +65,7 @@ one claimed.
 
 | path | what |
 |---|---|
-| `src/Zeta2*.lean`, `src/*.lean` (flat names) | the chain: definitions, the arithmetic layer, the analytic layer, the assembly ([FILL] modules, [FILL] lines) |
+| `src/Zeta2*.lean`, `src/*.lean` (flat names) | the chain: definitions, the arithmetic layer, the analytic layer, the assembly (166 modules, 91,672 lines) |
 | `src/StarForallCandt{1,2}{Base,Assemble,K*}.lean` | 559 **generated** modules: the creative-telescoping certificate as exact integer data, one kernel-checked evaluation per shard |
 | `src/PrimeNumberTheoremAnd/`, `src/Architect*` | vendored third-party code (Apache-2.0), see `THIRD_PARTY/` |
 | `generators/star/` | the generator that wrote the STAR modules, its inputs, and the sha256 manifests; `verify_manifests.sh` re-checks every generated file against them |
@@ -93,8 +95,7 @@ function that gives the common factor.
 
 The Lean text was written by Claude (Anthropic) sessions directed by Jonathan Kleid, who also
 designed the search program and the verification discipline (every gate proven able to go red
-before its green was accepted). [OWNER: decide how to phrase this; Romik's ζ(5) repository is a
-model.] The mathematics rests on Zudilin, *Two hypergeometric tales and a new irrationality
+before its green was accepted). The mathematics rests on Zudilin, *Two hypergeometric tales and a new irrationality
 measure of ζ(2)*, Ann. Math. Québec 38 (2014), and on Marcovecchio's pairing theorem; PNT+ is by
 Alex Kontorovich, Terence Tao and contributors.
 

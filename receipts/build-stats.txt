@@ -1,0 +1,13 @@
+# from-scratch build of this tree on the buildbox (Hetzner AX41: 12 threads / 62 GB), 2026-09-25
+# lake build Zeta2 with LEAN_NUM_THREADS=6 (7 concurrent lean processes), inside a 42 GB memory cgroup
+	User time (seconds): 34186.31
+	System time (seconds): 11064.83
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:32:08
+	Maximum resident set size (kbytes): 18371476
+LAKE-RC 0
+modules built (Lake 'Built' lines): 747
+total CPU: 45251 s = 12.6 CPU-hours (user 34186 s + system 11065 s)
+build cgroup memory.peak, read at step 9598/9629: 25.9 GB across 7 concurrent lean processes (3.5-4 GB each on the STAR shards; the largest single process, per time -v above, 18.4 GB)
+workers: LEAN_NUM_THREADS=6 -> 7 concurrent lean processes; the box carried load 30-37 from other work throughout, so an idle 12-thread machine should be faster
+Mathlib: prebuilt cache for 5aedf732 (about 8 GB on disk), not rebuilt
+build dir size: 4.8G

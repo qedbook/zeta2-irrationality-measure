@@ -1,15 +1,18 @@
-src/Receipts.lean:9:0: error: unknown module prefix 'Zeta2Target'
-
-No directory 'Zeta2Target' or file 'Zeta2Target.olean' in the search path entries:
-/home/jonathan/mathlib-current/.lake/packages/Cli/.lake/build/lib/lean
-/home/jonathan/mathlib-current/.lake/packages/batteries/.lake/build/lib/lean
-/home/jonathan/mathlib-current/.lake/packages/Qq/.lake/build/lib/lean
-/home/jonathan/mathlib-current/.lake/packages/aesop/.lake/build/lib/lean
-/home/jonathan/mathlib-current/.lake/packages/proofwidgets/.lake/build/lib/lean
-/home/jonathan/mathlib-current/.lake/packages/importGraph/.lake/build/lib/lean
-/home/jonathan/mathlib-current/.lake/packages/LeanSearchClient/.lake/build/lib/lean
-/home/jonathan/mathlib-current/.lake/packages/plausible/.lake/build/lib/lean
-/home/jonathan/mathlib-current/.lake/packages/mathlib/.lake/build/lib/lean
-/home/jonathan/zeta2-export/.lake/build/lib/lean
-/home/jonathan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/lib/lean
-/home/jonathan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/lib/lean
+'Zeta2Target.zeta2_not_liouvilleWith' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Target.zeta2_not_liouvilleWith : ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2
+'Zeta2Target.zeta2_irrationality_measure_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Target.zeta2_irrationality_measure_le : ∀ (p : ℝ), 5.0495243 ≤ p → ¬LiouvilleWith p Zeta2Defs.zeta2
+'Zeta2Unconditional.zeta2_rational_approximation' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Unconditional.zeta2_rational_approximation : ∀ (C : ℝ),
+  ∀ᶠ (n : ℕ) in Filter.atTop, ∀ (m : ℤ), Zeta2Defs.zeta2 ≠ ↑m / ↑n → C / ↑n ^ 5.0495243 ≤ |Zeta2Defs.zeta2 - ↑m / ↑n|
+'Zeta2Hpsi.hψ' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Hpsi.hψ : Zeta2LegA.psiErrorBoundStatement
+'MediumPNT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Zeta2Final.zeta2_eq_riemannZeta_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.zeta2_eq_riemannZeta_two : ↑Zeta2Defs.zeta2 = riemannZeta 2
+'Zeta2Final.zeta2_eq_tsum_from_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.zeta2_eq_tsum_from_one : Zeta2Defs.zeta2 = ∑' (n : ℕ), 1 / (↑n + 1) ^ 2
+def Zeta2Defs.zeta2 : ℝ :=
+Real.pi ^ 2 / 6
+def LiouvilleWith : ℝ → ℝ → Prop :=
+fun p x => ∃ C, ∃ᶠ (n : ℕ) in Filter.atTop, ∃ m, x ≠ ↑m / ↑n ∧ |x - ↑m / ↑n| < C / ↑n ^ p
