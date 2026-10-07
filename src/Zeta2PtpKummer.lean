@@ -2,7 +2,7 @@
 # Row PT-P, layer 10 — `CoeffBoundOpen` REDUCED to a units-carry count on the terms of `h_m`,
 # with the rows that count cannot reach named as one residual `Prop`
 
-`Zeta2PtpPoly` left the polynomial half on `CoeffBoundOpen`: `PVal p (φ̃ + b_r − 1) (coeff n r)` at
+`Zeta2PtpPoly` reduced the polynomial half to `CoeffBoundOpen`: `PVal p (φ̃ + b_r − 1) (coeff n r)` at
 every window cell and `r < 16n`, `coeff n r = D(15n)·h_{L+r} / (L·C(L+r, L))`.  `Zeta2PtpCoeff`
 wrote `h_m = Σ_{i≤m} (−1)^{m−i} C(m,i) H(i)` with `H(i)` a product of three ordinary binomials
 below `13n` and above `26n`, and `ptp_kummer_rows_probe.py` measured the bound TERMWISE there:
@@ -20,17 +20,17 @@ with `p ∤ u` cancels.  Then `coeffBoundOpen_of_rows : KummerRowsOpen → Resid
 CoeffBoundOpen`, where
 
   * `KummerRowsOpen` is the termwise inequality above as a `Prop` — a RESIDUE statement in
-    `(n, r, i) mod p`, decided on the box, NOT proved here;
+    `(n, r, i) mod p`, a hypothesis here, proved as `Zeta2PtpKumRows.kummerRowsOpen`;
   * `ResidualRowsOpen` is the coefficient bound on the rows the count does not reach: `p ∣ r+1`
     (the polar rows, where the probe's 51 short rows all sit — 50 on the sibling's four run strata,
-    cancelling blockwise by `AHalfOpen`'s own mechanism) or `p² ≤ m` (the one cell `n = 11,
-    p = 17, r = 169`, where `C(m,L)` carries twice).  1119 of the 1170 residual rows of the box
-    are in fact covered by the same units-bit count; the 51 are what the dispatch against the
-    sibling's files owes.
+    cancelling blockwise by `AHalfOpen`'s own mechanism) or `p² ≤ m` (in the probe's box only
+    the cell `n = 11, p = 17, r = 169`, where `C(m,L)` carries twice).  1119 of the 1170
+    residual rows of the box are in fact covered by the same units-bit count; the 51 need the
+    dispatch against the sibling's files.
 
-WHAT IS NOT CLAIMED.  Neither `Prop` is proved; `CoeffBoundOpen`, `PolyHalfOpen` and PT-P stay
-open and `Zeta2Target.zeta2_not_liouvilleWith` is `sorry`.  `#print axioms` on the two
-compositions cannot see their binders (LEAN.md §1) — read the `#check @` types.
+HYPOTHESES.  Both `Prop`s enter here as hypotheses.
+`#print axioms` on the two compositions cannot see their binders (LEAN.md §1) — read the
+`#check @` types.
 
 Falsifier: `falsify_ptpkummer.sh` / `out_ptpkummer_falsify.txt`.
 
@@ -231,10 +231,10 @@ theorem pval_coeff_of_kum {n p r w : ℕ} (hp : p ∈ phiWindow n)
 
 /-! ## 4. The two named `Prop`s, and `CoeffBoundOpen` from them -/
 
-/-- **THE TERMWISE RESIDUE LEMMA, open.**  On every non-polar row with `m < p²` and a positive
+/-- **THE TERMWISE RESIDUE LEMMA.**  On every non-polar row with `m < p²` and a positive
 target, every term of `h_m` carries `φ̃ + b_r − 1 + v_p(L·C(m,L))` units bits, less the one `p`
-of `D(15n)`.  A statement about `(n, r, i) mod p`; measured at 95 998 of 95 998 rows
-(`ptp_kummer_rows_probe.out`, arm K1); NOT proved. -/
+of `D(15n)`.  A statement about `(n, r, i) mod p`, proved as `Zeta2PtpKumRows.kummerRowsOpen`;
+the probe (`ptp_kummer_rows_probe.out`, arm K1) checks it at 95 998 of 95 998 rows. -/
 def KummerRowsOpen : Prop :=
   ∀ n p r : ℕ, p ∈ phiWindow n → r < 16 * n → ¬ p ∣ r + 1 → 11 * n + 1 + r < p ^ 2 →
     1 ≤ phiT (Int.fract ((n : ℚ) / (p : ℚ))) + bbit n p r →
@@ -245,11 +245,11 @@ def KummerRowsOpen : Prop :=
       phiT (Int.fract ((n : ℚ) / (p : ℚ))) + bbit n p r - 1 + padicValNat p (LC n r)
         ≤ kumHi n p (11 * n + 1 + r) i + 1)
 
-/-- **THE RESIDUAL ROWS, open.**  The coefficient bound itself on the rows the units count does
+/-- **THE RESIDUAL ROWS.**  The coefficient bound itself on the rows the units count does
 not reach: the POLAR rows `p ∣ r+1` (the probe's 51 short rows all sit here, 50 on the four run
 strata `[1/9,2/17)`, `[3/13,4/17)`, `[6/13,7/15)`, `[5/9,9/16)` where they cancel blockwise by
 `AHalfOpen`'s own mechanism) and the rows with `p² ≤ m` (one cell in the box, `n = 11, p = 17,
-r = 169`).  Measured (arm K3); NOT proved. -/
+r = 169`).  A hypothesis of `coeffBoundOpen_of_rows`. -/
 def ResidualRowsOpen : Prop :=
   ∀ n p r : ℕ, p ∈ phiWindow n → r < 16 * n → (p ∣ r + 1 ∨ p ^ 2 ≤ 11 * n + 1 + r) →
     PVal p (phiT (Int.fract ((n : ℚ) / (p : ℚ))) + bbit n p r - 1) ((coeff n r : ℤ) : ℚ)

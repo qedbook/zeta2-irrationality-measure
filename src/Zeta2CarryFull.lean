@@ -9,7 +9,7 @@ exactly the cells with `p < n`, and on them PT-Q1's route does not reach
 (`piece1_offbracket_route_fails`).  The row was then re-priced "on the number of `p < n`
 sub-cases, not on 26".
 
-**This file discharges that debt, and it turns out not to be a sub-case count at all.**
+**This file covers those cells, and it turns out not to be a sub-case count at all.**
 
 ## The reframe, measured before it was proved
 
@@ -40,9 +40,9 @@ residue to `τ + 2r ≤ 13r < p`, whence `bit1`'s sum is `15r + τ ≥ p`.
 
 ## What this file does NOT claim
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.  This is piece 1 of PT-QA's
-profile, at full scope; the other pieces, the `phiSingle` definition and the ultrametric fold
-over the window are not here.
+The `phiSingle` definition and the ultrametric fold over the window are not here.
+
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -79,8 +79,8 @@ theorem fract_eq_mod_div (n p : ℕ) (hp : 0 < p) :
   have hsplit : (n : ℚ) / p = ((n / p : ℕ) : ℚ) + ((n % p : ℕ) : ℚ) / p := by
     field_simp
     linarith [hcast]
-  -- `Int.fract_natCast_add`, not `Int.fract_int_add`: the latter does not exist at this pin
-  -- (measured, `out_carryfull_apidrift.txt`), and the ℕ form needs no `ℤ` round-trip.
+  -- `Int.fract_natCast_add`, not the `ℤ` form `Int.fract_intCast_add`: the ℕ form needs no `ℤ`
+  -- round-trip.
   rw [hsplit, Int.fract_natCast_add]
   refine Int.fract_eq_self.2 ⟨by positivity, ?_⟩
   rw [div_lt_one hpQ]
@@ -201,7 +201,7 @@ theorem piece1_offbracket_hypotheses :
     13 * (31 % 29) < 29 ∧ 29 ≤ 15 * (31 % 29) ∧ ¬ (13 * 31 < 29) := by
   refine ⟨by norm_num, by norm_num, by norm_num⟩
 
-/-- **The debt discharged at the witness.**  The exact `k` at which PT-Q1's first bit is `0` is
+/-- **The off-bracket witness, covered.**  The exact `k` at which PT-Q1's first bit is `0` is
 nevertheless covered here — by `bit4`, which is the branch PT-Q1 had no access to. -/
 theorem piece1_offbracket_now_covered : 1 ≤ padicValNat 29 (cTerm 31 491) := by
   have : Fact (Nat.Prime 29) := ⟨by norm_num⟩
@@ -243,14 +243,14 @@ theorem piece1_excludes_zero_residue (n p : ℕ) (h : n % p = 0) :
 
 Row PT-QA (`docs/future/zeta2-lean-chain.md`, registry `2B0.AV`), continuing clump 1's `Zeta2CarryFull.lean`.  Clump 1 proved piece 1 (`carry_ge_piece1_res`) and the residue bridge; the
 41-piece work list is `ptqa_refine_probe.out`, one row per piece with its minimal bit-cover and
-the seven floor constants `j = ⌊m·x⌋` that `(m·n) % p = m·r − j·p` needs.  This landing does the
-12 VALUE-2 pieces first (riskiest — two carry bits rather than one — so if any piece resists the
-template it is one of these); the 29 value-1 pieces are a follow-up clump, landed separately so a
-red does not strand 40 pieces behind one submission.
+the seven floor constants `j = ⌊m·x⌋` that `(m·n) % p = m·r − j·p` needs.  This section proves the
+12 VALUE-2 pieces (two carry bits rather than one); the other 28 pieces, all of value 1, follow
+below in this file, as clumps 2b and 2c.
+
 
 **The three lemmas below GENERALISE clump 1's machinery from floor 0 to an arbitrary constant
-floor `j`, and they are what let the remaining 40 pieces be mechanical rather than 40 fresh
-arguments — they are stated once here and reused by every later clump on this row:**
+floor `j`, and they are what let the other 40 pieces be mechanical rather than 40 fresh
+arguments — they are stated once here and reused by every piece below:**
 
 * `mul_mod_floor` generalises `mul_mod_small` — at floor `j`, `a·n % p = a·(n%p) − j·p`.  Stated
   with `hhi : a*(n%p) < j*p + p` (EXPANDED, not `(j+1)*p`): `omega` cannot distribute a product of
@@ -267,7 +267,7 @@ arguments — they are stated once here and reused by every later clump on this 
 
 **Every one of the 12 pieces below is proved by the SAME uniform recipe, validated first on the
 hardest case in the table (piece 2: `[1/11, 1/9)`, value 2, four-bit cover) before generating the
-rest, and the same recipe is what the follow-up clump will run over the 29 value-1 pieces**:
+rest**:
 establish the six floor-adjusted values (`13,9,5,2,4,6` — `11` is `bit4_sum_mod_gen`'s
 own), rewrite each of `padicValNat_cTerm`'s four raw `%p` terms into `τ`-relative form via the
 window arithmetic (`k − 13n − 1 = (k − 15n − 1) + 2n`, etc. — pure `omega` on the window bounds),
@@ -286,10 +286,10 @@ correctness.
 
 **What this clump does NOT claim**: the `_fract` wrapper form (`Int.fract`-stated, matching
 `carry_ge_piece1_fract`) is not built here — only the `_res` (residue-`ℕ`) form the table calls
-the template.  The 29 value-1 pieces are NOT in this file yet (follow-up clump).  The ultrametric
-fold over the window (`padicValRat.min_le_padicValRat_add`) that turns these per-piece lemmas
-into PT-QA's actual target, `padicValInt_qnInt_ge_phi`, is NOT started.
-`Zeta2Target.zeta2_not_liouvilleWith` stays `sorry`.
+the template.
+
+
+
 -/
 
 
@@ -920,10 +920,10 @@ theorem carry_ge_piece40_res (n p k : ℕ) [Fact p.Prime] (hk : k ∈ candidateM
 
 #print axioms Zeta2Arith.carry_ge_piece40_res
 
--- PT-QA clump 2b: 14 of the 28 remaining value-1 pieces (batch A of two — the value-1 pieces
--- are lower risk than clump 2a's value-2 pieces, but landing all 28 in one submission would
--- strand the lot behind a single gate, so they land in two batches of 14). Same template,
--- same three helpers from clump 2a above; no new machinery.
+-- PT-QA clump 2b: 14 of the 28 value-1 pieces (batch A of two; batch B is clump 2c, further
+-- below in this file).
+--
+-- Same template, same three helpers from clump 2a above; no new machinery.
 
 -- PT-QA piece 3: [1/9, 2/17), value 1. Uniform full-4-bit cover
 -- (cover-minimal proof not attempted; this is a correct, if non-minimal, closing).

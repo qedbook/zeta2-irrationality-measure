@@ -24,8 +24,8 @@ that nothing here is about a re-declared copy of the prefactors:
    kernel decides).
 
 `pair7_assemble` is the last mile, kept generic and proved once: the four per-`j` modules each
-apply it rather than re-doing the field algebra, so the sign-and-denominator seam that this
-chain has already lost a row to (L7ID-0) exists in exactly one place.
+apply it rather than re-doing the field algebra, so the sign-and-denominator seam exists in
+exactly one place.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732, buildbox.
 -/

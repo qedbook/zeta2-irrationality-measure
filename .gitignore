@@ -4,6 +4,4 @@
 *.trace
 *.hash
 build.log
-build.time
-lake-smoke*.log
-*.log
+receipts/local-run.txt

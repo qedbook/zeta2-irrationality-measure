@@ -2,7 +2,7 @@
 Zeta2PtpPolar.lean — row PT-P, layer 3: THE POLAR SPLIT, and the `B` half discharged.
 
 WHAT THIS FILE IS FOR.  `Zeta2PhiTDvd` reduced row PT-P to one inequality per window prime,
-`φ̃({n/p}) ≤ v_p(P n)` with `(P n : ℚ) = Δ(16n)·D(15n) · pₙ`.  `ptp_cancel_probe.py` then priced
+`φ̃({n/p}) ≤ v_p(P n)` with `(P n : ℚ) = D(16n)·D(15n) · pₙ`.  `ptp_cancel_probe.py` then priced
 that inequality and found most of it free:
 
 * `pₙ = −sgn·Π·(pnPoly − pnHarm)` and `Π·pnHarm = Σ_k ε_k·cTerm(n,k)·H⁽²⁾_{m_k}` with
@@ -13,12 +13,12 @@ that inequality and found most of it free:
 * `Zeta2PhiTDvd.factorization_Delta_eq_two` says the clearing supplies EXACTLY 2 at a window
   prime and `φ̃ ≤ 2`, so the `B` half clears with nothing left to prove.
 
-THIS FILE PROVES THAT, and states what remains as two named `Prop`s so a successor can discharge
-them one at a time.  It also CORRECTS the row's framing: the previous cell said the open core was
-`v_p(Σ_k ε_k cTerm_k A_{t_k}) ≥ φ̃` "and nothing else".  That is wrong by one obligation — the
-probe's own arm A8, `v_p(Δ·Π·pnPoly) ≥ φ̃`, is scored SEPARATELY (366 of 366) and is needed
-separately, because `P n` is the DIFFERENCE of the two halves and the ultrametric needs a bound on
-each.  `PolyHalfOpen` below is that obligation, named for the first time.
+THIS FILE PROVES THAT, and states the rest as two named `Prop`s, the `A` half and the
+polynomial half.  Both are needed: the `A` half's bound `v_p(Σ_k ε_k cTerm_k A_{t_k}) ≥ φ̃`
+does not give the row by itself — the polynomial half's bound `v_p(Δ·Π·pnPoly) ≥ φ̃` is
+needed separately, because `P n` is the DIFFERENCE of the two
+halves and the ultrametric needs a bound on each.
+`PolyHalfOpen` below is that bound.
 
 THE `p`-INTEGRALITY VOCABULARY.  `PVal p v x` — `x = p^v·a/b` with `p ∤ b` — rather than
 `padicValRat`, because every step here is a SUM of terms whose valuation is bounded below and
@@ -26,9 +26,9 @@ THE `p`-INTEGRALITY VOCABULARY.  `PVal p v x` — `x = p^v·a/b` with `p ∤ b` 
 it is closed under `+`, `*`, `-`, `Finset.sum` and monotone in `v`, and its EXIT
 (`pow_dvd_of_pval`) turns it back into `(p:ℤ)^v ∣ z` on an integer with one coprimality step.
 
-WHAT IS NOT CLAIMED.  `Zeta2Target.zeta2_not_liouvilleWith` is `sorry`.  PT-P does NOT close:
-`AHalfOpen` is research (the per-cell run congruence) and `PolyHalfOpen` is measured and unpriced.
-`hP_at_ΔT_of_two_halves` is a CONDITIONAL theorem and its type names both binders.
+HYPOTHESES.  `AHalfOpen` (the per-cell run congruence) and `PolyHalfOpen` are the two halves,
+and both enter here as hypotheses: `hP_at_ΔT_of_two_halves` is a CONDITIONAL theorem and its
+type names both binders.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -254,8 +254,8 @@ theorem harmIndex_lt_sq {n k p : ℕ} (hp : p ∈ phiWindow n) (hk : k ∈ candi
 
 /-! ## 4. The two halves of `Π·pnHarm`, and the `B` half discharged -/
 
-/-- `Σ_k ε_k·cTerm(n,k)·A_{⌊m_k/p⌋}` — the `A` (polar) half.  Everything open about row PT-P's
-harmonic side is a statement about THIS number. -/
+/-- `Σ_k ε_k·cTerm(n,k)·A_{⌊m_k/p⌋}` — the `A` (polar) half.  Everything about row PT-P's
+harmonic side beyond the `B` half is a statement about THIS number. -/
 def harmA (n p : ℕ) : ℚ :=
   ∑ k ∈ candidateM.window n,
     (-1 : ℚ) ^ (12 * n + k - 1) * (cTerm n k : ℚ) * harm 2 ((k - 4 * n - 1) / p)
@@ -320,7 +320,7 @@ theorem B_half_clears {n p : ℕ} (hp : p ∈ phiWindow n) :
   simpa using pval_mul hpp (pval_Delta hp) (pval_harmB hp)
 
 /-- The `A` half's individual terms ARE `p`-integral too — the whole difficulty is the FACTOR
-`p⁻²` in front, which only a cancellation ACROSS `k` can pay for.  Stated so the open core reads
+`p⁻²` in front, which only a cancellation ACROSS `k` can pay for.  Stated so the `A` half reads
 as what it is: not integrality, but two units of `p` out of an alternating sum. -/
 theorem pval_harmA {n p : ℕ} (hp : p ∈ phiWindow n) : PVal p 0 (harmA n p) := by
   have hpp := prime_of_mem_phiWindow hp
@@ -331,30 +331,30 @@ theorem pval_harmA {n p : ℕ} (hp : p ∈ phiWindow n) : PVal p 0 (harmA n p) :
     exact (Nat.div_lt_iff_lt_mul hpp.pos).mpr h
   simpa using pval_mul hpp (pval_coeff hpp n k) (pval_harm_of_lt hpp 2 _ hlt)
 
-/-! ## 5. What is LEFT — two named obligations, and the row conditional on them -/
+/-! ## 5. The two halves, named, and the row conditional on them -/
 
-/-- **OBLIGATION 1 — the `A` half.  RESEARCH.**  `v_p(Δ·p⁻²·Σ_k ε_k cTerm_k A_{t_k}) ≥ φ̃`.
+/-- **HALF 1 — the `A` half.**  `v_p(Δ·p⁻²·Σ_k ε_k cTerm_k A_{t_k}) ≥ φ̃`.
 `pval_harmA` gives `v_p(Σ …) ≥ 0`, so with `v_p(Δ) = 2` this is already `≥ 0`; what is missing
 is the two units the `p⁻²` costs, and `ptp_cancel_probe` localises them to ONE congruence per
 CELL over a contiguous run of residues (`Zeta2PtpRun.pow_dvd_cTerm_of_units` confines the support,
-`vp_cTerm_residue_invariant` makes the run block-independent).  No mechanism is proved. -/
+`vp_cTerm_residue_invariant` makes the run block-independent). -/
 def AHalfOpen : Prop :=
   ∀ n p : ℕ, p ∈ phiWindow n →
     PVal p (phiT (Int.fract ((n : ℚ) / (p : ℚ))))
       (((Δ 16 15 n : ℕ) : ℚ) * ((1 / (p : ℚ) ^ 2) * harmA n p))
 
-/-- **OBLIGATION 2 — the POLYNOMIAL half.  MEASURED, UNPRICED, and named here for the first
-time.**  `v_p(Δ·Π·pnPoly) ≥ φ̃`.  `Zeta2PnFunc.Δ_mul_Pin_pnPoly_int` gives INTEGRALITY, which is
-`v_p ≥ 0`; the profile asks for up to 2 more.  `ptp_cancel_probe.py` scores it as its own arm A8
-(366 of 366) precisely because `P n` is the DIFFERENCE of the two halves and the ultrametric
-needs a bound on EACH — "the open obligation is the `A` half and nothing else" was wrong by this
-obligation. -/
+/-- **HALF 2 — the POLYNOMIAL half.**  `v_p(Δ·Π·pnPoly) ≥ φ̃`.
+`Zeta2PnFunc.Δ_mul_Pin_pnPoly_int` gives INTEGRALITY, which is `v_p ≥ 0`; the profile asks for
+up to 2 more.  It is a half of its own because
+`P n` is the DIFFERENCE of the two halves and the ultrametric needs a bound on EACH, so the `A`
+half alone does not bound `P n`.
+-/
 def PolyHalfOpen : Prop :=
   ∀ n p : ℕ, p ∈ phiWindow n →
     PVal p (phiT (Int.fract ((n : ℚ) / (p : ℚ))))
       (((Δ 16 15 n : ℕ) : ℚ) * (candidateM.Pin n * candidateM.pnPoly n))
 
-/-- **The per-prime bound, from the two open halves and the `B` half proved.** -/
+/-- **The per-prime bound, from the two halves as hypotheses and the `B` half proved.** -/
 theorem pow_dvd_P_of_two_halves {n p : ℕ} (hp : p ∈ phiWindow n)
     (hpoly : PVal p (phiT (Int.fract ((n : ℚ) / (p : ℚ))))
       (((Δ 16 15 n : ℕ) : ℚ) * (candidateM.Pin n * candidateM.pnPoly n)))
@@ -390,9 +390,9 @@ theorem PhiT_dvd_of_forall_pow (n : ℕ) (z : ℤ)
   exact ((Nat.isCoprime_iff_coprime.mpr ((Nat.coprime_primes hpa hpb).mpr hab)).pow :
     IsCoprime ((a : ℤ) ^ _) ((b : ℤ) ^ _))
 
-/-- **ROW PT-P, CONDITIONAL ON ITS TWO OPEN HALVES.**  Given `PolyHalfOpen` and `AHalfOpen`,
+/-- **ROW PT-P, CONDITIONAL ON ITS TWO HALVES.**  Given `PolyHalfOpen` and `AHalfOpen`,
 the row delivers `hP` at `Δ̃` — the binder every landed rate on `Δ̃` is stated at, not the
-un-divided `Δ 16 15`.  Read the type: it names BOTH open obligations, so a `#print axioms`
+un-divided `Δ 16 15`.  Read the type: it names BOTH halves as binders, so a `#print axioms`
 receipt on it says nothing about whether the row is closed (LEAN.md §1, "a binder is not an
 axiom"). -/
 theorem hP_at_ΔT_of_two_halves (hpoly : PolyHalfOpen) (hA : AHalfOpen) :

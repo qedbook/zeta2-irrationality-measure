@@ -7,10 +7,10 @@ divisibility `den(t) ∣ Δ·N(t)` — with two costs it could not pay:
   (i)  the reduction is stated THROUGH `den(t)`, so it degenerates to `0 = 0` at the `11n+1`
        POLE integers `t = −k`, `k ∈ window n`, and the row carried a named `[E] ~80–150 line`
        gap for "integral at enough non-pole integers ⇒ integral everywhere" (Newton's
-       forward-difference basis, not in the corpus);
+       forward-difference basis);
   (ii) the row read the division by `den`'s `11n+1` linear factors as `11n+1` SUCCESSIVE
        divided-difference steps (`Zeta2DividedDiff.sub_dvd_D_mul_choose_sub` prices one), and
-       its open research question was "the `11n+1` steps must not COMPOUND".
+       its research question was "the `11n+1` steps must not COMPOUND".
 
 **Both costs are an artefact of dividing at all.**  `numPoly` and `denPoly` are products of
 `X + C c` with `c : ℕ`, so both are MONIC and both have INTEGER coefficients; division by a
@@ -24,7 +24,7 @@ at EVERY integer `t` — poles included, no side condition, no iteration, nothin
 so `Zeta2PpolVal.denInt_mul_Pin_Ppol_int` says `0 = 0` there, while `Ppol_eval_int` still
 returns an integer.  The `[E]` Newton-basis gap is not deferred; it is **not needed**.
 
-What is left of the row's value statement is then `cleared_of_dvd_PpolZ`: a single divisibility
+The row's value statement then follows, by `cleared_of_dvd_PpolZ`, from a single divisibility
 among integers with no `t`-side condition, no window, no polynomials over ℚ and no `Π`,
 
     `(13n)!·(9n)!·(5n)! ∣ Δ 16 15 n · (11n)! · PpolZ_n(t)`,
@@ -32,8 +32,8 @@ among integers with no `t`-side condition, no window, no polynomials over ℚ an
 and `ppolValueCleared_of_dvd` discharges `Zeta2PpolVal.PpolValueCleared` from it — so this file
 SUPERSEDES `cleared_of_denInt_dvd` as the row's reduction rather than sitting beside it.
 
-**MEASURED, NOT PROVED (this file proves none of it).**  `ppol_content_probe.py` /
-`pnclr_invariant_probe.py` (exact rationals, `n ≤ 5`) turn the remaining divisibility into ONE
+**The divisibility is `Zeta2NewtonAssemble.asm_dvd`; measured beside it,** `ppol_content_probe.py` /
+`pnclr_invariant_probe.py` (exact rationals, `n ≤ 5`) turn that divisibility into ONE
 number per `n`, because `PpolZ ∈ ℤ[X]` makes the `t`-quantifier collapse onto the polynomial's
 fixed divisor `g n = gcd { PpolZ n (t) : t ∈ ℤ }`:
 
@@ -48,7 +48,7 @@ is 13, 13, 13, **12**, 13 — reproducing, over EVERY integer `t` rather than a 
 C(Y−15n−1, 9n)·C(Y−17n−1, 5n)` integer-valued and `H = Σ_m h_m C(Y,m)`, `h_m = Δ^m H(0) ∈ ℤ`:
 
     Π·Ppol(t) = Σ_{r ≥ 0}  h_{L₀+r} · C(Y − L₀, r) / ( L₀ · C(L₀+r, L₀) )          (exact)
-    INVARIANT:  L₀ · C(L₀+r, L₀)  ∣  D(13n) · h_{L₀+r}   for EVERY r               (measured)
+    INVARIANT:  L₀ · C(L₀+r, L₀)  ∣  D(13n) · h_{L₀+r}   for EVERY r   (`Zeta2NewtonCarry.termwise_invariant_member`)
 
 0 of 16 / 32 / 48 / 64 / 80 terms fail at `n = 1..5`; with `D(13n)` deleted 13/16 … 73/80 fail,
 and with `D(12n)` in its place 10/16, 12/32, 31/48, 55/80 fail (`n = 4` is the dip, green).  So
@@ -172,8 +172,8 @@ theorem cleared_of_dvd_PpolZ (n : ℕ) (t : ℤ)
   field_simp
   linear_combination hcast
 
-/-- **The row's open probe, discharged from the divisibility.**  `PpolValueCleared` — the exact
-statement `Zeta2PpolVal` left open — follows from the single integer divisibility, at EVERY `n`
+/-- **The row's value statement, from the divisibility.**  `PpolValueCleared` — the exact
+statement `Zeta2PpolVal` names — follows from the single integer divisibility, at EVERY `n`
 and EVERY integer `t`, poles included. -/
 theorem ppolValueCleared_of_dvd
     (h : ∀ (n : ℕ) (t : ℤ), ((PinDen n : ℕ) : ℤ)

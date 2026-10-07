@@ -3,19 +3,19 @@
 
 `docs/future/zeta2-lean-chain.md` row PAIR-8.  Added 2026-09-18.
 
-**HEADLINE: `Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.**  This file
-closes row PAIR-8 and nothing else: the pairing `∀ n, hatQ n = qnInt n` and
+This file closes row PAIR-8 and nothing else: the pairing `∀ n, hatQ n = qnInt n` and
 `∀ n, hatP n = candidateM.pn n` — the hat member's coordinates ARE the chain's, at every `n`.
-Its consumers PT-QB and PT-P are still open, and so is L1-ASM's arithmetic half.
+
+
 
 **What this file adds: nothing but two applications.**  `Zeta2Pair8.pairing_q_of_chain_rec`
 and `.pairing_p_of_chain_rec` (landed 2026-09-14, 53 receipts) proved the row's two statements
 CONDITIONAL on exactly two hypotheses — L1-ASM's `hrecq_rat`/`hrecp_rat` — and, on the `p`
 side, on the base `∀ n < N₀ + 3, hatP n = candidateM.pn n`, which PAIR-VAL closed cell by cell
-and never assembled.  `Zeta2L1Asm.hrecq_rat`/`hrecp_rat` (this lineage's previous landing)
+and `hatP_base` below assembles.  `Zeta2L1Asm.hrecq_rat`/`hrecp_rat` (this lineage's previous landing)
 are those two hypotheses BYTE FOR BYTE at `N₀ = Zeta2L1Asm.N0 = 4`, so the `q` side is one
 `exact`; the `p` side takes the seven cells `n = 0 … 6` from `Zeta2Hat.hatP_eq_pn_zero` and
-`Zeta2PairP{1..6}.hatP_eq_pn` (receipted through `n = 10`, so the assembly is a lookup).
+`Zeta2PairP{1..6}.hatP_eq_pn`, so the assembly is a lookup.
 
 **`N₀` and the direction of the induction, checked rather than assumed.**  PAIR-8's induction
 determines `d(n+3)` from `d n, d(n+1), d(n+2)` for every `n ≥ max 2 N₀`, so its base is
@@ -29,7 +29,7 @@ which of the two numbers a reader carries.
 **Receipts on the UNCONDITIONAL theorems**, as the row asks: `#print axioms` on `pairing_q`
 and `pairing_p` below, in PT-QB's and PT-P's exact types (`ℤ` and `ℚ` equations).
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2Pair8Close.lean
 

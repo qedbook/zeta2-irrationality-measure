@@ -1,7 +1,7 @@
 /-
 # Row PT-DEF — `Φ̃` and `Δ̃` as Lean objects, and `hΔne` at `Δ̃`
 
-`docs/future/zeta2-lean-chain.md` row **PT-DEF**.  The chain's top-level statement
+`docs/future/zeta2-lean-chain.md` row **PT-DEF**.  The chain's conditional theorem
 (`Zeta2L9L11Instantiate.candidate_not_liouvilleWith`) binds `Δ : ℕ → ℝ` and five hypotheses on
 it — `hΔne`, `hQ`, `hP`, `hdecay`, `hgrowth`.  This file builds the `Δ` those five must be at,
 and discharges the first of them.
@@ -59,9 +59,9 @@ correct `PhiT`.  See the PT-DEF and PT-RATE cells.
 `falsify_phit.sh`, archived to `out_phit_falsify.txt`.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox
-`~/mathlib-current` — the toolchain the whole ζ(2) chain corpus elaborates against.  This is NOT
-the repo's `tools/lean_probe.sh` / `lean_verify` pin (v4.16.0, the main tree's olean store), and
-nothing here was checked under that pin; the Mathlib names above are as of `5aedf732` only.
+`~/mathlib-current` — the toolchain the whole ζ(2) chain corpus elaborates against.  The Mathlib
+names above are as of `5aedf732` only.
+
 -/
 import Mathlib.NumberTheory.Chebyshev
 import Mathlib.Tactic.NormNum
@@ -77,7 +77,7 @@ open Zeta2Profile
 The chain doc's *Free in Mathlib* table claims `ord_p (D k) = ⌊log_p k⌋` from
 `Nat.factorization_lcmUpto`, and DRATE's cell claims `Nat.lcmUpto (16*n) * Nat.lcmUpto (15*n)` in
 leg A IS `Zeta2Arith.Δ 16 15 n` *definitionally*.  Both are ASSERTIONS in the doc.  They are
-proved here, by `rfl`, so that the next row inherits a theorem rather than a claim — and so that a
+proved here, by `rfl`, so that their consumers inherit a theorem rather than a claim — and so that a
 Mathlib rename of `lcmUpto` reds this file instead of silently rotting the doc.
 
 `Nat.lcmUpto` is genuinely awkward to name: it lives in `Mathlib/NumberTheory/Chebyshev.lean`, but

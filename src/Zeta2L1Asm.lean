@@ -3,10 +3,10 @@
 
 `docs/future/zeta2-lean-chain.md` row L1-ASM.  Added 2026-09-18.
 
-**HEADLINE: `Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.**  This file lands
-the recurrence half of row L1-ASM and NOT the row: the arithmetic half of the same binder list —
-`hΔne hQ hP` at `ΔT`, from PT-DEF / PT-QB / PT-P — is still owed, PT-QB and PT-P are open, and
-nothing here touches them.  L1-ASM stays `in progress`.
+This file lands the recurrence half of row L1-ASM.  The arithmetic half of the same binder list —
+`hΔne hQ hP` at `ΔT`, from PT-DEF / PT-QB / PT-P — is not touched in this file.
+
+
 
 **WHAT IS PROVED, in three shapes of ONE fact.**  For every `n ≥ N₀ = 4`:
 
@@ -31,7 +31,7 @@ program failed at exactly this step, and the cell priced the glue at 150–250 l
      on the `Rep`s.
   3. `Zeta2T1Inj.rec_of_telescoping_of_linear` (PHI-REP) with `Zeta2T1RepS.hbdy_cand` (PHI-BDY)
      turns it into `∑ⱼ Ãⱼ • Φ_{4n}(ρ_{n+j}) = 0` (`phi_rel`, §4) — at the ONE cell `m = 4n`.
-  4. **The D7 normalisation, which no landed theorem performed** (§1–§2): PHI-EVAL reads
+  4. **The D7 normalisation** (§1–§2): PHI-EVAL reads
      `(q_{n+j}, p_{n+j})` off `Φ_{4(n+j)}(ρ_{n+j})`, a DIFFERENT cell for each `j`, so the
      relation at `4n` has to be moved up `4j` cells member by member.  `Phi_cell_succ` is one
      strip: `Φ_m(r) = Φ_{m+1}(r)` when the crossed integer `−(m+1)` is a vanishing-derivative
@@ -65,7 +65,7 @@ exported shapes on every window `n ∈ [0, 12]`, the chain-side tie coefficient 
 and the double-zero condition's `n ≥ j` bound; `--falsify` arms.  Lean falsifier:
 `falsify_l1asm.sh --lean`.
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2L1Asm.lean
 
@@ -592,7 +592,7 @@ theorem hrecp_rat : ∀ n, N0 ≤ n →
 `hrecq : ∀ n, N₀ ≤ n → α₀ n * ((candidateM.qn n : ℚ) : ℝ) + … + α₃ n * ((candidateM.qn (n + 3) : ℚ) : ℝ) = 0`
 for free `αⱼ : ℕ → ℝ`.  `αR j` is the `'alt'` coefficient cast; the two theorems below are those
 binders at `αⱼ := αR j`, `N₀ := N0`, SYNTACTICALLY — the instantiation into that theorem itself
-waits on the arithmetic half (`hΔne hQ hP`) and is not claimed here. -/
+is not made in this file. -/
 
 /-- `αⱼ` over ℝ: the `'alt'` coefficient, cast. -/
 noncomputable def αR (j : ℕ) : ℕ → ℝ := fun n => ((alt j n : ℚ) : ℝ)

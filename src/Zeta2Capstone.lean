@@ -1,5 +1,5 @@
 /-
-# THE CAPSTONE COMPOSITION — the μ(ζ(2)) chain reduced to TWO named hypotheses
+# THE CAPSTONE COMPOSITION — the μ(ζ(2)) chain as one theorem taking TWO named hypotheses
 
 **What this file proves.**  One theorem, and everything else here exists to make it readable or
 to stop it meaning less than it says:
@@ -26,20 +26,20 @@ and the typechecker, not this comment, is what rules that they are one constant.
 
 **WHAT THIS FILE DOES NOT CLAIM.**
 
-* It does **not** prove `μ(ζ(2)) ≤ 5.0495243`.  Two hypotheses are open and NEITHER is an
+* It does **not** claim `μ(ζ(2)) ≤ 5.0495243` outright: it takes two hypotheses, and NEITHER is an
   axiom, so `#print axioms` on the theorem below reads `[propext, Classical.choice, Quot.sound]`
   — byte-identical to what an unconditional proof would print (LEAN.md §1, 2026-09-20: a binder
   is not an axiom).  **The receipt is HALF the acceptance; `#check @` is the other half**, and
   both are printed at the bottom of this file.
-  - `hψ : Zeta2LegA.psiErrorBoundStatement` — MediumPNT's error rate on Chebyshev's `ψ`,
-    discharged on `PrimeNumberTheoremAnd` at that project's own toolchain (LEAN.md §7), never
-    on this pin.  ACCEPTED, per the owner fork answered A on 2026-09-20.
-  - `hPT_P : Zeta2TWire.PT_P_open` — row PT-P, the p-half of the clearing at `Δ̃`.  OPEN, and
-    the only mathematical row this chain still owes.
+  - `hψ : Zeta2LegA.psiErrorBoundStatement` — MediumPNT's error rate on Chebyshev's `ψ`.
+  - `hPT_P : Zeta2TWire.PT_P_open` — row PT-P, the p-half of the clearing at `Δ̃`.
+
+  Both are supplied downstream: `Zeta2Final` applies this theorem with `PT_P_open` built from
+  `Zeta2PtpMbigS2.polyHalfOpen`, and `Zeta2Unconditional` supplies `hψ` as `Zeta2Hpsi.hψ`.
 * It does **not** reach `5.04952429`.  The literal is `5.0495243`, the chain's own, and
   `Zeta2TWire.certified_value_is_strictly_between_the_two_literals` is where that is settled.
-* It does **not** touch `Zeta2Target.zeta2_not_liouvilleWith`, whose `sorry` is deliberate and
-  stays confined to `Zeta2Target.lean`.
+* It does **not** state `Zeta2Target.zeta2_not_liouvilleWith`, which is proved downstream of it.
+
 
 **The `ε'` binders are not hidden.**  `target_of_psi_and_ptp_at` keeps them exactly as
 `Zeta2RDecay.target_of_one_open_row` states them; `target_of_psi_and_ptp` supplies the single
@@ -90,13 +90,13 @@ theorem epsCap_pos : 0 < epsCap := by rw [epsCap]; norm_num
 
 theorem epsCap_le : epsCap ≤ (1 : ℝ) / 10 ^ 8 := by rw [epsCap]; norm_num
 
-/-! ## §4. THE HEADLINE, CONDITIONAL ON EXACTLY TWO HYPOTHESES -/
+/-! ## §4. THE CAPSTONE THEOREM, CONDITIONAL ON EXACTLY TWO HYPOTHESES -/
 
 /-- **THE CAPSTONE.**  `hψ` and `PT_P_open` are the only hypotheses; read the `#check @` at the
 bottom of this file, because the `#print axioms` beside it cannot say so.
 
-`hψ` is the standing external binder (accepted; LEAN.md §7).  `PT_P_open` is row PT-P, the one
-open row.  Everything else the chain owed — L1's recurrence, L5's growth, L7's decay, L9/L11's
+`hψ` is MediumPNT's error rate on Chebyshev's `ψ`, and `PT_P_open` is row PT-P.  Everything
+else the chain needs — L1's recurrence, L5's growth, L7's decay, L9/L11's
 criterion, the arithmetic clearing at `Δ̃`, and L7ID's identification of `candidateM.rn` — is
 inside this term. -/
 theorem target_of_psi_and_ptp (hψ : Zeta2LegA.psiErrorBoundStatement)
@@ -105,7 +105,7 @@ theorem target_of_psi_and_ptp (hψ : Zeta2LegA.psiErrorBoundStatement)
   target_of_psi_and_ptp_at hψ epsCap_pos epsCap_le hPT_P
 
 /-- The same, as an irrationality-measure bound, by `LiouvilleWith.mono` — the shape
-`Zeta2Target.zeta2_irrationality_measure_le` states from the `sorry`'d unconditional target,
+`Zeta2Target.zeta2_irrationality_measure_le` states from the unconditional target,
 proved here from the conditional one instead. -/
 theorem zeta2_irrationality_measure_le_of_psi_of_ptp
     (hψ : Zeta2LegA.psiErrorBoundStatement) (hPT_P : Zeta2TWire.PT_P_open) :
@@ -134,7 +134,7 @@ so that "`hP` is discharged" is checkable without opening `Zeta2PpolMoment.lean`
 theorem moment_is_unconditional : ∀ n : ℕ, Zeta2L7IdSum.PpolMomentValue n :=
   Zeta2PpolMoment.ppolMomentValue
 
-/-- **THE REMAINING TWO HYPOTHESES ARE NOT THE SAME THING.**  `hψ` is an analytic statement
+/-- **THE TWO HYPOTHESES ARE NOT THE SAME THING.**  `hψ` is an analytic statement
 about Chebyshev's `ψ` and `PT_P_open` is an arithmetic statement about `Δ̃ₙ·pₙ`; a composition
 that had accidentally collapsed one onto the other would still typecheck above.  Inhabiting the
 pair from the pair is trivial — the content is that the two `Prop`s are BOTH still named in the
@@ -184,7 +184,7 @@ The acceptance for this landing is that
 #print axioms Zeta2Capstone.the_literal_is_the_chains
 #check @Zeta2Capstone.the_literal_is_the_chains
 
-/-! The two open hypotheses, printed as the `Prop`s they are, so a reader can see what is owed
+/-! The two hypotheses, printed as the `Prop`s they are, so a reader can see them
 without opening another file. -/
 #check @Zeta2TWire.PT_P_open
 #print Zeta2TWire.PT_P_open

@@ -3,14 +3,14 @@
 
 `docs/future/zeta2-lean-chain.md` row PAIR-4L.  `Φ̂`'s third coordinate is `Σ_k B_k`, the sum of
 the hat member's ORDER-1 partial-fraction coefficients over all its poles, and the row asserts it
-is `0`.  `Zeta2HatRepOne` proved that by kernel computation at `n = 1` (417 ms) and `n = 2`
-(1.64 s); `hat_rep_probe.out` §B measures it in exact ℚ at `n ≤ 6`.  This file is the ∀n proof.
+is `0`.  `hat_rep_probe.out` §B measures it in exact ℚ at `n ≤ 6`; this file is the ∀n
+proof.
 
 **The route is (ii), the leading-coefficient corollary, not (i), the standalone residue lemma.**
-The row recorded both and preferred (i) *while (ii)'s input was a pending row*.  It is not pending
-any more: PAIR-4R's third pass discharged all six local residue obligations, so `hat_cleared` —
-the CLEARED polynomial identity — is available with nothing to carry (`Zeta2HatResidues.hat_h1`
-/ `hat_h2` / `hat_h3`).  And the cleared identity already contains the answer:
+PAIR-4R's third pass discharged all six local residue obligations, so
+`hat_cleared` — the CLEARED polynomial identity — is available with nothing to
+carry (`Zeta2HatResidues.hat_h1` / `hat_h2` / `hat_h3`).  And the cleared identity
+already contains the answer:
 
     Π̂·Û  =  Σ_{k ∈ S₁} b_k·pf1 k  +  Σ_{k ∈ S₂} (b_k·(X − k)·pf2 k  +  a_k·pf2 k)
 
@@ -22,7 +22,7 @@ generic `Zeta2PF.sum_order1_eq_zero`, and this file is its instance.
 So the "residue at ∞ of a rational function with deg num ≤ deg den − 2" of the PAIR design notes
 is here with no analysis in it: it is one `Polynomial.coeff`, and the **margin two** it needs
 (`22n + 1 < 22n + 2`) is `Zeta2HatPoles.hat_hdeg_two`, a strictly stronger statement than the
-`hat_hdeg` `partialFractions` itself consumes.  Route (i) was never elaborated; route (ii) needed
+`hat_hdeg` `partialFractions` itself consumes.  Route (ii) needed
 no new lemma beyond the generic coefficient read.
 
 **No engine literal is emitted by this row.**  Everything here is degree and index bookkeeping
@@ -85,8 +85,8 @@ theorem ln2_coord (N n : ℕ) : (Phihat N (repHat n)).2.2 = 0 := by
   exact sum_repHatB_Icc_zero n
 
 /-- The row's statement in the FAMILIES it is written with: `Σ_j A_j·Λ_j + Σ_i Blo_i + Σ_i Bhi_i
-= 0`.  This is the form `Zeta2HatRepOne.ln2_coord_one` / `_two` computed in the kernel at `n = 1`
-and `n = 2`, and the form `hat_rep_probe.py` §B measures in exact ℚ at `n ≤ 6` — stated here so
+= 0`.  This is the form in which `hat_rep_probe.py` §B measures the sum in exact ℚ at
+`n ≤ 6` — stated here so
 the ∀n theorem and the small-instance evidence are visibly about the same sum. -/
 theorem sum_B_eq_zero (n : ℕ) :
     (∑ j ∈ range (8 * n + 1), (hatA n j : ℚ) * hatLam n j)

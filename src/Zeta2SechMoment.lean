@@ -3,22 +3,22 @@
 
 `∫ℝ s^{2m}·π² sech²(π s) ds = (−1)^m · 2π · B_{2m}(½)`, for every `m : ℕ`.
 
-This is the ONE `n`-independent analytic obligation `Zeta2L7IdMoment` left of the `Ppol` moment
-arm, and hence — through `Zeta2L7IdSum.PpolMomentValue` — the whole VALUE residue of row L7ID.
+This is the ONE `n`-independent analytic input of `Zeta2L7IdMoment`'s `Ppol` moment
+arm.
 It is stated here in bare Mathlib vocabulary (`Real.cosh`, `Polynomial.bernoulli`) so that this
-file has NO chain dependency and elaborates on its own; `Zeta2SechBridge.lean` discharges
-`Zeta2L7IdMoment.SechMomentTable` from it.
+file has NO chain dependency and elaborates on its own.
+
 
 ## The route, and why it is neither of the two the censuses priced
 
 Route A (antiderivative against `tanh`) and route B (`riemannZeta_two_mul_nat`) both end at the
-Bernoulli NUMBER `B_{2m}` and then owe `B_{2m}(½) = (2^{1−2m} − 1)·B_{2m}` — Raabe's / the
-duplication formula, measured ABSENT at this pin under all six spellings a census can ask
-(`Polynomial.bernoulli_eval_one_half`, `_eval_half`, `_eval_two_mul`, `_eval_mul`,
-`bernoulli_multiplication`, `bernoulli_raabe`).  That conversion was never priced by either
-earlier census and is the real cost of both routes.
+Bernoulli NUMBER `B_{2m}`, while the table is stated at the Bernoulli polynomial's value
+`B_{2m}(½)`.  Either route then takes one more step, `B_{2m}(½) = (2^{1−2m} − 1)·B_{2m}`,
+which Mathlib states as `bernoulliFun_eval_half`; there `bernoulliFun k x` is the Bernoulli
+polynomial `B_k` evaluated at a real `x`.
 
-ROUTE C retires it outright.  `hasSum_one_div_nat_pow_mul_cos` is PRESENT and is stated at a
+
+ROUTE C needs no such step.  `hasSum_one_div_nat_pow_mul_cos` is PRESENT and is stated at a
 general `x ∈ [0,1]` AGAINST THE BERNOULLI POLYNOMIAL:
 
     HasSum (fun n => 1/n^{2k} · cos (2π n x))
@@ -612,7 +612,7 @@ theorem hasSum_integral_G {m : ℕ} (hm : m ≠ 0) :
 
 /-- **`SechMomentTable`, PROVED.**  `∫ℝ s^{2m}·π² sech²(π s) ds = (−1)^m·2π·B_{2m}(½)`, at every
 `m : ℕ`, with no hypothesis.  This is the body of `Zeta2L7IdMoment.SechMomentTable`, spelled
-here in bare Mathlib vocabulary; `Zeta2SechBridge` discharges that `Prop` from it. -/
+here in bare Mathlib vocabulary; `Zeta2MomentLaw` applies it. -/
 theorem sech_moment_table (m : ℕ) :
     (∫ s : ℝ, s ^ (2 * m) * (Real.pi ^ 2 / Real.cosh (Real.pi * s) ^ 2))
       = (-1 : ℝ) ^ m * (2 * Real.pi)

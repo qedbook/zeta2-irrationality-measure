@@ -11,13 +11,13 @@ had NO caller until this file; a generic lemma with no caller is where a hypothe
 hides, and this corpus has a standing lesson that "a sound instrument nothing calls" proves
 nothing about the call site).
 
-## THE HYPOTHESIS THIS ROW INHERITS AND DOES NOT DISCHARGE
+## THE HYPOTHESIS THIS ROW INHERITS
 
-Every theorem here that mentions `hψ` carries **leg B's standing ψ-error hypothesis** —
-`Zeta2LegA.psiErrorBoundStatement`, `MediumPNT`'s rate on Chebyshev's `ψ`.  It is proved on
-`PrimeNumberTheoremAnd` (toolchain `v4.32.2`) with an archived axiom receipt and is **NOT proved
-on this toolchain**.  PT-RATE inherits it; this row inherits it from PT-RATE *and* from leg A,
-which is the same statement, so the chain still rests on ONE external citation and not two.
+Every theorem here that mentions `hψ` carries **leg B's ψ-error hypothesis** —
+`Zeta2LegA.psiErrorBoundStatement`, `MediumPNT`'s rate on Chebyshev's `ψ`.  `Zeta2Hpsi.hψ` proves
+it from the vendored `MediumPNT`, and it **enters as a
+hypothesis here**.  PT-RATE inherits it; this row inherits it from PT-RATE *and* from leg A,
+which is the same statement, so this row carries it ONCE and not twice.
 **This row adds no hypothesis and discharges none.**  RDECAY and QGROW inherit it in turn.
 
 ## The three inputs, by name
@@ -35,7 +35,7 @@ which is the same statement, so the chain still rests on ONE external citation a
 `Zeta2StarB1.star_growth_bound_eventual` was the cell's cited pattern; it turned out to be a
 Poincaré-recurrence bound, not a limit conversion, so the conversion is written here directly
 from `Filter.Tendsto.eventually` + `gt_mem_nhds` (stable API — LEAN.md §8), and `exp_pow`
-replaces `Real.exp_nat_mul`, whose spelling has drifted.
+is proved here by induction.
 
 ## Containment — the substitution nothing in the types would refuse
 
@@ -45,7 +45,7 @@ replaces `Real.exp_nat_mul`, whose spelling has drifted.
 the un-divided sequence's rate is 31, DRATE's is `31 − d_φ̃ + ε' ≤ 15.01912095`, and the two
 cannot both be the limit.  `drate_rate_lt_31` pins the gap as a number.
 
-## What was RE-DERIVED here and what was taken on trust
+## What was RE-DERIVED here and what is imported
 
 A census entry right about one consumer can be wrong about the next, so:
 
@@ -54,9 +54,9 @@ A census entry right about one consumer can be wrong about the next, so:
   PT-RATE's spelled-out `hψ` are the SAME statement (they unify in `tendsto_log_ΔT_div`); that
   `Δ 16 15 n` is leg A's `lcmUpto` product after the cast (`Δ_cast_eq`); that `Zeta2DPhi.dPhi`
   is PT-RATE's limit point (`tendsto_log_ΔT_div` type-checks at it).
-* **Taken on trust (landed elsewhere, receipts archived there):** PT-RATE's limit, HC2's
-  `d_phi_ge_slack` / `hc2_of_dphi`, PT-DEF's `ΔT_pos` / `Δ_eq_lcmUpto`, leg A's limit, and leg
-  B's ψ-error discharge on `PrimeNumberTheoremAnd` (§ the inherited hypothesis above).
+* **Imported, proved in other modules of the chain:** PT-RATE's limit, HC2's
+  `d_phi_ge_slack` / `hc2_of_dphi`, PT-DEF's `ΔT_pos` / `Δ_eq_lcmUpto` and leg A's limit; `hψ`
+  is a hypothesis here (§ the inherited hypothesis above).
 * **Cell claim CORRECTED:** the chain doc's DRATE cell cited
   `Zeta2StarB1.star_growth_bound_eventual` as carrying the `Tendsto → ∀ n ≥ N` conversion.  It
   does not — it is a Poincaré-recurrence bound and contains no limit conversion.  §4 writes the
@@ -67,7 +67,7 @@ was run first and elaborated clean; it is subsumed by `ΔT_clearing_rate` and no
 separate file (LEAN.md §10: what this file regenerates is not preserved twice).
 
 Probe: `sh run_probe.sh Zeta2DRate.lean`.  Falsifier: `sh falsify_drate.sh`.
-Lean never runs on the laptop (owner rule 2026-09-07).
+Lean never runs on the laptop.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732.
 -/
@@ -87,7 +87,7 @@ open Zeta2PhiT (ΔT PhiT)
 
 /-! ## §1. Two API-stable helpers
 
-LEAN.md §8: assume drift.  `Real.exp_nat_mul`'s spelling has moved; this induction has not. -/
+LEAN.md §8: assume drift.  `exp_pow` is proved here by induction. -/
 
 /-- `exp c ^ m = exp (c * m)`, by induction rather than by a remembered lemma name. -/
 theorem exp_pow (c : ℝ) : ∀ m : ℕ, Real.exp c ^ m = Real.exp (c * m) := by
@@ -125,7 +125,7 @@ theorem log_ΔT_eq (n : ℕ) :
 /-! ## §3. THE ROW'S LIMIT — `log Δ̃ₙ / n → 31 − d_φ̃`
 
 Leg A minus PT-RATE.  **Both take the SAME `hψ`** (`Zeta2LegA.psiErrorBoundStatement` unfolds to
-exactly PT-RATE's spelled-out hypothesis), so the composition costs one citation, not two. -/
+exactly PT-RATE's spelled-out hypothesis), so the composition costs one hypothesis, not two. -/
 
 theorem tendsto_log_ΔT_div (hψ : Zeta2LegA.psiErrorBoundStatement) :
     Tendsto (fun n : ℕ => Real.log (ΔT n) / (n : ℝ)) atTop (𝓝 (31 - Zeta2DPhi.dPhi)) := by
@@ -140,8 +140,8 @@ theorem tendsto_log_ΔT_div (hψ : Zeta2LegA.psiErrorBoundStatement) :
 /--
 **DRATE.**  `∃ NΔ, ∀ n ≥ NΔ, |Δ̃ₙ| ≤ exp(c2)^n` at `c2 = 31 − d_φ̃ + ε'`.
 
-**INHERITED, NOT DISCHARGED:** `hψ` is leg B's standing ψ-error hypothesis, proved on
-`PrimeNumberTheoremAnd` from `MediumPNT` and **not on this toolchain**.
+**INHERITED AS A HYPOTHESIS:** `hψ` is leg B's ψ-error hypothesis, which `Zeta2Hpsi.hψ`
+proves from the vendored `MediumPNT`.
 
 `0 < ε'` is load-bearing and not cosmetic: the conversion needs the limit STRICTLY below the
 rate, and at `ε' = 0` the statement is a claim about the limit point itself, which a `Tendsto`
@@ -185,8 +185,8 @@ theorem ΔT_growth_hc2 (hψ : Zeta2LegA.psiErrorBoundStatement) {ε' : ℝ}
 /-! ## §5. THE ACCEPTANCE — `clearing_rate` EXECUTED at `Δ := ΔT`
 
 LEAN.md §3.  `Zeta2L9L11.clearing_rate` is proved, generic, and had no caller before this file.
-`hCΔ`, `hρΔ` and `hΔ` are discharged here from landed theorems; `hy` is left exactly as RDECAY
-and QGROW will supply it (`y := rn`, with their own decay/growth rate), which is the shape the
+`hCΔ`, `hρΔ` and `hΔ` are discharged here from landed theorems; `hy` is a hypothesis, stated as
+RDECAY and QGROW supply it (`y := rn`, with their own decay/growth rate), which is the shape the
 consumers produce (LEAN.md §3's corollary).  The `max Ny NΔ` threshold is `clearing_rate`'s own,
 unmodified — the second of the two seams the cell's grade names. -/
 

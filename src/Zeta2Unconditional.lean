@@ -1,10 +1,12 @@
 /-
-# THE HEADLINE, UNCONDITIONAL — `μ(ζ(2)) ≤ 5.0495243`, with no binder
+# The headline theorem in three forms, with no hypothesis
 
-`Zeta2Final.zeta2_not_liouvilleWith_of_psi` proves the headline conditional on ONE hypothesis,
-`hψ : Zeta2LegA.psiErrorBoundStatement`. `Zeta2Hpsi.hψ` proves that hypothesis from PNT+'s
-`MediumPNT`, which is vendored at `external_tests/pnt_port/` and elaborated in this same kernel. This file
-applies the one to the other. There are three forms, and none of them has a binder:
+`Zeta2Final.zeta2_not_liouvilleWith_of_psi` proves the headline from one hypothesis,
+`hψ : Zeta2LegA.psiErrorBoundStatement`, an error bound for Chebyshev's function `ψ`.
+`Zeta2Hpsi.hψ` proves that hypothesis from `MediumPNT`, the prime number theorem with error term
+`O(x·exp(−c·(log x)^{1/10}))` from the PrimeNumberTheoremAnd project, which is vendored with this
+development (see `PROVENANCE.md`) and checked by the same kernel.  This file applies the one to
+the other.  There are three forms, and none of them has a hypothesis:
 
 | theorem | statement |
 |---|---|
@@ -12,21 +14,19 @@ applies the one to the other. There are three forms, and none of them has a bind
 | `zeta2_irrationality_measure_le` | `∀ p ≥ 5.0495243, ¬ LiouvilleWith p ζ(2)` |
 | `zeta2_rational_approximation` | `∀ C, ∀ᶠ n, ∀ m, ζ(2) ≠ m/n → C / n ^ 5.0495243 ≤ |ζ(2) − m/n|` |
 
-**The receipt is half the acceptance; the `#check @` type is the other half** (LEAN.md §1). A binder is
-not an axiom, so the axioms list alone cannot tell this file from the conditional one. The
-printed types below must name NO hypothesis. `falsify_unconditional.sh` arm U-D shows that the
-type check is what discriminates.
+**Reading the receipt.**  The commands at the bottom of this file print each theorem's axioms and
+its type.  Every axiom list must read `[propext, Classical.choice, Quot.sound]`, and each printed
+type must be the statement written below, nothing more.  Both checks are needed: `#print axioms`
+does not list hypotheses, so the conditional theorem in `Zeta2Final` prints the same three axioms,
+and only the types tell the two apart.
 
-**WHAT THIS FILE DOES NOT CLAIM.**
-* It does not reach `5.04952429`. That numeral is the sweep's `μ̃` score, strictly stronger than
-  the certified value; the chain proves `5.0495243` (`Zeta2Final.the_literal_is_the_chains`).
-* It does not touch `Zeta2Target.lean` or its deliberate `sorry`. Whether that file changes is the
-  owner's call.
-* `Zeta2Defs.zeta2` is Mathlib's `riemannZeta 2` as a real
-  (`Zeta2Final.zeta2_eq_riemannZeta_two`), and `LiouvilleWith` is Mathlib's.
+**What this file does not claim.**  It claims the bound at `5.0495243` and at every larger
+exponent, and nothing below `5.0495243`; `Zeta2Target` explains the constant.  `Zeta2Defs.zeta2`
+is `π²/6`, which `Zeta2Final.zeta2_eq_riemannZeta_two` identifies with Mathlib's
+`riemannZeta 2`, and `LiouvilleWith` is Mathlib's definition.
 
-VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox, clean store.
-Runner `clean_close/run_clean_final.sh Zeta2Unconditional.lean`; falsifier `falsify_unconditional.sh`.
+
+Toolchain `leanprover/lean4:v4.34.0-rc2`; Mathlib at commit `5aedf732`.
 -/
 import Zeta2Final
 import Zeta2Hpsi
@@ -53,11 +53,11 @@ theorem zeta2_rational_approximation :
 
 end Zeta2Unconditional
 
-/-! ## RECEIPTS — LEAN.md §1, BOTH channels, the type beside every receipt.
+/-! ## Receipts: the axioms and the type of each theorem
 
-Acceptance: every receipt reads `[propext, Classical.choice, Quot.sound]`, AND the three printed
-types name no hypothesis. `Zeta2Hpsi.hψ` and `MediumPNT` are printed too: the headline's
-footprint is theirs plus the chain's. -/
+Acceptance: every receipt reads `[propext, Classical.choice, Quot.sound]`, AND each of the three
+printed types is the statement written above, nothing more. `Zeta2Hpsi.hψ` and `MediumPNT` are
+printed too: the headline's footprint is theirs plus the chain's. -/
 
 #print axioms Zeta2Unconditional.zeta2_not_liouvilleWith
 #check @Zeta2Unconditional.zeta2_not_liouvilleWith

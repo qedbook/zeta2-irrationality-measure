@@ -28,8 +28,8 @@ on the one-carry set the block has no truncated top and fixed high digits) — a
 them by `omega` (`Zeta2PtpRunS2`).  `*_block_zero` / `*_block_past` / `hi3_block_low` / `*_all_zero`
 cover the blocks whose one-carry terms vanish outright.
 
-WHAT IS NOT HERE.  No stratum; nothing at `m ≥ p²`.  Row PT-P does not close and
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry`.
+WHAT IS NOT HERE.  No stratum; nothing at `m ≥ p²`.
+
 
 Runner: `run_resid.sh`.  Falsifier: `falsify_ptpruns2.sh` / `out_ptpruns2_falsify.txt`.
 

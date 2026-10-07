@@ -22,7 +22,7 @@ with `κ = 0, f = 0` — Anton's `A₁ < S₁` fails there, and so it should: th
 `0` beyond its top.
 
 `hanton : Zeta2PtpS2a.AntonOneCarry p` is the one binder on `term_div_eq_of_run`,
-`blockSum_dvd_sq`, `piece13_blocks` — read the `#check @` lines.
+`blockSum_dvd_sq`, `piece13_blocks` — read the `#check @` lines; `Zeta2PtpAHalf.anton_all` proves it.
 
 Probe: `ptp_s2_mechanism_probe.py` / `.out` (11 window cells of `n ≤ 60`, M1–M7 GREEN).
 Falsifier: `falsify_ptps2c.sh` / `out_ptps2c_falsify.txt`.

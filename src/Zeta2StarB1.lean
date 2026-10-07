@@ -23,8 +23,8 @@ identity**
 
 > `a t * x (t+1) − b (t−1) * x t = c t * ∑ j, α j * Pa j t`
 
-which is exactly what `cas::zeilqn::star_check_core` verifies over ℤ after clearing denominators,
-and what `mb_solve` proves on its deterministic exact grid.
+at every `n`, which item 2 below derives from finitely many `n` and a degree bound.
+
 
 ## What this file proves
 
@@ -33,15 +33,15 @@ and what `mb_solve` proves on its deterministic exact grid.
    functional. This is that step, and it is the whole mathematical content of B1's interface.
 2. `star_forall_of_grid` — the engine's **deterministic exact grid**, as a theorem: an `n`-degree
    bound plus vanishing at more than that many integer points gives the identity for every `n`.
-   This is what licenses "checked at 552 points ⟹ ∀ n" as a proof rather than a receipt.
+   This is what licenses "checked on the grid ⟹ ∀ n" as a proof rather than a receipt.
 3. `hrec_of_rational_coeffs` — the **clearing step**: rational-function recurrence coefficients
-   become `Polynomial ℝ` ones, which is the shape `Zeta2L5.poincare_upper_bound` takes.
+   become `Polynomial ℝ` ones, which is the shape `poincare_upper_bound` below takes.
 4. `star_growth_bound` — the **composition executed**: from the (★)-side hypotheses straight to
    L5's conclusion `∃ C N, ∀ n ≥ N, |y n| ≤ C * ρ ^ n`, through a verbatim copy of D1's
-   `poincare_upper_bound` (proved in `docs/future/zeta2-l5-poincare.md` §4.2, reproduced here so
+   `poincare_upper_bound` (reproduced here so
    the composition is *executed* and not merely asserted — LEAN.md §3).
 
-Elaborated against CURRENT Mathlib (`v4.34.0-rc2`) on the buildbox; every theorem carries a
+Elaborated against CURRENT Mathlib on Lean `v4.34.0-rc2`, on the buildbox; every theorem carries a
 `#print axioms` receipt at the foot of the file.
 -/
 
@@ -122,11 +122,11 @@ theorem star_telescopes_of_forall {K : Type*} [Field K] {m : ℕ}
 
 /-! ## §2. The deterministic exact grid, as a theorem
 
-The engine proves (★) for every `n` by clearing it into a polynomial in `n` of a computed degree
-and checking that it vanishes at more integer points than that degree (`mb_solve`'s
-`DeterministicExact` tier: 630 points for the record pair, 552 for the promoted candidate). The
-principle is one Mathlib lemma; stating it here is what turns "the engine checked a grid" into a
-proof obligation with a named shape. -/
+The identity (★) is proved for every `n` by a grid: cleared of denominators it is a polynomial in
+`n`, and a polynomial of degree at most `D` that vanishes at more than `D` points is zero.  The
+generated `StarForallCandt1` and `StarForallCandt2` modules repeat the lemma below, prove the
+degree bounds 276 and 277 (`hdeg`) and the vanishing at each integer `0, …, D`, one module per
+point, and conclude `star_forall` for every `n`. -/
 
 /-- **The grid principle.** A polynomial of degree at most `D` vanishing at more than `D` points of
 an integral domain is the zero polynomial — hence its evaluation vanishes everywhere, which is the
@@ -385,7 +385,7 @@ theorem poincare_upper_bound_eventual
 Everything L1 contributes between (★) and the recurrence is carried as a hypothesis in the
 vocabulary its own rows produce: `hL` says the contour functional turns the telescoped family into
 the recurrence (B2's shift lemma plus B3's ∀ n strip census, whose combined content is exactly
-"the functional of a Δ vanishes"), and `hclear` is §3's clearing data. Nothing else is assumed. -/
+"the functional of a Δ vanishes"), and `h₀`–`h₃` are §3's clearing data; the rest are D1's. -/
 
 /-- **B1 → L1 → L5, composed.** Given (★) at every `n` in the Δ-form, the vanishing of the
 functional on a Δ, and the clearing data, the growth bound `∃ C N, ∀ n ≥ N, |y n| ≤ C · ρ ^ n`
@@ -399,7 +399,7 @@ theorem star_growth_bound
     (h₁ : ∀ n : ℕ, P₁.eval (n : ℝ) = B.eval (n : ℝ) * α₁ n)
     (h₂ : ∀ n : ℕ, P₂.eval (n : ℝ) = B.eval (n : ℝ) * α₂ n)
     (h₃ : ∀ n : ℕ, P₃.eval (n : ℝ) = B.eval (n : ℝ) * α₃ n)
-    -- D1: the operator's own measured data
+    -- D1: the operator's own data
     (hP₃ : P₃ ≠ 0)
     (hd₀ : P₀.degree = P₃.degree) (hd₁ : P₁.degree = P₃.degree) (hd₂ : P₂.degree = P₃.degree)
     {A₀ A₁ A₂ ρ : ℝ}
@@ -413,7 +413,7 @@ theorem star_growth_bound
     hP₃ hd₀ hd₁ hd₂ hA₀ hA₁ hA₂ hρ hchar
 
 /-- **The capstone in the form B1 can actually supply**: L1's recurrence only from `N₀` on, and the
-clearing data only from `N₀` on. This is the theorem the chain should instantiate — the
+clearing data only from `N₀` on. This is the theorem the chain instantiates — the
 unconditional `star_growth_bound` above exists to show the fit with D1's statement as written. -/
 theorem star_growth_bound_eventual
     (y : ℕ → ℝ) (α₀ α₁ α₂ α₃ : ℕ → ℝ) (P₀ P₁ P₂ P₃ B : ℝ[X]) (N₀ : ℕ)

@@ -1,5 +1,5 @@
 /-
-# Row PT-P, layer 4 — the cells with NO SHORT TERM, and why the open congruence never sees them
+# Row PT-P, layer 4 — the cells with NO SHORT TERM, and why the run congruence never sees them
 
 `ptp_dropped_probe.py` re-priced PT-P's dropped-index selection at **12 strata** over the five
 run-carrying profile pieces, measured "the dropped index is constant on a stratum" — and flagged,
@@ -15,19 +15,19 @@ symbolically for every `p` at once (the four no-carry sets are cyclic arcs whose
 exact rationals in `x = r/p` once the stratum fixes the six floors `⌊c·x⌋`; the closed real arc
 intersection is empty on every sub-interval of the stratum's own endpoint-crossing refinement).
 The remaining five strata are the exact complement — every `(r, p)` there carries a run — and on
-each of those five the dropped index is constant over all 1529 run-carrying `(r, p)`, which is a
-strictly larger population than the window cells of `n ≤ 44` that arm D3 could see.
+each of those five the dropped index is constant over all 1529 run-carrying `(r, p)`.  The seven
+strata's verdict, and the short set on each of the five, are theorems per stratum in `Zeta2PtpCong`.
 
 **THIS FILE IS THE CELL-LEVEL LEAN FORM OF THAT DICHOTOMY'S EASY SIDE.**  On a cell with no short
 term every window term is INDIVIDUALLY divisible by `p^φ̃`, so any signed sum over any subset of
-the window is too, and the open congruence `Zeta2PtpPolar.AHalfOpen` has nothing to prove there.
+the window is too, and the congruence `Zeta2PtpPolar.AHalfOpen` has nothing to prove there.
 Two things are proved:
 
 * **`carries_eq_of_residues`** — `carries p n k` depends on `(n, k)` only through `r = n % p` and
   `u = (k − 4n − 1) % p`, **with no prime and no window hypothesis**.  The landed
   `Zeta2PtpRun.vp_cTerm_residue_invariant` says this about the VALUATION and therefore needs
   `p ∈ phiWindow n` twice, because it routes through `vp_cTerm_eq_units`; at the level of the
-  carry bits themselves the Legendre line is not spent at all.  That is what lets a future
+  carry bits themselves the Legendre line is not spent at all.  That is what lets a
   per-stratum argument quantify over `u < p` rather than over the window's `k`.
 * **`pow_dvd_signed_sum`** — the bridge: `NoShort p n v` makes `(p:ℤ)^v` divide every signed sum
   over the window, termwise, via `Zeta2PtpRun.pow_dvd_cTerm_of_units`.
@@ -42,18 +42,18 @@ astronomically large):
     piece  6 [5/22, 3/13)     n = 14, p = 61,  φ̃ = 1
 
 **AND ONE NEGATIVE PIN, because a predicate that cannot go red attests nothing.**
-`not_noShort_at_3_13` is the smallest RUN-CARRYING cell (`n = 3`, `p = 13`, `φ̃ = 1`, run
+`not_noShort_3_13` is the smallest RUN-CARRYING cell (`n = 3`, `p = 13`, `φ̃ = 1`, run
 `u ∈ [8, 12]`, `Zeta2PtpRun.run_at_3_13`'s own cell): `NoShort 13 3 1` is FALSE there.  So
 `NoShort` separates the two sides of the dichotomy rather than holding everywhere, and the seven
 green pins are not seven instances of a vacuous predicate.
 
-**WHAT THIS DOES NOT DO, and the row is NOT closed.**  It is a statement about SEVEN CELLS, one
-per run-free stratum, and NOT about the strata — the per-stratum statement quantifies over all
-`(r, p)` in the stratum and is not proved here in any of the seven.  The open congruence itself,
-`Zeta2PtpPolar.AHalfOpen` (the per-cell run congruence on the five run-carrying strata), is
-UNTOUCHED, and so is `Zeta2PtpPolar.PolyHalfOpen`.  Nothing here is wired to `AHalfOpen`: that
-would need `harmA`'s block decomposition, which this file deliberately does not import.  PT-P
-stays OPEN and `Zeta2Target.zeta2_not_liouvilleWith` stays `sorry`.
+**WHAT THIS DOES NOT DO.**  It is a statement about SEVEN CELLS, one per run-free stratum, and
+NOT about the strata — the per-stratum statement quantifies over all `(r, p)` in the stratum
+and is not stated in this file for any of the seven.  The congruence itself,
+`Zeta2PtpPolar.AHalfOpen` (the per-cell run congruence on the five run-carrying strata), is not
+touched in this file, and neither is `Zeta2PtpPolar.PolyHalfOpen`.  Nothing here is wired to
+`AHalfOpen`: that would need `harmA`'s block decomposition, which this file deliberately does
+not import.
 
 Probe: `ptp_stratum_probe.py` / `.out` (9 arms, 4 kill controls, 1 recorded inert).
 Falsifier: `falsify_ptpstratum.sh` / `out_ptpstratum_falsify.txt`.
@@ -117,7 +117,7 @@ theorem carries_eq_of_residues {n k n' k' p : ℕ}
     rw [a, b]; exact hu
   simp only [carries, cb, e1, e2, e4, hu, mul_r 13, mul_r 9, mul_r 5, mul_r 11]
 
-/-! ## 2. A cell with no short term, and the bridge it gives the open congruence -/
+/-! ## 2. A cell with no short term, and the bridge it gives the run congruence -/
 
 /-- **The cell has NO SHORT TERM at exponent `v`**: every term of the window already carries `v`
 units carries, hence `p^v`.  The probe's seven run-free strata are exactly where this holds with
@@ -140,7 +140,7 @@ theorem pow_dvd_of_noShort {n p v : ℕ} (hp : p ∈ phiWindow n) (h : NoShort p
 
 /-- **THE BRIDGE.**  On a cell with no short term, ANY signed sum over ANY subset of the window
 is divisible by `p^v` — termwise, with no cancellation argument anywhere.  This is the sense in
-which the seven run-free strata are not part of PT-P's open obligation: the congruence
+which the seven run-free strata need no cancellation: the congruence
 `Σ_k (−1)^{k−1} cTerm(n,k) ≡ 0 mod p^φ̃` holds there for a reason that never looks at the sum. -/
 theorem pow_dvd_signed_sum {n p v : ℕ} (hp : p ∈ phiWindow n) (h : NoShort p n v)
     (S : Finset ℕ) (hS : ∀ k ∈ S, k ∈ candidateM.window n) (ε : ℕ → ℤ) :

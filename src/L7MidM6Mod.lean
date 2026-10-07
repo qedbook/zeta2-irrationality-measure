@@ -136,10 +136,10 @@ theorem Gamma_shift_nat (m : ℕ) {z : ℂ} (hz : z.im ≠ 0) :
 
 /-! ## §4. `‖sin z‖` from below — the mirror of `L7Mid.norm_sin_le_cosh`
 
-`zeta2-l7-middle.md` §3f measured the absence: Mathlib has no `‖Complex.sin z‖` bound of any kind,
-in either direction.  `norm_sin_le_cosh` (M0) built the upper one; this is the lower one, and it
-is the `|sin πt| ≥ sinh πT ≥ e^{πT}(1−e^{−2π})/2` step of Lemma 9 with `4` in place of the sharp
-constant `2/(1−e^{−2π})`. -/
+`zeta2-l7-middle.md` §3f measured the absence: Mathlib has no bound on `‖Complex.sin z‖` in terms of
+`Im z`, in either direction (`Complex.sin_bound` is a Taylor remainder on `‖z‖ ≤ 1`).  `norm_sin_le_cosh`
+(M0) built the upper one; this is the lower one, the `|sin πt| ≥ sinh πT ≥ e^{πT}(1−e^{−2π})/2`
+step of Lemma 9 with `4` in place of the sharp constant `2/(1−e^{−2π})`. -/
 
 /-- `e^{|Im z|} ≤ 4 ‖sin z‖` once `|Im z| ≥ 1`. -/
 theorem exp_abs_im_le_four_mul_norm_sin {z : ℂ} (h : 1 ≤ |z.im|) :
@@ -261,7 +261,7 @@ horizontal segments bounded by `K e^{−cT}·(xR − xL)` and squeezed to `0`, a
 verticals converging to the full line integrals because §6 makes each line integrand integrable.
 
 Stating it this way is deliberate: nothing in it mentions `Γ`, `σ̃` or `n`, so the row's analysis
-is separable from its arithmetic, and a future row that moves a different contour reuses it. -/
+is separable from its arithmetic, and a row that moves a different contour can reuse it. -/
 theorem line_integral_eq_of_exp_decay {f : ℂ → ℂ} {xL xR K c : ℝ}
     (hxLR : xL ≤ xR) (hc : 0 < c)
     (hd : DifferentiableOn ℂ f {z : ℂ | xL ≤ z.re ∧ z.re ≤ xR})

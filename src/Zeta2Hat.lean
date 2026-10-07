@@ -29,9 +29,9 @@ engine literals.
 
 Kernel-checked here: `hatQ n = qnInt n` for `n < 3` (the row's statement), lifted to
 `(hatQ n : ℚ) = candidateM.qn n` through `qnInt_cast`; `hatP 0 = 0 = candidateM.pn 0`.
-`hatP n = candidateM.pn n` at `n ≥ 1` is NOT stated: `candidateM.pn` goes through
-`Polynomial ℚ` division (`pnPoly`), which is noncomputable and has no kernel evaluation in the
-corpus until row RESID/PHI-EVAL — the engine literal for `hatP 1`, `hatP 2` is pinned instead.
+`hatP n = candidateM.pn n` at `n ≥ 1` is not stated here: `candidateM.pn` goes through
+`Polynomial ℚ` division (`pnPoly`), which is noncomputable and has no kernel evaluation —
+the engine literal for `hatP 1`, `hatP 2` is pinned instead.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/

@@ -1,12 +1,12 @@
 /-
-# PT-QB clump 3 — the DISPATCH's uniqueness layer, probed
+# PT-QB clump 3 — the DISPATCH's uniqueness layer
 
 Row PT-QB of `docs/future/zeta2-lean-chain.md` (registry `2B0.AW`).  The gap-cell lemmas
 (`Zeta2HatGap`) are statements about `(r, p)` inequalities.  Turning them into
 `PhiT_dvd_qnInt` needs the PROFILE ALGEBRA: `∀ x, φ̃ x ≤ max (φ x) (φ̂ x)` over the 52-cell
 common refinement of `Zeta2CarryFold.phiTable` (41 rows) and `Zeta2Profile.candidateProfile`
-(26 rows).  That step was priced at ~300–400 lines with nothing probed, and after three gap
-cells it is the row's LARGEST remaining unknown.
+(26 rows).
+
 
 **Its load-bearing piece is uniqueness on both tables**, and this module lands it.  Both
 profiles are `List.find?` — first match wins — so every theorem about them has to get from
@@ -16,15 +16,15 @@ of it; `carry_ge_of_mem_table` dispatches on membership and never needs the valu
 dispatch does.
 
 `phiSingle_of_mem` is that consequence: membership in ANY row determines `φ x`, whatever
-`find?` reaches first.  25 lines, and the `candidateProfile` twin is the same proof over a
-`Pairwise` this corpus does not yet have — which is now the only unmeasured piece of the
-uniqueness layer.
+`find?` reaches first.  25 lines, and the `candidateProfile` twin (`Zeta2PtpS7.phiT_of_mem`)
+is the same proof over that table's `Pairwise`.
+
 
 ## What this file does NOT claim
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.  This is ONE lemma of the
-dispatch.  `φ̃ x ≤ max (φ x) (φ̂ x)`, the 52-cell case analysis and `PhiT_dvd_qnInt` are not
-here, and neither is `candidateProfile`'s own disjointness.
+This is ONE lemma of the dispatch.  `φ̃ x ≤ max (φ x) (φ̂ x)`, the 52-cell case analysis and
+`PhiT_dvd_qnInt` are not here, and neither is `candidateProfile`'s own disjointness.
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 API at this pin, measured, three drafts:

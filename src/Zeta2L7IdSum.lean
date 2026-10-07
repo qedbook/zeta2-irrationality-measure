@@ -1,6 +1,6 @@
 /-
-Row L7ID: the `m`-SUMMATION, the two arms' SEPARATE integrability, and the first statement
-anywhere in the chain about `Zeta2Defs.candidateM.rn` — `docs/future/zeta2-lean-chain.md`.
+Row L7ID: the `m`-SUMMATION, the two arms' SEPARATE integrability, and the identification
+with `Zeta2Defs.candidateM.rn` — `docs/future/zeta2-lean-chain.md`.
 
 WHAT THIS FILE PROVES, in the order the row needs it.
 
@@ -27,12 +27,12 @@ WHAT THIS FILE PROVES, in the order the row needs it.
       rn_add_rLine (hn : 1 ≤ n) : candidateM.rn n + L7MidM5.rLine n
         = (1/(2π)) * (∫ s, PpolArm n (lineA n s)).re − ↑(Pin n * pnPoly n)
 
-    Up to here nothing in the chain mentioned `candidateM.rn` at all, which is why RDECAY was
-    blocked; the sign is the convention clash the row has carried since 2026-09-14, and it now
-    comes out of `sgn ≡ −1` rather than being asserted.  The row's target follows as an
-    EQUIVALENCE, `rn_eq_neg_rLine_iff`, so the whole residue of L7ID is the single named `Prop`
-    `PpolMomentValue n` — the `Ppol` arm's moment, whose remaining analytic content is
-    `Zeta2L7IdMoment.SechMomentTable`.
+    The sign comes out of `sgn ≡ −1` rather than being asserted.  The row's target follows as an
+    EQUIVALENCE, `rn_eq_neg_rLine_iff`, with the single named `Prop`
+    `PpolMomentValue n` — the `Ppol` arm's moment, whose analytic content is
+    `Zeta2L7IdMoment.SechMomentTable`.  `Zeta2PpolMoment.ppolMomentValue` proves
+    `PpolMomentValue n` at every `n`, and `Zeta2PpolMoment.rn_eq_neg_rLine_uncond` is the
+    target itself, at `1 ≤ n`.
 
 WHERE THE ALGEBRA COMES FROM.  `Pin·∑_k ck = −qn` (because `sgn ≡ −1` at the candidate, `dsum =
 16`), `pnHarm = ∑_k ck·harm 2 (harmIndex)` and `pn = Pin·(pnPoly − pnHarm)`, so
@@ -41,12 +41,12 @@ WHERE THE ALGEBRA COMES FROM.  `Pin·∑_k ck = −qn` (because `sgn ≡ −1` a
 
 exactly (`residSum_eq`) — one line of ℚ-algebra against the definitions, no analysis.
 
-WHAT THIS FILE DOES NOT DO.  `PpolMomentValue n` is TAKEN, not proved: it is the `Ppol` arm's
-value, and its own residue is the `n`-independent `SechMomentTable`.  Obligation 2, the row's
-decay ESTIMATE, is untouched — `residSum` is an identity, not a rate.  So L7ID does not close.
-The hypothesis's sign is MEASURED rather than assumed (`l7id_sum_check.py` ARM 5, at `n = 1` and
-`n = 2`, two precisions each, with a sign-flip falsifier in ARM 6): a theorem conditional on a
-FALSE hypothesis is vacuous and elaborates clean, and `#print axioms` cannot see a binder.
+WHAT THIS FILE DOES NOT DO.  `PpolMomentValue n` is a hypothesis here: it is the `Ppol` arm's
+value, and its analytic content is the `n`-independent `SechMomentTable`.  Obligation 2, the row's
+decay ESTIMATE, is not touched in this file — `residSum` is an identity, not a rate.
+
+
+
 
 ACCEPTANCE (LEAN.md §1, as sharpened 2026-09-20): the receipt AND the printed type.  Every
 theorem prints both, and the two that carry a hypothesis say so in their own docstring.
@@ -402,7 +402,7 @@ theorem pn_eq (n : ℕ) :
   rw [Member.pn, candidate_sgn]
   ring
 
-/-- **`residSum` IS `−r_n` minus the `Ppol` coordinate** — the first identity in the chain with
+/-- **`residSum` IS `−r_n` minus the `Ppol` coordinate** — an identity with
 `candidateM.rn` on one side of it. -/
 theorem residSum_eq (n : ℕ) :
     residSum n = -candidateM.rn n - ((candidateM.Pin n * candidateM.pnPoly n : ℚ) : ℝ) := by
@@ -420,18 +420,18 @@ theorem residSum_eq (n : ℕ) :
 /-! ## §6. THE ROW'S TARGET, as an equivalence
 
 Everything above composes to one unconditional identity; the row's statement then holds iff the
-`Ppol` arm has its moment value, and that single `Prop` is L7ID's whole remaining VALUE residue
-(obligation 2, the estimate, is a separate and untouched obligation). -/
+`Ppol` arm has its moment value, the single `Prop` `PpolMomentValue`
+(obligation 2, the estimate, is a separate obligation, not touched in this file). -/
 
-/-- The one obligation left of the `Ppol` arm, named so that a consumer can carry it.  Its
-remaining analytic content is `Zeta2L7IdMoment.SechMomentTable`; its VALUE is measured at
-`n = 1, 2` in `l7id_sum_check.py` ARM 5 with a sign-flip falsifier in ARM 6. -/
+/-- The `Ppol` arm's moment value, named so that a consumer can carry it.  Its
+analytic content is `Zeta2L7IdMoment.SechMomentTable`; `Zeta2PpolMoment.ppolMomentValue` proves it.
+-/
 def PpolMomentValue (n : ℕ) : Prop :=
   (1 / (2 * Real.pi))
       * (∫ s : ℝ, Zeta2L7IdSplit.PpolArm n (Zeta2L7IdMoment.lineA n s)).re
     = ((candidateM.Pin n * candidateM.pnPoly n : ℚ) : ℝ)
 
-/-- **UNCONDITIONAL, AND THE FIRST STATEMENT IN THE CHAIN ABOUT `candidateM.rn`.**  The chain's
+/-- **UNCONDITIONAL.**  The chain's
 linear form and M5's line integral differ by exactly the `Ppol` arm's defect. -/
 theorem rn_add_rLine {n : ℕ} (hn : 1 ≤ n) :
     candidateM.rn n + L7MidM5.rLine n
@@ -448,13 +448,13 @@ theorem rn_add_rLine {n : ℕ} (hn : 1 ≤ n) :
   ring
 
 /-- **ROW L7ID'S TARGET, as an EQUIVALENCE**: `r_n = −rLine n` holds at `1 ≤ n` exactly when the
-`Ppol` arm has its moment value.  So the row's whole VALUE residue is `PpolMomentValue`. -/
+`Ppol` arm has its moment value. -/
 theorem rn_eq_neg_rLine_iff {n : ℕ} (hn : 1 ≤ n) :
     candidateM.rn n = -L7MidM5.rLine n ↔ PpolMomentValue n := by
   rw [PpolMomentValue, ← sub_eq_zero (a := candidateM.rn n), sub_neg_eq_add,
     rn_add_rLine hn, sub_eq_zero]
 
-/-- **ROW L7ID'S TARGET, conditional on the one obligation left.**  The hypothesis is a BINDER
+/-- **ROW L7ID'S TARGET, conditional on `PpolMomentValue n`.**  The hypothesis is a BINDER
 and `#print axioms` cannot see it (LEAN.md §1), so it is named here, in the docstring, and in
 the `#check` receipt below. -/
 theorem rn_eq_neg_rLine {n : ℕ} (hn : 1 ≤ n) (hP : PpolMomentValue n) :

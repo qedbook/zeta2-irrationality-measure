@@ -3,7 +3,7 @@
 
 `docs/future/zeta2-lean-chain.md` row PAIR-5, §PAIR-5 design notes attempt 5.
 
-**What the row owed that this file pays.**  `Zeta2HatRawPoles` proves things about two polynomials
+**What this file proves.**  `Zeta2HatRawPoles` proves things about two polynomials
 `numS` and `denS`, and `Zeta2HatRepS` proves the row's theorem about the `Rep̂` built from them.
 Neither is the row unless that quotient is the (★) antidifference
 
@@ -23,20 +23,20 @@ arm constructs exactly the uncancelled case and reds the representation checks w
 integer-pole SUPPORT check green — a measured insensitivity worth carrying, since it says a support
 check cannot see this class of error and only `evalRep` can.
 
-**What this file does NOT do, and it is the row's one soundness-bearing residual.**  `dBlock` and
+**Where `D` comes from.**  `dBlock` and
 `dRuns` are a TRANSCRIPTION of the landed FACSYM (`external_tests/zeta2_star_b1/coords/
 starcoords_cand-t2.txt`: `D` = 9 factors `2t + 3n + b`, `b ∈ [2,10]`; 54 factors `t + 18n + b`,
-`b ∈ [2,55]`; 60 factors `t + 20n + b`, `b ∈ [2,61]`; `c` empty).  A theorem can be true about a
-mis-transcribed object, and nothing in Lean can tell.  The generated cross-check is
-`external_tests/zeta2_star_b1/facsym_d_check.py` → `facsym_d_check.out`, which reads the engine's
-own coordinate file and asserts these three runs factor for factor with six falsifier arms; it runs
-in `regen_all.sh`.  **Read a green here as attesting the algebra and that script as attesting the
-constants — neither attests both.**
+`b ∈ [2,55]`; 60 factors `t + 20n + b`, `b ∈ [2,61]`; `c` empty).  In Lean,
+`Zeta2Pair6Runs.pa0_runs` proves by `decide +kernel` that the engine's emitted `pa0Facs` is
+exactly these three runs, and `Zeta2Pair6Runs.dPr_eq` evaluates `dRuns n * dBlock n` as their
+product.  `external_tests/zeta2_star_b1/facsym_d_check.py` → `facsym_d_check.out` is a second
+check: it reads the engine's own coordinate file and asserts these three runs factor for
+factor, with six falsifier arms.
 
-It also does not name the row's actual `b̂` and `x̂`.  The two degree facts below are stated for an
+This file does not name the row's actual `b̂` and `x̂`.  The two degree facts below are stated for an
 ARBITRARY coefficient family precisely so that `x̂`'s 121 `n`-dependent coefficients never have to
-be reasoned about, only counted; instantiating at the real pair is PAIR-1's emission and the row's
-remaining phase (5H), not a proof obligation.
+be reasoned about, only counted; `Zeta2HatStarBridge` names the real pair.
+
 
 **Elaborate with the corpus oleans on the path** — it imports `Zeta2HatRawPoles`:
 
@@ -104,9 +104,9 @@ theorem denS_mul_dBlock (n : ℕ) :
   rw [denS_eq_hatDen_mul]
   ring
 
-/-- **`Ŝ = numS/denS` off the block's roots.**  `Ŝ` is written here exactly as the probe's
-`shat_parts` writes it: `b̂(t−1) · x̂ · hatMember n / D_n`, with `D_n = dRuns · dBlock` (`c = 1`,
-measured — the landed FACSYM's `c` is the empty multiset). -/
+/-- **`Ŝ = numS/denS` off the block's roots.**  `Ŝ` is written here as
+`b̂(t−1) · x̂ · hatMember n / D_n`, with `D_n = dRuns · dBlock` (`c = 1`:
+the landed FACSYM's `c` is the empty multiset). -/
 theorem shat_eq (n : ℕ) (hn : 1 ≤ n) (bh xh : ℚ[X]) (t : ℚ)
     (hblk : (dBlock n).eval t ≠ 0) (hden : (denS n).eval t ≠ 0) :
     bh.eval t * xh.eval t * Zeta2HatRep.hatMember n t / (dRuns n * dBlock n).eval t
@@ -130,7 +130,7 @@ theorem shat_eq (n : ℕ) (hn : 1 ≤ n) (bh xh : ℚ[X]) (t : ℚ)
 
 `x̂`'s 121 coefficients are rational functions of `n` and the design never reads one.  What it needs
 is that there are 121 of them — so the degree bounds `Zeta2HatRepS` consumes are discharged for
-ANY such family, and the row's own instance costs an instantiation rather than a proof. -/
+ANY such family. -/
 
 theorem natDegree_coeffs_le (c : ℕ → ℚ) (m : ℕ) :
     (∑ k ∈ range (m + 1), C (c k) * X ^ k).natDegree ≤ m := by

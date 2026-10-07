@@ -4,15 +4,15 @@
 `docs/future/zeta2-lean-chain.md` row RESID, §RESID design notes.
 
 `Zeta2Defs` defines `ck` by the §1.1 factorial closed form and `Ppol` by polynomial division,
-and — the scope audit's §2.9 — **not one of its theorems relates the two**.  `ck`'s docstring
-says "the residue of `R_n` at the simple pole `t = −k`" and nothing proves it.  Three rows wait
-on that sentence becoming a theorem (PHI-EVAL, PNCLR/PT-P, L7ID), so this file proves it:
+and — the scope audit's §2.9 — **not one of its theorems relates the two**.  `ck`'s
+docstring says "the residue of `R_n` at the simple pole `t = −k`", and this file
+proves it:
 
     numPoly n %ₘ denPoly n = Σ_{k ∈ window n} C (ck n k) · ∏_{j ∈ window n \ {k}} (X + C j)
 
 The generic half is already landed — `Zeta2PF.partialFractions_simple` and its reindexed form
 `Zeta2PF.partialFractions_nodes` (`Zeta2PartialFractions.lean`), the partial-fraction lemma
-Mathlib does not have.  What is left, and what this file is, is the member-specific part:
+with explicit residues (Mathlib has the existence form).  This file is the member-specific part:
 
   (i)   the `%ₘ` bridge — at a pole the remainder agrees with the numerator, from
         `Zeta2Defs.Member.Ppol_spec` and `denPoly_monic`;
@@ -95,8 +95,8 @@ theorem natDegree_modByMonic_lt_card (m : Member) (hm : m.WF) (n : ℕ) :
 /-! ## (ii) The reindex — RESID modulo the residue evaluation
 
 This is the composition executed (LEAN.md §3): the generic lemma is instantiated at the member's
-own objects, with the node map `j ↦ −j` and its closed-form left inverse.  What is left over is
-exactly one statement about factorials, which (iii) supplies. -/
+own objects, with the node map `j ↦ −j` and its closed-form left inverse.  The theorem's one
+hypothesis is a statement about factorials, which (iii) supplies. -/
 
 /-- **RESID, modulo the residue evaluation.**  Everything structural is discharged here; the
 hypothesis is the §1.1 closed form evaluated at a pole and nothing else. -/

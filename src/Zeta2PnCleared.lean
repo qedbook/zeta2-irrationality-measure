@@ -1,12 +1,12 @@
 /-
 # `Zeta2PnCleared.lean` — row PNCLR of `docs/future/zeta2-lean-chain.md`, two increments
 
-**HEADLINE: `PnCleared` is NOT proved here, at either pair of constants.**  This file lands the
-row's two SEPARABLE increments and says exactly what each is:
+**In §1–§2, `PnCleared` is a hypothesis, at either pair of constants;**
+`Zeta2PnHarmDelta.pn_cleared_1615` proves `PnClearedAt 16 15`.  The file's two SEPARABLE pieces:
 
   * **The twin at the row's own constants.**  `PnClearedAt c₁ c₂` restates
     `Zeta2Arith.PnCleared` with the clearing pair as a PARAMETER; `pnClearedAt_1316` is the
-    `Iff.rfl` back to the landed `(13,16)` statement, `pnClearedAt_of_dvd` transfers a clearing
+    `Iff.rfl` back to the `(13,16)` statement, `pnClearedAt_of_dvd` transfers a clearing
     along `Δ ∣ Δ`, `Δ_1316_dvd_1615` is the instance the row names (`D(13n) ∣ D(15n)`), and
     `binders_of_pn_cleared_1615` is `Zeta2ArithAssemble.binders_of_pn_cleared` at `Δ 16 15` —
     the pair the headline μ needs (`Δ̃ₙ = Δ 16 15 n / Φ̃ₙ`), not the pair the naive integrality
@@ -46,7 +46,7 @@ this at `(13,16)`; the chain's headline needs it at `(16,15)`. -/
 def PnClearedAt (c₁ c₂ : ℕ) : Prop :=
   ∃ P : ℕ → ℤ, ∀ n, (P n : ℚ) = ((Δ c₁ c₂ n : ℕ) : ℚ) * candidateM.pn n
 
-/-- The landed statement is this one at the pinned naive constants — definitionally. -/
+/-- `Zeta2Arith.PnCleared` is this one at the pinned naive constants — definitionally. -/
 theorem pnClearedAt_1316 : PnClearedAt 13 16 ↔ Zeta2Arith.PnCleared := Iff.rfl
 
 /-- **A clearing transfers along divisibility of the clearing factors.**  The witness is
@@ -90,7 +90,7 @@ theorem binders_of_pn_cleared_1615 (hp : PnClearedAt 16 15) :
     hP_of_cleared P 16 15 hP⟩
   exact_mod_cast hQ_of_qn_int qnInt qnInt_cast 16 15 n
 
-/-- The composition executed (LEAN.md §3): the LANDED `(13,16)` hypothesis delivers the
+/-- The composition executed (LEAN.md §3): the `(13,16)` hypothesis delivers the
 `(16,15)` binders, with no second clearing proof. -/
 theorem binders_1615_of_PnCleared (h : Zeta2Arith.PnCleared) :
     ∃ (Q P : ℕ → ℤ),
@@ -200,8 +200,8 @@ theorem D_mul_momI_int (M : ℤ) (j m : ℕ) (h : j + 1 ≤ m) :
 
 /-- **The consumer's shape**: every moment index `pnPoly n` sums over is `j ≤ 16n − 1`
 (`candidate_Ppol_natDegree`), so the single factor `D (16n)` of `Δ 16 15 n` clears it.  This is
-the whole von Staudt contribution to PNCLR — the row's remaining content is the `Π(n)` factor,
-which this says nothing about (file header). -/
+the whole von Staudt contribution to PNCLR; the `Π(n)` factor is outside this file's scope
+(file header). -/
 theorem D_mul_momI_pnPoly_range (n j : ℕ) (hn : 1 ≤ n) (hj : j ≤ 16 * n - 1) :
     ∃ z : ℤ, ((D (16 * n) : ℕ) : ℚ) * momI (candidateM.cell n) j = (z : ℚ) :=
   D_mul_momI_int _ j _ (by omega)

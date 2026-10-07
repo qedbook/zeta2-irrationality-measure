@@ -10,7 +10,7 @@ Every window cell's residue `r₀ = n % p` lies in exactly one of the 106 strata
 the residue statement.  `cover_S<j>` is the linear chain of `Nat.lt_or_ge` over the breakpoints,
 and `kummerRowsOpen` composes it with `Zeta2PtpKumRes`'s three bridge identities.
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry`; PT-P does not close here.
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/

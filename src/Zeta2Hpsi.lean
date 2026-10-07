@@ -1,26 +1,26 @@
 /-
-# Row hψ — `Zeta2LegA.psiErrorBoundStatement`, DISCHARGED in our kernel from `MediumPNT`
+# `hψ`: the error bound for Chebyshev's `ψ`, proved from `MediumPNT`
 
-The ζ(2) chain carries one standing hypothesis, `hψ : Zeta2LegA.psiErrorBoundStatement`, which is
-`MediumPNT`'s rate on Chebyshev's `ψ`. This file proves that very `Prop` (THE CHAIN'S DEFINITION,
-imported from `Zeta2LegA`, not a local restatement of it) from
-`PrimeNumberTheoremAnd.MediumPNT`, which is vendored with two one-line patches at
-`external_tests/pnt_port/` (PNT+ `a5154676`, ported to our pin: see its PROVENANCE.md).
+`Zeta2LegA.psiErrorBoundStatement` is the prime-number-theorem input of the ζ(2) proof: for some
+`c > 0` and `C`, eventually `|ψ(x) − x| ≤ C·exp(−c·(log x)^{1/10})·x`, where `ψ` is Chebyshev's
+function.  This file proves that `Prop`, imported from `Zeta2LegA` rather than restated here,
+from `PrimeNumberTheoremAnd.MediumPNT`, which is vendored with two one-line patches (see
+`PROVENANCE.md`):
 
 ```
 MediumPNT : ∃ c > 0, (ψ - id) =O[atTop] fun x ↦ x * exp (-c * (log x) ^ (1 / 10))
 ```
 
-The proof is `PsiErrorBound.psi_error_bound`
-(`external_tests/zeta2_binet_design/PsiErrorBound.lean`), which was attested on PNT+'s own toolchain.
-Here the only change to that proof is the target: the `IsBigO` is unpacked into the pointwise-eventual form.
+The proof unpacks the `IsBigO` into the pointwise, eventual form of
+`Zeta2LegA.psiErrorBoundStatement`.
 
-**What this file does NOT claim.** It does not reprove PNT+. `MediumPNT` is PNT+'s theorem, and
-its `#print axioms` below is the attestation that the vendored cone proves it with no `sorryAx`
-on our pin. Our part is the two patches, which are tactic-behaviour repairs, and this unpacking.
+**What this file does not claim.**  It does not reprove `MediumPNT`, which is the
+PrimeNumberTheoremAnd project's theorem; its `#print axioms` below shows that the vendored files
+prove it from Lean's three standard axioms, with no `sorryAx`.  This development's part is the
+two patches, which repair tactic behaviour on this toolchain, and this unpacking.
 
-VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox, clean store.
-Runner `clean_close/run_clean_final.sh Zeta2Hpsi.lean`; falsifier `falsify_unconditional.sh`.
+
+Toolchain `leanprover/lean4:v4.34.0-rc2`; Mathlib at commit `5aedf732`.
 -/
 import PrimeNumberTheoremAnd.MediumPNT
 import Zeta2LegA
@@ -49,13 +49,13 @@ theorem hψ : Zeta2LegA.psiErrorBoundStatement := by
 
 end Zeta2Hpsi
 
-/-! ## RECEIPTS — LEAN.md §1, both channels.
+/-! ## Receipts: axioms and types
 
-`sorryAx` in `MediumPNT`'s footprint would mean the vendored cone does not prove it on our pin.
-Its absence covers all 23 vendored files transitively. `Zeta2Hpsi.hψ` must print the allowlist,
-and `#check @` must print `Zeta2Hpsi.hψ : Zeta2LegA.psiErrorBoundStatement`, with no binder. The
-`#print`s show the target `Prop` and the `ψ` it is about. `Chebyshev.psi` is Mathlib's, with no PNT+
-definition shadowing it, and the census receipt of 2026-09-24 printed this same body. -/
+`sorryAx` in `MediumPNT`'s footprint would mean the vendored files do not prove it on this pin;
+its absence covers every declaration `MediumPNT`'s proof uses, 324 of the vendored cone's 750
+and none from LeanArchitect (`PROVENANCE.md`).  `Zeta2Hpsi.hψ` must print the same three axioms,
+and `#check @` must print `Zeta2Hpsi.hψ : Zeta2LegA.psiErrorBoundStatement`.  The `#print`s show
+the target `Prop` and its `ψ`, Mathlib's `Chebyshev.psi`, which no vendored definition shadows. -/
 
 #print axioms MediumPNT
 #check @MediumPNT

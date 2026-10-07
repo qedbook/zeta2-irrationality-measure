@@ -21,15 +21,15 @@ contour-free: `conj z` is in `ℍₒ` iff `z` is in the open lower half-plane, `
 than the `n = 0` lemma it replaces, and it supersedes `Zeta2L7Id0Val.kern_neg` /
 `sin_sq_lineB_neg` / `hinge_on_lineB` rather than being a second copy of them.
 
-**`MeasureTheory.integral_conj` is still absent at this pin and is still not needed**: nothing
-here conjugates an INTEGRAL.  The conjugation is applied to a pointwise identity, before any
+**`integral_conj` — root-level at this pin, not `MeasureTheory.integral_conj` — is not needed**:
+nothing here conjugates an INTEGRAL.  The conjugation is applied to a pointwise identity, before any
 integral exists.  (`Complex.sin_conj`, `Complex.conj_conj`, `Complex.conj_ofReal` are present
 and are `#check`ed by their use below.  `map_tsum` is an UNKNOWN IDENTIFIER at this pin; the
 name that works is `tsum_star`, and in current Mathlib it carries a `SummationFilter` argument.)
 
-## WHAT THIS FILE DOES NOT DO, and one of them is a finding
+## WHAT THIS FILE DOES NOT DO, and that is a finding
 
-This is ONE of row L7ID's five non-inherited obligations.  It does NOT close the row.
+
 
 `Hn_eq_Rfac_mul_tsum` below expands `Hn` termwise off the real axis at every `n`, which is the
 step L7ID's route calls "expand the kernel by the hinge".  **The route's NEXT step, "integrate
@@ -51,7 +51,7 @@ the `Ppol`/residue split must come BEFORE the termwise integration, not after it
 part decays like `|t|^{−1}`, so its `m`-th terms decay like `|t|^{−3}` and the interchange does
 apply to them; the `Ppol` part has to go through the moment arm against the FULL kernel
 `(π/sin πt)²`, which decays like `exp(−2π|s|)`.  All of this is MEASURED by
-`l7id_ratfun_check.py` (26 arms, 3 of them falsifiers) and NONE of it is proved in Lean.
+`l7id_ratfun_check.py` (26 arms, 3 of them falsifiers), and this file proves none of it.
 
 Receipts: 12, all `[propext, Classical.choice, Quot.sound]`.  `lean` rc read separately.
 Falsifier: `falsify_l7idhinge.sh` → `out_l7idhinge_falsify.txt`.
@@ -149,7 +149,7 @@ theorem hinge_on_lineB (n : ℕ) {s : ℝ} (hs : s ≠ 0) :
 
 /-- The `Γ`-ratio `Π(n)·R_n(t)` of `zeta2-l7-proof.md` §1, exactly as `Hn_eq_kernel_form`
 spells it.  It is a RATIONAL function of `t` (every shift is a positive integer); its degree is
-`16n − 1`, measured in `l7id_ratfun_check.py` ARM 1 and NOT proved here. -/
+`16n − 1`, measured in `l7id_ratfun_check.py` ARM 1; this file does not prove it. -/
 noncomputable def Rfac (n : ℕ) (t : ℂ) : ℂ :=
   (L7MidM123.Pi_n n : ℂ)
     * (Complex.Gamma (t + (L7MidM123.a₁ n : ℂ)) * Complex.Gamma (t + (L7MidM123.a₂ n : ℂ))
@@ -160,8 +160,8 @@ noncomputable def Rfac (n : ℕ) (t : ℂ) : ℂ :=
         * (Complex.Gamma (t + (L7MidM123.b₄ n : ℂ)))⁻¹)
 
 /-- **The termwise expansion of `Hn` off the real axis, at every `n`** — the step L7ID's route
-calls "expand the kernel by the hinge".  The route's NEXT step is NOT available on this family:
-see the header, and `l7id_ratfun_check.py` ARM 4. -/
+calls "expand the kernel by the hinge".  At `n ≥ 1` its terms are not integrable, so it is not
+integrated termwise: see the header, and `l7id_ratfun_check.py` ARM 4. -/
 theorem Hn_eq_Rfac_mul_tsum (n : ℕ) {t : ℂ} (ht : t.im ≠ 0) :
     L7MidM123.Hn n t = Rfac n t * ∑' m : ℤ, 1 / (t + (m : ℂ)) ^ 2 := by
   rw [L7MidM123.Hn_eq_kernel_form n t (sin_pi_ne_zero_of_im_ne_zero ht), Rfac,

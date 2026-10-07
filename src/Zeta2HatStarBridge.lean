@@ -3,7 +3,7 @@
 
 `docs/future/zeta2-lean-chain.md` row PAIR-5 (§PAIR-5 design notes, attempt 6).
 
-**What the row owed after attempt 5.**  `Zeta2HatRepS.hbdy_hat_n` proves
+`Zeta2HatRepS.hbdy_hat_n` proves
 `Φ̂ n (repDelta (repS n bh xh)) = 0` for every `n ≥ 2` and every `bh xh : ℚ[X]` with
 `bh.natDegree ≤ 5` / `xh.natDegree ≤ 120` — a family that provably CONTAINS the chain's own
 pair but does not NAME it, and a `#print axioms` receipt on a ∀-statement is not a receipt on
@@ -22,8 +22,8 @@ two transposes, `xT` and `afProdT`, and ties each to the base's original by a pr
 lemma.  That is the phase's content; the row's own theorem really is one term application, and
 the estimate that called it "one line" priced that line and not the object it is applied to.
 
-**AND THE HEADLINE THEOREM ALONE CERTIFIES NOTHING — measured, by this file's own falsifier
-arm `A5`, and it is the most important fact in this header.**  `hbdy_hat_star` is a pure
+**AND `hbdy_hat_star` ALONE DOES NOT SHOW THAT ITS PAIR IS THE CHAIN'S — measured, by this file's
+own falsifier arm `A5`, and it is the most important fact in this header.**  `hbdy_hat_star` is a pure
 instantiation of `hbdy_hat_n`, which holds for ANY degree-bounded pair; so perturbing §2's
 transpose to a FALSE statement (the variables NOT exchanged) leaves `hbdy_hat_star` GREEN.
 A 5H shipping only the instantiation would be ceremonial, and would move LEAN.md §2's defect
@@ -36,13 +36,13 @@ OUTPUT, not helper lemmas, and neither half of the pair is the deliverable alone
 ties are stated `∀ (n : ℕ) (s : ℚ)`, so each fixes its polynomial uniquely (over an infinite
 field a polynomial is determined by its evaluation function) — they pin `xHat`/`bHat` **relative
 to `xCoeffs`/`bFacs`**: that the objects handed to `hbdy_hat_n` really are the base's own data,
-transposed, with `b` shifted by `−1`.  **They do NOT pin the base's coefficient VALUES.**  Both
-ties are instances of lemmas generic in the data (`xHat_eval := xT_eval _ _ _`), so an
-`xCoeffs` with the right SPINE and wrong coefficients leaves all ten receipts green.  That
-residual is not carried in Lean at all and is not meant to be: it is carried by the committed
-manifest hash, by `run_probe.sh`'s refusal on a base it cannot vouch for (falsifier arms P1/P2),
-and by `transpose_probe.py` reading the engine's own `coords/starcoords_cand-t2.txt`.  Two
-different guards for two different claims, and neither substitutes for the other.
+transposed, with `b` shifted by `−1`.  **They do NOT pin the base's coefficient VALUES**: both
+ties are instances of lemmas generic in the data (`xHat_eval := xT_eval _ _ _`), so they hold
+for any `xCoeffs` and `bFacs` with the right SPINE.
+
+
+
+
 
 **`dx = 120` is the CONTOUR degree, not the `n`-degree**, which is what makes the row's
 `hx : xh.natDegree ≤ 120` satisfiable at the real `x̂`: `polB2 (l :: ls) s = polB l + C s *
@@ -55,16 +55,16 @@ the DIFFERENT number 272 in the same sentence.  Both bounds are TIGHT, measured 
 
 **The object named is the CLEARED certificate** `Xₖ = Aₖ·(L/Bₖ)`, because that is the one the
 chain's Lean side carries — `star_forall`'s `F` is cleared and the uncleared `x̂` exists in no
-Lean file.  The un-clearing scalar `L` is PAIR-6/PAIR-7's, not this row's; `transpose_probe.py`
-§E measures `deg_n L = 154` and `L(n) ≠ 0` at every integer `n ∈ [0, 4000]`, recorded there and
-in PAIR-6's cell rather than claimed here.
+Lean file.  The un-clearing scalar `L` (degree 154 in `n`) is not this file's:
+`Zeta2PairN.L_ne_zero` proves `L(n) ≠ 0` at every natural `n`.
+
 
 **What this file does NOT do.**  It proves no new mathematics — net new arithmetic is zero.  It
 does not touch `Ŝ`'s reduced pole structure (`Zeta2HatCancel`, which this route never needs and
-which 5I has now measured PAIR-6 does not need either).  It does not close the chain: the row it
-closes is one of 42, and `Zeta2Target.zeta2_not_liouvilleWith` is still `sorry`.  It says nothing
-about `Σⱼ α̃ⱼ·hatQ(n+j) = 0` — that is PAIR-6 — nor about whether PAIR-7's `αⱼ` are the cleared
+which 5I has now measured PAIR-6 does not need either).  It says nothing about
+`Σⱼ α̃ⱼ·hatQ(n+j) = 0` — that is PAIR-6 — nor about whether PAIR-7's `αⱼ` are the cleared
 `α̃ⱼ` or the uncleared ones.
+
 
 **The two `rfl`s are the only place this file touches the engine's data, and they read a SPINE.**
 `xCoeffs` is a list of 121 opaque names and `bFacs` five triples; the 10 MB of coefficients is
@@ -72,16 +72,16 @@ load-bearing for the OBJECT and for no proof.  Everything above the spine is gen
 which is why `A1`/`A2` (perturbing a spine length) leave the transposes green and why re-greening
 after a coords change is two integers and 4 s.
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2HatStarBridge.lean
 
 That case REFUSES rather than skips if `StarForallCandt2Base.lean` is absent from the box's
 `probes/asm`, or is not byte-identical to the committed
 `modules/MANIFEST-cand-t2-kernel.sha256` at `# points all` / `# encoding kernel` /
-`# assemble 1`.  The base is ~16 MB, generated and deliberately not committed (§12.7's archive
-rule), so a file-exists check is exactly the residual risk this design named: a base that is
-present but wrong-flavoured would elaborate a green for different objects.  Receipts:
+`# assemble 1`.  The base is ~16 MB and generated.
+
+Receipts:
 `out_axioms_starbridge.txt`.  Falsifier: `falsify_hbdy_star.sh` → `out_hbdy_star_falsify.txt`.
 Second implementation, in exact ℚ and a different language: `transpose_probe.py`.
 

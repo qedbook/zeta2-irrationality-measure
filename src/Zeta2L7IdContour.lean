@@ -37,18 +37,18 @@ importable BESIDE the split.  The fix is `L7MidM6Mod.lean` (`m6mod.consolidate`)
 `m6_glue.lean` bytes over `import L7MidM5` instead of over re-embedded sections — 24 clean
 receipts, 9.8 s, 1.44 MB olean, nothing copied by hand (LEAN.md §10).
 
-WHAT IS NOT PROVED HERE, so the row does not close on this file:
-  * obligation 2, the estimate — untouched.  L7ID-0's `|m|^{−3/2}` majorant was computed against
-    a single `|t+1|` factor; this contour carries `11n+1` window poles and a degree-`16n−1`
-    polynomial part.
+WHAT THIS FILE DOES NOT STATE:
+  * obligation 2, the estimate — not touched here.  The decay bound on `|rₙ|` is
+    `Zeta2RDecay.rn_decay`.
+
   * obligation 3, the `∫Σ` interchange on the RESID arm.  Its family exists here
-    (`ResidArm_lineA_eq_tsum`) and `integral_tsum_of_summable_integral_norm`'s hypotheses are
-    MEASURED to hold on it; hypothesis (b), `Summable (fun m => ∫‖F_m‖)`, is not proved.
-  * the `Ppol` arm's VALUE.  `Zeta2L7IdMoment` reduced it to the one `n`-free analytic
-    obligation `SechMomentTable`, which is still a `Prop` and not a theorem.
-  * `candidateM.rn`.  NOTHING in this file mentions it, so RDECAY gains nothing: `hdecay` is
+    (`ResidArm_lineA_eq_tsum`); the summability `Summable (fun m => ∫‖F_m‖)` is not touched
+    here.  `Zeta2L7IdResid.integral_ResidArm_lineA` is the interchange, at every `n`.
+  * the `Ppol` arm's VALUE.
+    `Zeta2PpolMoment.ppolMomentValue` proves it at every `n`.
+  * `candidateM.rn`.  NOTHING in this file mentions it: `hdecay` is
     stated on `‖Δ n * candidateM.rn n‖` at `Zeta2PhiT.ΔT` and the identification `rn = −rLine`
-    is the row's target, still open.
+    is `Zeta2PpolMoment.rn_eq_neg_rLine_uncond` (at `1 ≤ n`).
 
 ACCEPTANCE (LEAN.md §1, as sharpened 2026-09-20): the receipt AND the printed TYPE.  `#print
 axioms` cannot see an undischarged hypothesis, so every theorem below is followed by BOTH, and

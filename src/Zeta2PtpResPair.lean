@@ -22,12 +22,12 @@ DIFFERENCE.  `Sh` is that relation and it is multiplicative (`Sh.mul`), so `H(p�
 `H(j)` (`sh_Hfun`, three blocks) and the whole pair gains one place (`pair_dvd`).  Then every term
 and every pair carries its units count plus one, which is the `m < p²` residue statement
 (`residue_main`, `polar_main`) plus one — for every row EXCEPT the polar rows on the run strata,
-where the units count itself is short and the run congruence is owed.
+where the units count itself is short and the run congruence is needed.
 
-WHAT IS NOT CLAIMED.  `ResidualRunOpen` — the polar rows whose residue `n % p` lies on one of the
-five run strata, at every `m` — is NOT proved here; `residualNarrowOpen_of_run` and
+HYPOTHESES.  `ResidualRunOpen` — the polar rows whose residue `n % p` lies on one of the
+five run strata, at every `m` — is a hypothesis here; `residualNarrowOpen_of_run` and
 `polyHalfOpen_of_run` carry it in their TYPE (`#print axioms` cannot see a binder, LEAN.md §1).
-Row PT-P does not close and `Zeta2Target.zeta2_not_liouvilleWith` is `sorry`.
+
 
 Probe: `ptp_resid_narrow_probe.py` / `.out`.  Falsifier: `falsify_ptprespair.sh` /
 `out_ptprespair_falsify.txt`.  Runner: `run_resid.sh` (its own olean store; see its header).

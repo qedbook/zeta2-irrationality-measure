@@ -6,9 +6,9 @@ prime `p` with `p² > γ₀n`, a statement about `ord_p` of the four binomials i
 minimised over the window.  Above that line Legendre's formula has ONE term, and Kummer's theorem
 (`padicValNat_choose'` in Mathlib) says `ord_p C(a+b, b) = #{carries} ∈ {0, 1}` with the single
 carry `p ≤ a mod p + b mod p`.  This file states that atom, and then `ord_p (cTerm n k)` as the
-sum of its four carry bits — the object the profile's ∀n argument will minimise over `k`.
+sum of its four carry bits — the object the profile's ∀n argument minimises over `k`.
 
-Fail-fast increment Φ̃-1 (owner 2026-09-11: riskiest first; fail sooner).  ~seconds.
+Fail-fast increment Φ̃-1 (2026-09-11: riskiest first; fail sooner).  ~seconds.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/

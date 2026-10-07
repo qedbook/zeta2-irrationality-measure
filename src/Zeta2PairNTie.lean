@@ -3,9 +3,9 @@
 
 `docs/future/zeta2-lean-chain.md` row PAIR-N.  `Zeta2PairN.L_ne_zero` is a statement about
 `StarForallCandt2.polB StarForallCandt2.al3`.  What PAIR-8's strong induction actually divides
-by is `Zeta2Pair6.betaHat n 3`, and §6a's lesson in this corpus — *"a `c3_ne_zero` about
-`hornerZ c3` discharges nothing about a coords-derived `α₃` until STAR-ID (ii) identifies
-them"* — is that the step between those two sentences is never free until Lean has taken it.
+by is `Zeta2Pair6.betaHat n 3`, and the step between those two statements is not free: Lean
+has to take it.
+
 
 This file takes it, and it takes it BY `show`, i.e. by definitional unfolding, so a green here
 is the assertion that the two objects are the same term and not merely equal ones:
@@ -21,7 +21,7 @@ It is a SEPARATE module on purpose: row PAIR-N's own receipt (`Zeta2PairN.lean`)
 generated base and nothing else, so it costs seconds and cannot go red for a reason that lives
 in the 22-module PAIR-6 chain this file has to build.
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2PairNTie.lean
 

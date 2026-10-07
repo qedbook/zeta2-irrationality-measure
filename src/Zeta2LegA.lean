@@ -1,8 +1,8 @@
 /-
 # D5 leg A — the clearing-denominator limit `(1/n)·log(D_{γ₁n}·D_{γ₂n}) → γ₁ + γ₂`
 
-D5 is the pair of PNT-class limits L10 consumes.  Leg B (the profile-density limit,
-`Zeta2LegBComplete.legB_candidate_from_psi`) is closed.  **Leg A had no Lean artifact at all** —
+D5 is the pair of PNT-class limits L10 consumes.  Leg B, the profile-density limit, is
+`Zeta2LegBCandidate.legB_candidate_from_psi` (`Zeta2LegBCand`).  **Leg A had no Lean artifact at all** —
 `zeta2-integral-free.md` §5.3 row D5 graded it "cite `PrimeNumberTheoremAnd`" and nothing was
 built.  This file builds it, and the build is small because Mathlib turns out to carry the one
 bridge that makes it small.
@@ -24,18 +24,18 @@ bridge that makes it small.
    there, because the harmonic sum over `√n` blocks eats a logarithm) is a fact about leg B and
    does not transfer: leg A has no block decomposition and no harmonic sum.
 3. **AND THAT INPUT IS ALREADY DISCHARGED.**  `psiAsymptotic_of_psiErrorBound` derives
-   `ψ(x)/x → 1` from the very hypothesis leg B consumes — `PsiErrorBound.psiErrorBoundStatement`,
-   proved on `PrimeNumberTheoremAnd` from `MediumPNT` with an archived
-   `#print axioms` receipt (`out_axioms_psi_error_bound.txt`).  **So leg A adds no external
-   citation to the campaign**: both legs of D5 rest on the same one, and it already has a
-   receipt.  That is a stronger statement than "cite PNT+", and it is the reason this row is a
-   short file rather than a second cross-toolchain interface.
+   `ψ(x)/x → 1` from the very hypothesis leg B consumes, `psiErrorBoundStatement` below, which
+   `Zeta2Hpsi.hψ` proves from the vendored `MediumPNT`.  **So leg A adds no hypothesis of its
+   own**: both legs of D5 rest on the same one, and it is the reason this row is a short file.
 
-Everything below is proved against CURRENT Mathlib alone (LEAN.md §7 — the external result
-enters as a hypothesis stated in shared `Chebyshev` vocabulary, never as an import).
 
-Probe: `bash run_probe.sh Zeta2LegA.lean`.  Lean never runs on the laptop (owner rule
-2026-09-07).
+
+
+Everything below is proved against CURRENT Mathlib alone (LEAN.md §7 — the ψ error bound
+enters as a hypothesis stated in Mathlib's `Chebyshev` vocabulary, never as an import).
+
+Probe: `bash run_probe.sh Zeta2LegA.lean`.
+Lean never runs on the laptop.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732.
 -/
@@ -50,12 +50,12 @@ namespace Zeta2LegA
 /-! ## §1. The two interface statements
 
 Both are written out here as `def`s rather than inlined, so the kernel can be asked whether the
-statement this file consumes is the statement the other project proves (LEAN.md §1 — the D5 fork
+statement this file consumes is the statement `Zeta2Hpsi.hψ` proves (LEAN.md §1 — the D5 fork
 was once answered about the wrong theorem). -/
 
-/-- **Leg B's interface statement, written out a third time.**  Byte-identical to
-`PsiErrorBound.psiErrorBoundStatement` (PNT+, `v4.32.2`) and to
-`Zeta2PsiInterface.psiErrorBoundStatement` (current Mathlib).  It is `MediumPNT`'s rate on `ψ`. -/
+/-- **Leg B's interface statement**, in Mathlib's `Chebyshev` vocabulary: `MediumPNT`'s rate on
+`ψ`.  `Zeta2Hpsi.hψ` proves it from the vendored `MediumPNT`.
+-/
 def psiErrorBoundStatement : Prop := ∃ c > 0, ∃ C : ℝ, ∀ᶠ x : ℝ in atTop,
     |Chebyshev.psi x - x| ≤ C * Real.exp (-c * (Real.log x) ^ ((1 : ℝ) / 10)) * x
 
@@ -64,11 +64,11 @@ def psiErrorBoundStatement : Prop := ∃ c > 0, ∃ C : ℝ, ∀ᶠ x : ℝ in a
 def psiAsymptoticStatement : Prop :=
     Tendsto (fun x : ℝ => Chebyshev.psi x / x) atTop (nhds 1)
 
-/-! ## §2. Leg A's input is implied by leg B's — so D5 rests on ONE citation, not two -/
+/-! ## §2. Leg A's input is implied by leg B's — so D5 rests on ONE hypothesis, not two -/
 
 /--
 **Leg A needs no citation of its own.**  `MediumPNT`'s rate — the hypothesis leg B already
-consumes and which is discharged on `PrimeNumberTheoremAnd` with an axiom receipt — gives
+consumes, which `Zeta2Hpsi.hψ` proves from the vendored `MediumPNT` — gives
 `ψ(x)/x → 1` outright: dividing `|ψ x − x| ≤ C·e(x)·x` by `x > 0` leaves `|ψ x/x − 1| ≤ C·e(x)`,
 and `e(x) = exp(−c(log x)^{1/10}) → 0` because `(log x)^{1/10} → ∞`.
 -/
@@ -173,8 +173,8 @@ theorem legA_candidate (hpsi : psiAsymptoticStatement) :
 
 /--
 **LEG A, CLOSED FROM THE INPUT THE CAMPAIGN ALREADY HAS.**  No hypothesis of leg A's own: the
-`ψ` bound here is leg B's, discharged on `PrimeNumberTheoremAnd` from `MediumPNT` with an
-archived axiom receipt.  D5 therefore rests on ONE external citation covering both legs.
+`ψ` bound here is leg B's, which `Zeta2Hpsi.hψ` proves from the vendored `MediumPNT`.
+D5 therefore rests on ONE hypothesis covering both legs.
 -/
 theorem legA_candidate_from_psi (h : psiErrorBoundStatement) :
     Tendsto (fun n : ℕ =>

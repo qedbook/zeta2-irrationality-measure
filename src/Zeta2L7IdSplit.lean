@@ -36,8 +36,8 @@ can consume and which the unsplit family could not.
     Γ(t+9n+1)/Γ(t+4n+1)   = (t+4n+1)_{5n}      = block (4n+1) (5n)
     Γ(t+15n+1)/Γ(t+26n+2) = 1/(t+15n+1)_{11n+1} = 1/(block (15n+1) (11n+1))
 
-and `Rfac_eq_ratio` below proves it.  `Complex.Gamma_nat_add` is ABSENT at this pin (measured),
-so `Gamma_add_natCast` builds the shift by induction on `Complex.Gamma_add_one`.
+and `Rfac_eq_ratio` below proves it.  `Gamma_add_natCast` builds the shift by induction on
+`Complex.Gamma_add_one`.
 
 **`Im t ≠ 0` discharges every side condition in the file** — the `Γ` non-vanishing
 (`Complex.Gamma_ne_zero` wants `t + c ≠ -m` and `-m` is real), the `Gamma_add_one` hypotheses,
@@ -47,11 +47,11 @@ and the twelve window poles `t + k ≠ 0` — because a shift by a real number d
 ## What this file does NOT do
 
 * It does not integrate anything.  The interchange (obligation 3) now has its family and its
-  decay, and neither is proved here.
+  decay; the interchange itself is not touched in this file.
 * The `Ppol` arm is stated, not evaluated: the moment arm against the FULL kernel
   (`Zeta2Moments.momI_eq_bernoulli`, the translation law, the `sech²` expansion) is the rest of
-  obligation 4 and is untouched.
-* It says nothing about `candidateM.rn`, so row L7ID is NOT closed by it.
+  obligation 4 and is not touched in this file.
+* It says nothing about `candidateM.rn`.
 
 ## The chain cell's `9n / 9n / 9n` is NOT a defect — checked, because it looks like one
 
@@ -111,9 +111,9 @@ theorem Gamma_shift_ne_zero {t : ℂ} (ht : t.im ≠ 0) (c : ℂ) (hc : c.im = 0
   simp [hc] at this
   exact this
 
-/-- **The Pochhammer shift of `Γ` by a natural number.**  `Complex.Gamma_nat_add` is ABSENT at
-this pin (measured, `Census7.lean`), so this is an induction on `Complex.Gamma_add_one`, whose
-`≠ 0` side condition is `add_ne_zero` at every step. -/
+/-- **The Pochhammer shift of `Γ` by a natural number.**  This is an induction on
+`Complex.Gamma_add_one`, whose `≠ 0` side condition is `add_ne_zero` at every
+step. -/
 theorem Gamma_add_natCast {t : ℂ} (ht : t.im ≠ 0) (L : ℕ) :
     Complex.Gamma (t + (L : ℂ)) = (∏ i ∈ Finset.range L, (t + (i : ℂ))) * Complex.Gamma t := by
   induction L with

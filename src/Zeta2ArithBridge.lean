@@ -9,10 +9,10 @@
     (hP : ∀ n, (P n : ℝ) = Δ n * ((candidateM.pn n : ℚ) : ℝ))
 
 This file proves that those three binders FOLLOW from two integrality facts —
-`qₙ ∈ ℤ` (no clearing; `zeta2-arith-layer.md` measures it three times) and
+`qₙ ∈ ℤ` (no clearing; `Zeta2QnInt.qnInt_cast` proves it) and
 `Δ c₁ c₂ n * pₙ ∈ ℤ` — by cast arithmetic alone. No `sorry` anywhere: the integrality facts
-are HYPOTHESES here (LEAN.md §7, the hypothesis form), and proving them is the next
-increment. What this file attests is that the OBJECTS COMPOSE: `Zeta2Arith.Δ`'s type,
+are HYPOTHESES here (LEAN.md §7, the hypothesis form).
+What this file attests is that the OBJECTS COMPOSE: `Zeta2Arith.Δ`'s type,
 `Zeta2Defs.candidateM.qn`'s type and the `ℕ → ℤ → ℚ → ℝ` cast chain meet at the chain's
 exact binder shapes. That is the check every previous "scoped" row failed at composition
 time (LEAN.md §3), executed on the smallest instance that can fail.

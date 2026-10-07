@@ -32,12 +32,12 @@ conventions are falsifier arms in `pair6_check.py` (A1, A2) and both RED, so nei
 no consumer here: `badE n` is simply every half-integer `−k/2` below a generous bound, and `GoodT`
 is the single predicate every factor's nonvanishing is read off.
 
-**What this row does NOT discharge.**  It needs nothing from PAIR-7 and therefore does NOT owe
+**What is not in this file.**  It needs nothing from PAIR-7 and therefore does not need
 `λden(n) ≠ 0`: `λ` enters only where PAIR-7's `β̂ⱼ·λden = γⱼ·λnum` is used to cross to the chain's
-operator, which is PAIR-8's step.  **PAIR-N (`L ≠ 0`, deg 154) is untouched.**  `hatQ n = qnInt n`
-is PAIR-8, and `Zeta2Target.zeta2_not_liouvilleWith` is still `sorry`.
+operator, which is PAIR-8's step.  **PAIR-N (`L ≠ 0`, deg 154) is not touched in this file.**
+`hatQ n = qnInt n` is `Zeta2Pair8Close.pairing_q`.
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2Pair6.lean
 

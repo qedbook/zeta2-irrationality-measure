@@ -1,13 +1,13 @@
 /-
 # §4.2's hinge — `π²/sin²(πz) = Σ_{n∈ℤ} 1/(z+n)²`, from Mathlib's cot-derivative expansion
 
-The scope audit's §4.2 (the MB line integral ↔ residue sum) is the riskiest unbuilt construction
+The scope audit's §4.2 (the MB line integral ↔ residue sum) is the step this file's lemma serves
 in the chain.  There is no residue theorem in Mathlib, so the route is series-then-line-integrals:
 expand the kernel's `(π/sin πt)²` as `Σ_n 1/(t+n)²` and integrate termwise.  Mathlib carries that
 expansion only as `iteratedDerivWithin 1 (π cot(π·)) ℍₒ z = -1! · Σ' n:ℤ, 1/(z+n)²` on the open
-upper half-plane.  THIS file turns it into the function the chain integrates.  If this lemma
-does not go through, §4.2 is a different order of project; if it does, everything above it is
-bookkeeping (dominated convergence + rational line integrals + `hasSum_zeta_two`).
+upper half-plane.  THIS file turns it into the function the chain integrates.
+
+
 
 Fail-fast increment MB-1.  ~seconds.
 

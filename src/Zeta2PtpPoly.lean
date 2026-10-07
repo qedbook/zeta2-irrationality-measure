@@ -9,23 +9,23 @@ Newton form (`Zeta2PnFunc.Pin_mul_pnPoly_newton`, `Lf_nbp`) writes
 
 `L = 11n+1`, `h_m = Δ^m H(0)` (`Zeta2NewtonAssemble.hc`), and `Δ 16 15 n = D(16n)·D(15n)` clears
 the two denominators separately: `D(15n)·a_r ∈ ℤ` (`termwise_at_D15`) and `D(16n)/(m+1) ∈ ℤ`.
-So `Δ·Π·pnPoly` is the DOUBLE sum of integers `coeff n r · mterm n r m`, and the probe
-(`ptp_poly_probe.out`, 622 cells, 97 120 `r`-rows) found the obligation TERMWISE in that double
-sum with the profile carried by the coefficient alone:
+So `Δ·Π·pnPoly` is the DOUBLE sum of integers `coeff n r · mterm n r m`, and the obligation is
+TERMWISE in that double sum, with the profile carried by the coefficient alone:
 
-    v_p(coeff n r) ≥ φ̃ + b_r − 1,   b_r := [(r+1) % p ≤ (11n) % p]      (all 97 120 rows),
+
+    v_p(coeff n r) ≥ φ̃ + b_r − 1,   b_r := [(r+1) % p ≤ (11n) % p],
 
 while `D(16n)/(m+1)` carries one `p` unless `p ∣ m+1`, and at such a POLAR `m` the binomial
 `C(11n, r−m)` carries exactly when `b_r = 0` — the units digit of `r−m` is that of `r+1`.
 THIS FILE PROVES THAT ACCOUNTING: `polyHalfOpen_of_coeffBound : CoeffBoundOpen → PolyHalfOpen`,
 axiom-free, with `CoeffBoundOpen` the per-`r` bound above as a named `Prop`.
 
-WHAT IS NOT CLAIMED.  `CoeffBoundOpen` is NOT proved here — it is measured, and its mechanism
-is mapped in the probe: a Kummer count on `h_m = Σ_i (−1)^{m−i} C(m,i) H(i)` gives it at 97 069
-of 97 120 rows, and the 51 others (all at `r ≡ −1 (mod p)`) are the sibling's run congruence on
-the four run strata plus one `m ≥ p²` pairing.  `polyHalfOpen_of_coeffBound` is a CONDITIONAL
-theorem whose type names that binder; `#print axioms` cannot see it (LEAN.md §1).  PT-P does NOT
-close and `Zeta2Target.zeta2_not_liouvilleWith` is `sorry`.
+HYPOTHESES.  `CoeffBoundOpen` enters here as a hypothesis.  `polyHalfOpen_of_coeffBound` is a
+CONDITIONAL theorem whose type names that binder; `#print axioms` cannot see it (LEAN.md §1).
+
+
+
+
 
 Falsifier: `falsify_ptppoly.sh` / `out_ptppoly_falsify.txt`.
 
@@ -183,9 +183,9 @@ theorem sub_mod_eq_succ_mod {p r m : ℕ} (hm : m ≤ r) (hd : p ∣ m + 1) :
 /-- `b_r = [(r+1) % p ≤ (11n) % p]` — the complement of the polar binomial's carry bit. -/
 def bbit (n p r : ℕ) : ℕ := if (r + 1) % p ≤ (11 * n) % p then 1 else 0
 
-/-- **THE ONE OPEN OBLIGATION OF THE POLYNOMIAL HALF.**  `v_p(D(15n)·a_r) ≥ φ̃ + b_r − 1` at
-every window cell and every `r < 16n`.  Measured at 97 120 of 97 120 rows
-(`ptp_poly_probe.out`); NOT proved here. -/
+/-- **THE ONE BOUND THE POLYNOMIAL HALF REDUCES TO.**  `v_p(D(15n)·a_r) ≥ φ̃ + b_r − 1` at
+every window cell and every `r < 16n`.
+A hypothesis here. -/
 def CoeffBoundOpen : Prop :=
   ∀ n p r : ℕ, p ∈ phiWindow n → r < 16 * n →
     PVal p (phiT (Int.fract ((n : ℚ) / (p : ℚ))) + bbit n p r - 1) ((coeff n r : ℤ) : ℚ)
@@ -247,8 +247,8 @@ theorem polyHalf_of_coeffBound {n p : ℕ} (hp : p ∈ phiWindow n)
   have hmle : m ≤ r := by have := Finset.mem_range.mp hm; omega
   exact pval_term hp hrlt hmle (h r hrlt)
 
-/-- **`PolyHalfOpen` FROM THE COEFFICIENT BOUND.**  Read the type: the hypothesis is the whole
-remaining content of the polynomial half, one valuation per `(n, p, r)`. -/
+/-- **`PolyHalfOpen` FROM THE COEFFICIENT BOUND.**  Read the type: the polynomial half follows
+from the one hypothesis, one valuation per `(n, p, r)`. -/
 theorem polyHalfOpen_of_coeffBound (h : CoeffBoundOpen) : PolyHalfOpen :=
   fun n p hp => polyHalf_of_coeffBound hp (fun r hr => h n p r hp hr)
 

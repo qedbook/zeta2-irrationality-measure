@@ -13,14 +13,14 @@ depends on `[propext, Classical.choice, Quot.sound]`, and its statement in
 
 ## What this module banks
 
-1. **`qnInt_ne_zero : ∀ n, qnInt n ≠ 0`, unconditionally.**  `Zeta2CarryFold.lean`'s own header
-   records that PT-QA's `padicValInt` form "carries a hidden hypothesis" `hq : qnInt n ≠ 0` and
-   that "no `∀ n, qnInt n ≠ 0` is landed anywhere in the corpus — the chain's `hrow` is
-   `∃ k, m₀ ≤ k ∧ qn k ≠ 0`, one index".  It is landed now, and cheaply: `hatQ` is a NEGATED sum
-   of positive binomial products, so `hatQ n < 0` at every `n`, and PAIR carries that across.
-   `padicValInt_qnInt_ge_phiSingle` below is PT-QA's cell statement with no hypothesis left.
+1. **`qnInt_ne_zero : ∀ n, qnInt n ≠ 0`, unconditionally.**  PT-QA's
+   `padicValInt` form carries the hypothesis `hq : qnInt n ≠ 0`; it is
+   proved here, and cheaply: `hatQ` is a NEGATED sum of positive binomial
+   products, so `hatQ n < 0` at every `n`, and PAIR carries that across.
+   `padicValInt_qnInt_ge_phiSingle` below is PT-QA's cell statement with
+   no hypothesis left.
 2. **`pow_dvd_qnInt_of_hat_bits`** — the hat's four-bit carry bound, stated about `qnInt`.  This
-   is the shape PT-QB's five gap-interval lemmas will feed.
+   is the shape PT-QB's five gap-interval lemmas feed.
 3. **The cell `(12, 103)` at the chain's own `q₁₂`**, and — the point of the row — the GAP it
    sits in, proved in Lean rather than read off a probe: `phiSingle (12/103) = 1` while
    `phiT (12/103) = 2`.  The tale-1 profile PT-QA delivers is strictly short there, so
@@ -28,10 +28,10 @@ depends on `[propext, Classical.choice, Quot.sound]`, and its statement in
 
 ## What this module does NOT claim
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.  `PhiT_dvd_qnInt` is NOT
-here: the hat bound is proved at ONE cell by kernel evaluation, not on the five gap intervals,
-and the five interval lemmas plus the profile dispatch are PT-QB's remaining work
-(`ptqb_gap_probe.out`, `ptqb_cover_probe.out`).
+`PhiT_dvd_qnInt` is NOT here: the hat bound is proved at ONE cell by kernel evaluation,
+not on the five gap intervals, and neither the five interval lemmas nor the profile
+dispatch is in this module.
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -50,8 +50,8 @@ open Zeta2Defs Zeta2Arith Zeta2Hat
 /-! ## PAIR applied -/
 
 /-- **`qnInt n ≠ 0` at every `n`.**  `Zeta2HatCarry.hatQ_ne_zero` through
-`Zeta2Pair8Close.pairing_q`.  This is the hypothesis PT-QA's `padicValInt_qnInt_ge_phi` takes
-and that its own header records as landed nowhere. -/
+`Zeta2Pair8Close.pairing_q`.  This is the hypothesis PT-QA's
+`padicValInt_qnInt_ge_phi` takes. -/
 theorem qnInt_ne_zero (n : ℕ) : qnInt n ≠ 0 := by
   rw [← Zeta2Pair8Close.pairing_q n]
   exact Zeta2HatCarry.hatQ_ne_zero n

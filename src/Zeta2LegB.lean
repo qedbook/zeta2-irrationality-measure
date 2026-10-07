@@ -147,9 +147,9 @@ the weights `1/(k+a)` sum to a HARMONIC sum, contributing one logarithm. The lem
 that step exactly — it converts a uniform relative bound on `E` into `δ · n · (harmonic sum)`, and
 `Mathlib`'s `harmonic_le_one_add_log` is then what supplies the logarithm to be beaten.
 
-`E` and `δ` are parameters rather than `θ − id` and MediumPNT's rate, because our chain compiles
-against CURRENT Mathlib while PNT+ is on a different toolchain — the hypothesis form recorded in
-the owner ruling. `MediumPNT` discharges `hE` with `δ = C·exp(−c(log x₀)^{1/10})`. -/
+`E` and `δ` are parameters rather than `θ − id` and MediumPNT's rate, so the lemma is stated in
+hypothesis form and reads no prime-number-theorem input itself. `MediumPNT` discharges `hE` with
+`δ = C·exp(−c(log x₀)^{1/10})`. -/
 
 /-- **The block error bound.** A uniform relative bound on `E` above a threshold, applied across
 the blocks, costs exactly the harmonic weight `∑ 1/(k+a)`. -/
@@ -408,7 +408,7 @@ theorem err_over_n_tendsto_zero (δ Lg : ℕ → ℝ) (c : ℝ)
 
 /-- **The `ψ → θ` transfer — and it needs NO PNT+ at all.**
 
-The design doc listed this as part of the cross-toolchain step. It is not: Mathlib's own
+This step uses Mathlib alone: its own
 `Chebyshev.abs_psi_sub_theta_le_sqrt_mul_log` gives `|ψ x − θ x| ≤ 2√x·log x` outright, so a `ψ`
 error bound transfers to `θ` entirely within current Mathlib.
 
@@ -416,8 +416,8 @@ The `2√x·log x` overhead is far inside budget: relative to `x` it is `2·log 
 `x ≥ √n` that is `≍ log n / n^{1/4}` — which still vanishes after multiplication by `log n`, the
 factor `harmonic_weight_bound` contributes. It is not the binding term; MediumPNT's rate is.
 
-**So the last gap is narrower than recorded**: only MediumPNT's rate on `ψ` itself has to cross
-the toolchain boundary. -/
+**So the one analytic input is MediumPNT's rate on `ψ` itself**, which `Zeta2Hpsi.hψ` proves from
+the vendored `MediumPNT`. -/
 theorem theta_error_le {x r : ℝ} (hx : 1 ≤ x) (hψ : |Chebyshev.psi x - x| ≤ r) :
     |Chebyshev.theta x - x| ≤ r + 2 * Real.sqrt x * Real.log x := by
   have htrans := Chebyshev.abs_psi_sub_theta_le_sqrt_mul_log hx
@@ -437,7 +437,7 @@ the normalised block sum converges to the density series `S(a,b) = ∑ₖ[1/(k+a
 
 The `hblk` hypothesis is exactly `block_sum_close` composed with `harmonic_weight_bound`; `hδ0`
 and `hδlog` are what `MediumPNT`'s rate supplies (via `theta_error_le`, which needs no PNT+).
-So this is leg B for one interval of the profile, modulo ONE external input: a `ψ` error bound.
+So this is leg B for one interval of the profile, modulo ONE input: a `ψ` error bound.
 
 `tendsto_profile_sum` then lifts it over the profile's 26 pieces. -/
 theorem legB_one_interval (a b : ℝ) (ha : 0 < a) (hab : a ≤ b) (hb1 : b ≤ a + 1)
@@ -503,8 +503,8 @@ theorem block_lower_bound (n K : ℕ) (hn : 0 < n) (a : ℝ) (ha : 0 < a)
 `harmonic_le_one_add_log`, giving exactly the shape `legB_one_interval` (and hence
 `legB_candidate_threaded`) takes as its per-piece hypothesis.
 
-With this, the only inputs leg B still needs from outside are `hE` (the `θ` error bound, which
-`theta_error_le` derives from `psi_error_bound`) and the two `hlow` threshold facts (which
+With this, the only hypotheses leg B takes are `hE` (the `θ` error bound, which
+`theta_error_le` derives from the `ψ` error bound) and the two `hlow` threshold facts (which
 `block_lower_bound` supplies at `x₀ = √n`). -/
 theorem hblk_assembled (n K : ℕ) (a b δ x₀ : ℝ) (ha : 0 < a) (hb : 0 < b) (hδ : 0 ≤ δ)
     (hE : ∀ x, x₀ ≤ x → |Chebyshev.theta x - x| ≤ δ * x)
@@ -567,8 +567,8 @@ theorem blockCount_tendsto :
 
 /-! ### D5b — the transfer that discharges `hE`
 
-`legB_candidate_final` still carries a `θ` error bound above `√n` as a hypothesis. The external
-input available is a `ψ` bound (`PsiErrorBound.psi_error_bound`, proved on PNT+ from `MediumPNT`).
+`legB_candidate_final` takes a `θ` error bound above `√n` as a hypothesis; the `ψ` error bound
+`Zeta2LegA.psiErrorBoundStatement` is what `Zeta2Hpsi.hψ` proves from the vendored `MediumPNT`.
 The four items below are what turn one into the other, ENTIRELY IN CURRENT MATHLIB:
 
 * `errRate` — an explicitly ANTITONE relative-error majorant. This is the threshold bookkeeping:
@@ -632,8 +632,8 @@ theorem exp_neg_half_log_mul_self {x : ℝ} (hx : 0 < x) :
   exact Real.mul_self_sqrt hx.le
 
 /-- **The `ψ → θ` transfer, in relative form.** Mathlib's own `psi_sub_theta_le_mul_sqrt` supplies
-the `O(√x)` overhead — no PNT+ is involved (LEAN.md §2: the design doc had priced this as
-cross-toolchain work; it is local). -/
+the `O(√x)` overhead — no PNT+ is involved (LEAN.md §2).
+-/
 theorem theta_rel_le_errRate {c C B x : ℝ} (hx : 1 ≤ x)
     (hψ : |Chebyshev.psi x - x| ≤ C * Real.exp (-c * (Real.log x) ^ ((1 : ℝ) / 10)) * x)
     (hpt : Chebyshev.psi x - Chebyshev.theta x ≤ B * Real.sqrt x) :

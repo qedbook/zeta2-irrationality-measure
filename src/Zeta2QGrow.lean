@@ -1,29 +1,29 @@
 /-
-# ROW QGROW — `hCq` and `hgrowth` at the real `Q`, **CONDITIONAL on `hψ`**
+# ROW QGROW — `hCq` and `hgrowth` at the real `Q`, from `hψ`
 
-**HEADLINE: `Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.**  Nothing here
-discharges it.  What this file closes is ONE of the chain's three remaining open rows, and it
-closes it in the shape the chain can actually deliver:
+
+What this file closes is row QGROW, as a theorem that takes `hψ` as a hypothesis
+(`Zeta2Hpsi.hψ` proves `hψ` itself, in this repository):
 
 ```
 Zeta2QGrow.qgrow_of_psi
     (hψ : Zeta2LegA.psiErrorBoundStatement) {ε' : ℝ} (hε' : 0 < ε') : Zeta2TWire.QGROW_open ε'
 ```
 
-**THE SHAPE CORRECTION, AND IT IS THE ROW'S MAIN FINDING.**  `Zeta2TWire.QGROW_open` is stated
-hypothesis-free, and the scaffold's `QGROW_sorried : QGROW_open ε'` (removed 2026-09-24) read as a
-promise that some file would discharge it outright; none then could.  `QT n` is `Δ̃ₙ · qₙ`
+**WHY `hψ`.**  `Zeta2TWire.QGROW_open` is stated hypothesis-free, and `QT n` is `Δ̃ₙ · qₙ`
 (`Zeta2HatAssemble.hQ_at_ΔT`), so a bound on `|QT n|` needs a bound on `Δ̃ₙ`, and EVERY landed
 theorem that rates `Δ̃` takes `hψ` as its first explicit argument — `Zeta2DRate.tendsto_log_ΔT_div`,
 `ΔT_growth`, `ΔT_growth_hc2`, `ΔT_clearing_rate`, `ΔT_clearing_rate_hc2`, `ΔT_rate_ne_31`, all six.
-`hψ` is `Zeta2LegA.psiErrorBoundStatement`, MediumPNT's error rate on Chebyshev's ψ, proved
-sorry-free in `PrimeNumberTheoremAnd` at ITS toolchain and undischarged at this pin; the owner's
-2026-09-20 ruling (fork answered **A**) makes it an accepted STANDING BINDER of the headline.  So
-the row's deliverable is `hψ → QGROW_open ε'` and the chain doc's QGROW cell already says so
-("SO THIS ROW DELIVERS `hψ → hgrowth`, NOT `hgrowth`, corrected 2026-09-20"); this file is the
-first place the correction is carried into Lean rather than into prose.  `RDECAY_open` has the
-identical shape and the identical reason — it routes through `ΔT_clearing_rate_hc2` too — and its
-own blocker (L7ID's `candidateM.rn` identification) is unchanged by anything here.
+`hψ` is `Zeta2LegA.psiErrorBoundStatement`, MediumPNT's error rate on Chebyshev's ψ; it enters
+this file as a hypothesis.
+
+
+
+So the row's deliverable is `hψ → QGROW_open ε'`.
+
+
+
+
 
 **AND `#print axioms` CANNOT SEE ANY OF THIS** (LEAN.md §1, the trap added 2026-09-20): a binder is
 not an axiom, so `qgrow_of_psi` prints a footprint byte-identical to an unconditional theorem's.
@@ -61,7 +61,7 @@ and `α₃` is `−ofList cⱼ`, whose coefficient at 510 is `−leadⱼ`.  `Zet
 theorem `candidate_rn_growth_of_recurrence` asks for the UNSIGNED shape and cannot be used here;
 this file goes one level lower, to `Zeta2XL1.degree_lead_of_coeff` and `Zeta2StarB1`'s capstone,
 and carries the sign explicitly.  The `A`-constants are unaffected — `|a / −b| = |a / b|` — which
-is measured by the theorems of §5 and not assumed.
+the theorems of §5 prove rather than assume.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -273,15 +273,15 @@ theorem qn_growth : ∃ (C : ℝ) (N : ℕ), 0 ≤ C ∧
 
 /-! ## §7. THE ROW — legs (ii) and (iii), and the conditional shape
 
-The conclusion is `Zeta2TWire.QGROW_open ε'` **verbatim**, not a twin: the scaffold's `Prop` is
+The conclusion is `Zeta2TWire.QGROW_open ε'` **verbatim**, not a twin: `Zeta2TWire`'s `Prop` is
 what the capstone consumes, so a consumer built to a guessed shape is impossible here. -/
 
 /--
-**QGROW, CLOSED CONDITIONALLY ON `hψ`.**
+**QGROW, from `hψ`.**
 
-`hψ : Zeta2LegA.psiErrorBoundStatement` is INHERITED, NOT DISCHARGED — it enters through
-`Zeta2DRate.ΔT_clearing_rate`, whose first explicit argument it is, and it is the standing binder
-the owner's 2026-09-20 ruling accepts.  `#print axioms` on this theorem reads
+`hψ : Zeta2LegA.psiErrorBoundStatement` is this theorem's hypothesis, proved as `Zeta2Hpsi.hψ`;
+it enters through `Zeta2DRate.ΔT_clearing_rate`, whose first explicit argument it is.
+`#print axioms` on this theorem reads
 `[propext, Classical.choice, Quot.sound]` and says NOTHING about that; read `#check @qgrow_of_psi`
 beside it.
 
@@ -302,7 +302,7 @@ theorem qgrow_of_psi (hψ : Zeta2LegA.psiErrorBoundStatement) {ε' : ℝ} (hε' 
   rw [mul_one]
   exact mul_le_mul_of_nonneg_right (by linarith) hbase
 
-/-- **The row against the scaffold's own corrected interface.**  `Zeta2TWire.QGROW_deliverable`
+/-- **The row against `Zeta2TWire`'s own corrected interface.**  `Zeta2TWire.QGROW_deliverable`
 is `hψ → QGROW_open ε'`, added by this row's landing; inhabiting it is what makes "QGROW is
 closed" a statement the typechecker can check rather than one the doc asserts. -/
 theorem qgrow {ε' : ℝ} (hε' : 0 < ε') : Zeta2TWire.QGROW_deliverable ε' :=
@@ -318,8 +318,8 @@ theorem hgrowth_of_psi (hψ : Zeta2LegA.psiErrorBoundStatement) {ε' : ℝ} (hε
 
 /-! ## §8. THE COMPOSITION, EXECUTED — T-WIRE with QGROW no longer a hypothesis
 
-`Zeta2TWire.target_of_open_rows` binds the three open rows.  This is the same application with
-QGROW supplied from §7, so the chain's remaining obligations are exactly PT-P, RDECAY and `hψ`.
+`Zeta2TWire.target_of_open_rows` binds the three rows.  This is the same application with
+QGROW supplied from §7, so its hypotheses are exactly PT-P, RDECAY and `hψ`.
 It is the LEAN.md §3 acceptance for this row: the theorem produced is the theorem consumed. -/
 
 theorem target_of_two_open_rows (hψ : Zeta2LegA.psiErrorBoundStatement)

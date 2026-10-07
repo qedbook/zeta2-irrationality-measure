@@ -2,17 +2,17 @@
 # L12 at the REAL objects — `hu`, `hv`, `hmu` of `candidate_target_of_rates`, discharged
 
 `Zeta2L9L11Instantiate.candidate_target_of_rates` concludes `¬ LiouvilleWith 5.0495243 zeta2`
-from **17** named hypotheses.  Three of them are row L12's, and D3's dependency table graded
-them "certified numerically" — the only row of the seventeen whose warrant was a Python
-computation rather than a theorem:
+from **17** named hypotheses.  Three of them are row L12's — the only row of the seventeen
+whose warrant was a Python computation rather than a theorem:
+
 
 * `hu : 0 < u`,  `hv : 0 ≤ v`,  `hmu : 1 + v / u < 5.0495243`,
 
 in the vocabulary the criterion consumes, where `ρr = Real.exp (-u)` is the decay base and
 `ρq = Real.exp v` the growth base.  **This file turns that certification into Lean theorems and
-discharges all three, leaving 14.**  `Zeta2D4.L12_bound` did the arithmetic over `ℚ`; nothing
-connected it to the `ℝ`-valued `u`/`v` the criterion actually quantifies over, and `ℚ → ℝ` is
-not where the interest is.
+discharges all three**, at the `ℝ`-valued `u`/`v` the criterion actually quantifies over.
+
+
 
 ## The collapse — the same SHAPE as C7's, for a different reason
 
@@ -44,7 +44,7 @@ places of enclosure fail.  The rational rates here are the archived constants ro
 | **at the re-cut rates below (`c2 ≤ 15.01912095`)** | `5.049524298759807` | margin `1.2402e-9` |
 | at 7-decimal rates | `5.049524343188369` | **OVER by `4.3188e-8`** |
 
-`L12_seven_decimals_insufficient` is that third row as a theorem.
+`L12_seven_decimals_insufficient` is that last row as a theorem.
 
 ## The 2026-09-18 re-cut of `c2` (row HC2)
 
@@ -62,7 +62,7 @@ enclosures, i.e. `14.0887503199999999`, with no ulp thrown away.  The `hδ` boun
 what that literal's last digits encode, and `uRate_le_certified` is `linarith` from it.
 
 Elaborated against CURRENT Mathlib (`v4.34.0-rc2`, mathlib `5aedf732`) on the buildbox; Lean
-never runs on the laptop (owner ruling 2026-09-07).
+never runs on the laptop.
 -/
 import Zeta2L9L11Instantiate
 
@@ -175,7 +175,7 @@ confirms that `uRate_pos`, `vRate_nonneg` and `L12_rational_gap` have exactly th
 `Zeta2L9L11Instantiate.candidate_target_of_rates` except L12's three, with the decay and growth
 bases written as the rational literals `exp(−uRate)` and `exp(vRate)`.
 
-Fourteen hypotheses remain, all of them other rows': `hrecq`/`hrecp` (L1, rows B1–B5),
+Its fourteen hypotheses are all other rows' outputs: `hrecq`/`hrecp` (L1, rows B1–B5),
 `hΔne`/`hQ`/`hP` (A1–A4 / L10 clearing), `hN₁`/`hM₀`/`hα₃`/`hα₀`/`hrow` (D4-L4),
 `hCr`/`hdecay` (C1–C7 + L7 + L8 + L10) and `hCq`/`hgrowth` (D1/L5 + L10).
 -/
@@ -210,7 +210,7 @@ the transcendental `u = C0 − C2̃ − δ` and `v = C1 + C2̃`, not at rational
 form that consumes them directly, with §2's monotonicity doing the transport and §3's
 enclosures — the four numbers upstream rows actually certify — as the only arithmetic input.
 
-Still fourteen hypotheses on the chain's side; the four enclosure facts are C7's, L2/L3's, D5's
+The same fourteen chain-side hypotheses as above; the four enclosure facts are C7's, L2/L3's, D5's
 and route B's outputs, not new obligations.  `hc2` at `15.01912095` is delivered by
 `Zeta2DPhi.hc2_of_dphi` (row HC2, 2026-09-18) for `c2 := 31 − d_φ̃ + ε'`, `ε' ≤ 1e-8`;
 `Zeta2Hc2.candidate_target_of_hc2` is this theorem with that binder discharged.
@@ -246,7 +246,7 @@ theorem candidate_target_of_certified_constants
 
 /-! ## §5. Edges — LEAN.md §5
 
-Four hypotheses in this corpus have been found Lean-vacuous or wrong-but-green.  Each theorem
+A hypothesis can be Lean-vacuous, and a wrong number can sit in a green file.  Each theorem
 below makes one such reading a positive fact, so nobody can simplify the hypothesis away without
 turning a green file red. -/
 
@@ -323,8 +323,8 @@ theorem L12_archived_real :
 
 /-! ## §6. Receipts — LEAN.md §1: exit 0 attests nothing, `#print axioms` does.
 
-`Zeta2Target.lean`'s deliberate `sorry` is not in this file's dependency graph: nothing here
-imports it. -/
+
+-/
 
 #print axioms uRate_pos
 #print axioms vRate_nonneg

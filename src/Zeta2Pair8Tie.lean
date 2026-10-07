@@ -3,17 +3,17 @@
 
 `docs/future/zeta2-lean-chain.md` row PAIR-8.
 
-**Why this file exists, and why no cell named it until PAIR-6's landing.**  PAIR-6 proves
+**Why this file exists.**  PAIR-6 proves
 `Σ_{j<4} β̂ⱼ(n)·hatQ(n+j) = 0` with `β̂ⱼ(n) = Zeta2Pair6.betaHat n j` built from
 `StarForallCandt2.alⱼ`, the GENERATED base module's literal `List ℚ`.  PAIR-7 proves
 `β̂ⱼ(n)·λden(n) = γⱼ(n)·λnum(n)` with `β̂ⱼ(n) = Zeta2Pair7J<j>.betaHat n` built from that
 module's own `zh.map (· / dh)`.  They are the same rationals through two encodings, and
-`Zeta2Pair7J<j>` does not import the base — `alⱼ` is not even in scope there — so **nothing in
-Lean connects them** and PAIR-8 cannot multiply one row's conclusion by the other's until
-something does.  That is §6a's lesson in its original words, one layer further in:
+`Zeta2Pair7J<j>` does not import the base — `alⱼ` is not even in scope there — so the two
+encodings have to be connected in Lean before PAIR-8 can multiply one row's conclusion by the
+other's, and this file is that connection.  The same principle, one layer further in:
 
-> a `c3_ne_zero` about `hornerZ c3` discharges nothing about a coords-derived `α₃` until
-> STAR-ID (ii) identifies them.
+> a `c3_ne_zero` about `hornerZ c3` discharges nothing about a coords-derived `α₃` unless the
+> two are first identified in Lean.
 
 Measured equal in exact ℚ (155 coefficients at each of the four indices, 0 of 4 disagree —
 `pair8_check.py` §T, rebuilt from the committed coords, with a negative control).  A
@@ -26,10 +26,10 @@ measurement is not a theorem; sections 1 and 2 below make it one, at four `decid
   * `pair7N      : Zeta2Pair6.betaHat n j * λden n = gammaN n j * λnum n`, i.e. PAIR-7's row
     restated at PAIR-6's OWN operator and at ONE `λ` rather than four namespaced copies.
 
-**What is NOT proved here.**  Nothing about `λden ≠ 0` (that is `Zeta2Pair8Lam`) and nothing
-about `hatQ n = qnInt n` (that is `Zeta2Pair8`, and it is CONDITIONAL — see its header).
+**What this file does not touch.**  Nothing about `λden ≠ 0` (that is `Zeta2Pair8Lam`) and
+nothing about `hatQ n = qnInt n` (that is `Zeta2Pair8` and `Zeta2Pair8Close`).
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2Pair8Tie.lean
 

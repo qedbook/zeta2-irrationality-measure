@@ -3,7 +3,7 @@
 
 `docs/future/zeta2-lean-chain.md` row PAIR-5, §PAIR-5 design notes attempt 5.
 
-**What the row owed that this file pays, and the reason it is smaller than the row thought.**
+**What this file proves, and the reason it is smaller than the row thought.**
 Attempts 3 and 4 read PAIR-5 as needing `Ŝ`'s poles **in lowest terms** — `T₁ ∪ T₂`,
 `deg W = 19n+114`, which is what the exact-ℚ probe computes and what `Zeta2HatCancel` states — and
 the residual was written down as obligation **(b), the TRANSFER**: that `Ŝ`'s `Finset.prod`s of
@@ -12,7 +12,7 @@ terms.**  `Zeta2PF.partialFractions_res` takes the pole sets as GIVEN and SOLVES
 so a pole the numerator kills simply gets residue `0`, unproved and unmentioned — exactly as
 PAIR-4R's own `Zeta2HatPoles.hatDen` is written and not reduced (`hat_res_cancelled` on `[7n+1, 9n]`
 is the same phenomenon one row earlier).  So the route is: **take `Ŝ`'s written denominator,
-regroup it, and stop.**  Obligation (b) is deleted from the row rather than discharged.
+regroup it, and stop.**  Obligation (b) is not needed on this route.
 
 **The regrouping.**  `Ŝ`'s written denominator is the member's two runs times `D`'s two integer runs
 

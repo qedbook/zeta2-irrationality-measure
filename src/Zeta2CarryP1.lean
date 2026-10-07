@@ -23,8 +23,8 @@ PT-QA dispatches on `x = {n/p}` and its first case is `x ∈ [1/15, 1/13)`.  The
   **11558 cells, of which 97 (0.84%) have `p ≤ 13n`** — exactly the cells with `p < n`, the
   smallest being `(n, p) = (31, 29)` with `{31/29} = 2/29 ∈ [1/15, 1/13)`.
 * and on those cells THIS ROW'S ROUTE genuinely does not reach: in all 40 sampled gap cells
-  the first carry bit is `0` somewhere in the window (the four-bit SUM is never `0`, so the
-  profile claim survives — by a different bit).  `piece1_offbracket_route_fails` ships that
+  the first carry bit is `0` somewhere in the window (the four-bit SUM is never `0` there: a
+  different bit carries).  `piece1_offbracket_route_fails` ships that
   as a theorem at the smallest witness, so PT-QA cannot inherit the bracket by mistake.
 
 So PT-QA's piece-1 case is `PT-Q1` **plus** an argument for `p < n`; PT-Q1 covers exactly the
@@ -115,8 +115,8 @@ theorem piece1_bracket_lt_interval :
 
 /-- **And on that cell PT-Q1's ROUTE provably does not reach.**  `k = 491` is in the window
 of `n = 31` and the first carry bit is `0` there, so a PT-QA piece stated on `{n/p}` alone
-cannot be discharged by `carry_bit1_piece1`.  (The four-bit SUM is still ≥ 1 there — the
-profile claim survives by a different bit; see `piece1_scope_probe.out` ARM C.) -/
+cannot be discharged by `carry_bit1_piece1`.  (The four-bit SUM is still ≥ 1 there, through a
+different bit; see `piece1_scope_probe.out` ARM C.) -/
 theorem piece1_offbracket_route_fails :
     491 ∈ candidateM.window 31
       ∧ ¬ (29 ≤ (13 * 31) % 29 + (491 - 13 * 31 - 1) % 29) := by

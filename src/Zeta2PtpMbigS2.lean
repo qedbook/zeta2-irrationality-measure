@@ -25,9 +25,9 @@ Folded (`Zeta2PtpFold.hc_eq_fold`), block by block `t < p`:
 **`restAboveS2Open : Zeta2PtpMbigS7.RestAboveS2Open`**, so **`restAboveOpen`** and
 **`polyHalfOpen : Zeta2PtpPolar.PolyHalfOpen`** — hypothesis-free.
 
-WHAT IS NOT CLAIMED.  The harmonic half and the rest of PT-P are not touched here; the
-headline `Zeta2Target.zeta2_not_liouvilleWith` is still `sorry` and carries PT-P's other rows and
-the standing binder `hψ` as the chain doc states.
+WHAT IS NOT CLAIMED.  The harmonic half and the rest of PT-P are not touched here.
+
+
 
 Probe: `ptp_mbig_probe.py`, `ptp_mbig_phi2_probe.py`.  Runner: `run_resid.sh`.
 

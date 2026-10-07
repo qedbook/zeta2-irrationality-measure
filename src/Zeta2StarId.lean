@@ -26,9 +26,9 @@ each, so nothing here trusts a reading of the engine's data.
 
 **What this file does NOT do.**  It does not prove (ii) — the operator identity between the
 coords' `Ãⱼ` and the chain's cleared `cⱼ` — nor any nonvanishing, nor the composition
-`Σ αⱼ Φ(ρ_{n+j}) = 0`, which is L1-ASM's.  `Zeta2Target.zeta2_not_liouvilleWith` is still `sorry`.
+`Σ αⱼ Φ(ρ_{n+j}) = 0`, which is L1-ASM's.
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2StarId.lean
 

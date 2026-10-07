@@ -28,7 +28,7 @@ L5-at-`qₙ` hands over, rather than L12's `exp (c1 + c2) ^ n`.  The bridge betw
 `Real.exp_log` at `c1 := Real.log rhoChar`, discharged here once.
 
 Elaborated against CURRENT Mathlib (`v4.34.0-rc2`, mathlib `5aedf732`) on the buildbox; Lean never
-runs on the laptop (owner ruling 2026-09-07).  Names verified at that pin 2026-09-19:
+runs on the laptop.  Names verified at that pin 2026-09-19:
 `Real.exp_one_near_20`, `Real.sum_le_exp_of_nonneg` and `Real.exp_nat_mul` are all present in the
 cited spellings; `pow_le_pow_left` is NOT — it is `pow_le_pow_left₀` here (LEAN.md §8).
 -/

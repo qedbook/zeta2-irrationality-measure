@@ -40,14 +40,14 @@ which at `n = 0` was stated only at `a = A m`, (ii) the finite `k`-sum, which `n
 have (its window is the single pole `k = 1`), and (iii) the `m ↦ m − 4n` reindexing of the
 summable majorant.
 
-WHAT IS NOT PROVED, so the ROW still does not close:
-  * obligation 2, the ESTIMATE, is untouched — this file bounds `∫‖F_m‖` well enough to
+WHAT THIS FILE DOES NOT STATE:
+  * obligation 2, the ESTIMATE, is not touched here — this file bounds `∫‖F_m‖` well enough to
     interchange, which is a far weaker statement than the row's rate needs.
   * the per-`m` integrals `∫ F n m` are not EVALUATED here.  At `n = 0` they are
     `0 / 0 / 2π(m−1)⁻²` (`Zeta2L7LineInt.integral_term_ge_two`/`_le_zero`); at general `n` the
     `k`-sum and the window make that a separate obligation.
-  * the `Ppol` arm's value still rests on `Zeta2L7IdMoment.SechMomentTable`, a `Prop`.
-  * NOTHING here mentions `candidateM.rn`, so RDECAY gains nothing.
+  * the `Ppol` arm's value.
+  * NOTHING here mentions `candidateM.rn`.
 
 ACCEPTANCE (LEAN.md §1, as sharpened 2026-09-20): the receipt AND the printed type.  Every
 theorem below prints both; the only binders are `n : ℕ`, `m : ℤ`, `k : ℝ`, `s : ℝ`, `a : ℝ` and

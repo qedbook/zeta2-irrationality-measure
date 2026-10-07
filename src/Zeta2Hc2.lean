@@ -14,7 +14,7 @@ inputs at exactly this `c2` (`c2 = 31 − d_φ̃ + ε'` is DRATE's own definitio
 RDECAY/QGROW the rate bounds, L1-ASM the recurrences, PT-\* the clearing.
 
 Elaborated against CURRENT Mathlib (`v4.34.0-rc2`, mathlib `5aedf732`) on the buildbox; Lean
-never runs on the laptop (owner ruling 2026-09-07).
+never runs on the laptop.
 -/
 import Zeta2DPhi
 import Zeta2L12

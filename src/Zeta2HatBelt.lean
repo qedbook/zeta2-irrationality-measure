@@ -5,8 +5,8 @@
 of the recurrence, so the cell is `Ĉ n` while `hatP (n+j)` is BUILT at `Ĉ (n+j)`.  The row asserts
 they agree when `Ĉ n` lies in member `n+j`'s separating belt, and `hat_rep_probe.out` §C measured
 that on 22 of 22 `(n,j)` pairs at `n ≤ 6` — 18 agree, 4 fail, and agreement ⟺ the inequality, the
-failures in the RATIONAL coordinate alone.  `Zeta2HatRepOne.belt_rat_coord_one_one` proved the
-smallest instance with `j > 0` by kernel computation (4.64 s).  This file is the ∀(n,j) proof.
+failures in the RATIONAL coordinate alone.
+This file is the ∀(n,j) proof.
 
 **The mechanism, and it is not a contour argument in Lean.**  Moving the cell from `Ĉ (n+j)` to
 `Ĉ n` adds exactly `8j` to EVERY alternating-sum length `L_k = 2k − 8N − 2`, at all three pole
@@ -26,7 +26,7 @@ soon as `8m + 1 − u` lands in `[3m+2, 20m+1]` — i.e. as soon as `u + 1 ≤ 5
 is `8j ≤ 5(n+j)`, i.e. `3j ≤ 5n`, which `j ≤ 3` and `2 ≤ n` give with room (`9 ≤ 10`).  The row's
 recorded belt is `3j ≤ 5n + 1` — one wider, because it also admits the EVEN `u` where the second
 numerator run `∏_{l=1}^{5m}(t + l)` vanishes instead.  That extra case is not needed at `j ≤ 3`
-and is deliberately not built: the hypothesis this row owes PAIR-6 is `2 ≤ n`, and the sufficient
+and is deliberately not built: PAIR-6 applies this row only at `2 ≤ n`, and the sufficient
 condition proved here covers all of it.
 
 **No engine literal is emitted by this row** either — every number here is an index, and the

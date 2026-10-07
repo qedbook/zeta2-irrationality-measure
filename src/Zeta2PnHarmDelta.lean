@@ -31,11 +31,11 @@ Write `m := k - 4n - 1 ∈ [11n, 22n]`, `E := ⌊log_p m⌋`, `q := p^E`.  `ord_
   about the other two factors and nothing is needed about any other level: no termwise
   nonnegativity, no Legendre line, no `26n+1 < p²` window.
 
-## What this file does NOT claim
+## What this file closes
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.  This closes ONE row of
-the chain (PNCLR).  Its consumer PT-P — `(PhiT n : ℤ) ∣ P n` for the witness `P` this row now
-produces — is open, and so are L7ID, L1-ASM, QGROW, RDECAY and T-WIRE.
+This closes row PNCLR of the chain.  Its consumer is PT-P — `(PhiT n : ℤ) ∣ P n` for the
+witness `P` this row produces.
+
 
 ## The constant, and the two right answers about it
 
@@ -54,9 +54,9 @@ measurement rather than from taste.
   from the units digit to an arbitrary position `e`**, by the same idiom (`padicValNat_choose'`
   plus `Finset.card_pos`), with the landed lemma recovered at `e = 1`.  It is proved here rather
   than in `Zeta2HatCarry` only to keep this file's dependency set from dragging
-  `Zeta2Hat`/`Zeta2Legendre`/`Zeta2CarryP1`/`Zeta2CarryFull`/`Zeta2CarryFold` in for one lemma;
-  `Zeta2HatCarry` is its right long-term home and the units-digit atom should become the `e = 1`
-  instance there.
+  `Zeta2Hat`/`Zeta2Legendre`/`Zeta2CarryP1`/`Zeta2CarryFull`/`Zeta2CarryFold` in for one lemma.
+
+
 * The four-factor `padicValNat.mul` split and its `Nat.choose_ne_zero (by omega)` side
   conditions are `Zeta2Arith.padicValNat_cTerm`'s, reused verbatim — that lemma itself is NOT
   usable here, because it needs `26n + 1 < p²` and the pressured primes are exactly the ones

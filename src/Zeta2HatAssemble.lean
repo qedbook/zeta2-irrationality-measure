@@ -27,10 +27,10 @@ leaves, and every leaf is one `exact`.
   value of `φ`.  Landed as clump 3 precisely for this; PT-QA proved the disjointness and drew
   no consequence from it.
 * **`phiT_spec`** — the same `find?` fact for the SECOND profile, proved here.  It is the
-  weaker direction (`phiT x` is `0` or SOME containing row's value) and needs no `Pairwise`,
-  which `candidateProfile` still does not have: the dispatch goes FROM `phiT`'s own value and
-  never has to come back to it, so clump 3's note that `candidateProfile`'s `Pairwise` is the
-  last unmeasured piece of the uniqueness layer turns out not to bind here.
+  weaker direction (`phiT x` is `0` or SOME containing row's value) and needs
+  no `Pairwise`: the dispatch goes FROM `phiT`'s own value and never has to
+  come back to it.
+
 * **`Zeta2HatQnInt.pow_dvd_qnInt_of_hat_bits`** — PAIR, executed, carrying a hat carry-bit
   statement to the chain's own `qₙ`.
 
@@ -42,9 +42,9 @@ the pairwise hypothesis is `Nat.coprime_primes` transported to `ℤ` and raised 
 
 ## What this file does NOT claim
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.  `hQ` is ONE of the chain's
-binders; `hP` (PT-P), `hdecay`, `hgrowth` and the rest are elsewhere and mostly open.  Nothing
-here says `Φ̃` is the BEST clearing, only that it divides.
+`hQ` is ONE of the chain's binders; this file says nothing about `hP`, `hdecay`, `hgrowth`
+or the rest.  Nothing here says `Φ̃` is the BEST clearing, only that it divides.
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -377,7 +377,7 @@ theorem padicValInt_qnInt_ge_phiT (n p : ℕ) [Fact p.Prime] (hp2 : 26 * n + 1 <
 
 /-! ## `hQ` at `Δ̃`, which is what the chain's binder consumes -/
 
-/-- `Q n = Δ(16n)·D(15n)·qₙ / Φ̃ₙ`, an EXACT `ℤ`-division: `PhiT_dvd_qnInt` is what makes it
+/-- `Q n = D(16n)·D(15n)·qₙ / Φ̃ₙ`, an EXACT `ℤ`-division: `PhiT_dvd_qnInt` is what makes it
 exact, and without it this definition would silently truncate. -/
 def QT (n : ℕ) : ℤ := ((Zeta2Arith.Δ 16 15 n : ℕ) : ℤ) * qnInt n / ((PhiT n : ℕ) : ℤ)
 

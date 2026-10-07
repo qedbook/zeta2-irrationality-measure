@@ -8,16 +8,16 @@ is the rest of the value half and the row's target theorem:
 
     theorem rn_eq_neg_rLine_zero : candidateM.rn 0 = -L7MidM5.rLine 0
 
-**Headline: `Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.**  This file
-closes ONE row of the chain and moves no other row's grade.
+This file closes row L7ID-0.
+
 
 The four pieces the cell named, and what each turned out to be:
 
 * **(b) the hinge off `ℍₒ`.**  `Zeta2MB.pi_sq_div_sin_sq_eq_tsum` needs `z ∈ ℍₒ`, while the
   contour `−½ + is` has `Im = s` and runs over ALL of `ℝ`.  The cell priced a CONJUGATION
-  extension (`Complex.sin_conj`, `integral_conj`, …).  **That is not the cheapest route and one
-  of its four named lemmas does not exist**: `MeasureTheory.integral_conj` is an unknown
-  identifier at this pin (measured, this file's `Names` section records the two that do exist).
+  extension (`Complex.sin_conj`, `integral_conj`, …).  **That is not the cheapest route**, and
+  `MeasureTheory.integral_conj`, as the cell spelled it, is not a name at this pin: the lemma is
+  the root-level `integral_conj` (this file's `Names` section `#check`s `Complex.sin_conj`).
   What replaces it is a REINDEXING symmetry, `§1`: both sides of the hinge are EVEN in `s` on
   this contour — the left because `sin(π(−½+is)) = −cosh(πs)` (`Zeta2L7Id0.sin_pi_lineB_zero`)
   and `cosh` is even, the right because `m ↦ 1 − m` is an involution of `ℤ` carrying the `s`
@@ -222,8 +222,8 @@ Nothing in M4/M5 is available here: `L7MidM5.integrable_Hn_lineB`, `norm_Hn_line
 `norm_rIntC_le` and `lineB_eq_contourB` are all gated `1 ≤ n`.  What the route actually needs,
 though, is NOT integrability of `H₀ ∘ lineB 0` — `integral_tsum_of_summable_integral_norm` asks
 for integrability of each TERM, and the value it produces is a complex equation, so the
-`Complex.re`-through-an-integral step (no named Mathlib lemma; three lines and an `Integrable`
-hypothesis) is never taken.  That is the cell's piece (d), and it is cheaper than the cell
+`Complex.re`-through-an-integral step (Mathlib's root-level `integral_re`, which needs an
+`Integrable` hypothesis) is never taken.  That is the cell's piece (d), and it is cheaper than the cell
 priced it BECAUSE the route changed, not because the estimate was wrong. -/
 
 theorem norm_term (m : ℤ) (s : ℝ) :

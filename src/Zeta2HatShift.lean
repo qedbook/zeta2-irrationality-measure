@@ -30,9 +30,9 @@ subtraction, so `Lhat N (k+1) = Lhat N k + 2` needs `4N + 1 ≤ k`; below that t
 both sides `0` and the law is FALSE.  `hat_bdy_probe.py` §C exhibits reps with one key at
 `k = 4N` that break it, so the hypothesis is tested where it binds and not only where it holds.
 
-**What this file does NOT do**, stated here because the row is not closed by it: it does not
-exhibit `repS n : Rep̂` representing the (★) antidifference `Ŝ`.  What is measured about that
-object, in exact rationals on the landed `coords/starcoords_cand-t2.txt`
+**What this file does NOT do**: it does not exhibit `repS n : Rep̂`, which represents the (★)
+antidifference `Ŝ` less a constant `C₀`; `Zeta2HatRepS.repS` does.  What is measured about `Ŝ`,
+beside the Lean proofs there, in exact rationals on the landed `coords/starcoords_cand-t2.txt`
 (`external_tests/zeta2_star_b1/hat_bdy_probe.py`, 54 checks, six falsifier arms RED):
 
   * `Ŝ`'s poles are at negative INTEGERS, of order ≤ 2, the smallest at `k = 9n+1` — so it is
@@ -43,20 +43,20 @@ object, in exact rationals on the landed `coords/starcoords_cand-t2.txt`
     precisely while `5n ≤ 9`.  The row's stated `2 ≤ n` is what the data hands back, from a third
     direction independent of PAIR-4C's `3j ≤ 5n` and of the engine's defect set.
 
-**AND ONE THING THIS FILE'S FIRST PASS ASSUMED AND DID NOT MEASURE** (`hat_repS_probe.py`,
+**And one more measured fact, which shapes the law's form** (`hat_repS_probe.py`,
 2026-09-13, 95 checks / seven arms RED): **`Ŝ` IS NOT PROPER.**  `deg num = deg den = 22n + 125`
 exactly at every `n` of the ladder — `5` from `b̂` plus `120` from `x̂` plus the member's `22n`,
 against the member's `22n+2` plus `D`'s `123` — so `Ŝ(∞) = C₀ ≠ 0`, and since `evalRep` of any
 `Rep̂` tends to `0`, **no `Rep̂` represents `Ŝ` at all**.  `repS n` represents `Ŝ − C₀`, whose two
 strip samples are `−C₀` and not `0`, so `hbdy_hat`'s `hz0`/`hz1` are BOTH FALSE at the object
-this row exists to build.  The law still applies — through `hbdy_hat_eq`, whose strictly weaker
+the row is about.  The law still applies — through `hbdy_hat_eq`, whose strictly weaker
 hypothesis is that the two samples are EQUAL, where the two constants cancel.  `hbdy_hat` is kept
 as its corollary because `repHat` does satisfy it; the row's own object does not.
 
-So the residual is the CONSTRUCTION of `repS`, not the vanishing argument, and `hbdy_hat_eq`
-below is stated so that construction is all it will need.  `hbdy_hat_repHat` discharges every
-hypothesis from landed lemmas at the hat member itself, so the composition is executed here and
-not left on paper (LEAN.md §3).
+`hbdy_hat_eq` below is the form `Zeta2HatRepS.hbdy_hat_n` applies at `repS`.  `hbdy_hat_repHat`
+discharges every hypothesis from landed lemmas at the hat member itself, so the composition is
+executed here and not left on paper (LEAN.md §3).
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -246,14 +246,14 @@ theorem Phihat_repDelta (N : ℕ) (r : Rephat)
 
 /-- **ROW PAIR-5** — `hbdŷ`, in the form the row's OWN object satisfies.
 
-`hbdy_hat` below asks for the two strip samples to VANISH, and at `repS n` — the (★)
-antidifference's representation — they provably do not.  Measured 2026-09-13 in exact ℚ on the
+`hbdy_hat` below asks for the two strip samples to VANISH, and at `repS n` they do not.
+Measured 2026-09-13 in exact ℚ on the
 landed coordinates (`external_tests/zeta2_star_b1/hat_repS_probe.py`, 95 checks, seven arms RED):
 **`Ŝ` is NOT PROPER.**  `deg num = deg den = 22n + 125` exactly, at every `n` of the ladder —
 `5` from `b̂` plus `120` from `x̂` plus the member's `22n`, against the member's `22n+2` plus
 `D`'s `123` — so `Ŝ(∞) = C₀ ≠ 0`, while `evalRep` of ANY `Rep̂` tends to `0`.  No `Rep̂`
-represents `Ŝ`; what `repS n` represents is `Ŝ − C₀`, and its value at BOTH strip points is
-therefore `−C₀ ≠ 0` rather than `0`.
+represents `Ŝ`; what `repS n` represents is `Ŝ − C₀` (`Zeta2HatRepS.evalRep_repS_eq_shat`),
+so its value at BOTH strip points is `−C₀ ≠ 0` rather than `0`.
 
 The two constants cancel in `Phihat_repDelta`'s difference, so the hypothesis this row must be
 applied through is the strictly weaker EQUALITY of the two samples.  `hbdy_hat` is kept as its
@@ -275,8 +275,8 @@ theorem hbdy_hat (N : ℕ) (r : Rephat)
 
 /-! ## 5. Non-vacuity — every hypothesis discharged, from landed lemmas, at a real object
 
-LEAN.md §3: a theorem whose hypotheses nobody has produced composes on paper.  `repHat m` is the
-only `Rep̂` the corpus currently has, and it satisfies all four hypotheses — the support bounds
+LEAN.md §3: a theorem whose hypotheses nobody has produced composes on paper.  `repHat m`
+satisfies all four hypotheses — the support bounds
 structurally, and the two strip zeros through PAIR-4R (`evalRep_slice_zero`, which is where the
 member's `(2t + l)` numerator run is spent). -/
 
@@ -307,7 +307,7 @@ theorem repHatB_support (n k : ℕ) (hk : k ∈ (repHatB n).support) : 9 * n + 1
 
 /-- **The row's theorem, with nothing left assumed**, at the hat member's own cell.  `1 ≤ m` is
 all `evalRep_slice_zero` needs at `u = 0, 1` (`u + 1 ≤ 5m`), so this is strictly weaker than the
-`2 ≤ n` the (★) antidifference will require — the extra strength there comes from `D`'s
+`2 ≤ n` the (★) antidifference requires — the extra strength there comes from `D`'s
 cancellation, not from this machinery. -/
 theorem hbdy_hat_repHat (m : ℕ) (hm : 1 ≤ m) : Phihat m (repDelta (repHat m)) = 0 :=
   hbdy_hat m (repHat m)

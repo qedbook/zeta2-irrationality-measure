@@ -29,8 +29,8 @@ at every polar row on `[3/13, 4/17)` with `m < p²`, for every `n`.
 `polyHalfOpen_of_rest : ResidualRunRestOpen → PolyHalfOpen` carry it in their TYPE.
 
 WHAT IS NOT CLAIMED.  The four φ̃ = 2 run strata below `p²` and every polar run-strata row at
-`m ≥ p²` (including this stratum's) are the named residual.  Row PT-P does not close and
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry`.
+`m ≥ p²` (including this stratum's) are the named residual.
+
 
 Probe: `ptp_resid_narrow_probe.py` / `.out` (arms S1–S3).  Falsifier: `falsify_ptprunlo.sh`.
 

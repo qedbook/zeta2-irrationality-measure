@@ -2,7 +2,7 @@
 # Row PT-P, layer 6 — the BLOCK REDUCTION of `AHalfOpen`, and the polynomial toolkit the
 # run congruence is proved with
 
-`Zeta2PtpPolar` left row PT-P's harmonic side as ONE named `Prop`, `AHalfOpen`:
+`Zeta2PtpPolar` states row PT-P's harmonic side as ONE named `Prop`, `AHalfOpen`:
 
     PVal p φ̃ (Δ · p⁻² · harmA n p),   harmA n p = Σ_{k ∈ window} ε_k · cTerm n k · A_{⌊(k−4n−1)/p⌋}
 
@@ -37,9 +37,9 @@ THIS FILE IS THE STRATUM-FREE PART OF THAT PROOF, in five pieces:
 WHAT IS NOT HERE, said plainly.  No stratum is closed in this file: the per-`(n,p)` polynomial
 identity `ε_k·cTerm ≡ κ_t·Π(u)` with `deg Π ≤ p−2` is stratum-specific (it needs the six floors
 `⌊c·r/p⌋` fixed) and lives in its own files.  `Zeta2PtpPolar.PolyHalfOpen` — the polynomial half
-`v_p(Δ·Π·pnPoly) ≥ φ̃`, MEASURED (366 of 366) and never given a mechanism — is UNTOUCHED, and
-row PT-P needs BOTH halves.  PT-P stays OPEN and `Zeta2Target.zeta2_not_liouvilleWith` stays
-`sorry`.
+`v_p(Δ·Π·pnPoly) ≥ φ̃` — is not touched in this file; `Zeta2PtpMbigS2.polyHalfOpen` proves it,
+and `Zeta2PtpAHalf.aHalfOpen` proves `AHalfOpen`.
+
 
 Probe: `ptp_mechanism_probe.py` / `.out` (arms P2, S3–S6 are the facts this file proves generically).
 Falsifier: `falsify_ptpblock.sh` / `out_ptpblock_falsify.txt`.
@@ -292,8 +292,8 @@ theorem AHalf_of_blocks {n p : ℕ} (hp : p ∈ phiWindow n)
   have h := pval_mul hpp (pval_Delta_div_sq hp) (pval_harmA_of_blocks hp hblk)
   simpa using h
 
-/-- **`AHalfOpen` FROM BLOCK CONGRUENCES.**  Read the type: the hypothesis is the whole remaining
-content of the harmonic side, one divisibility per `(n, p, t)`. -/
+/-- **`AHalfOpen` FROM BLOCK CONGRUENCES.**  Read the type: the hypothesis is the whole content
+of the harmonic side, one divisibility per `(n, p, t)`. -/
 theorem AHalfOpen_of_blocks
     (h : ∀ n p, p ∈ phiWindow n →
       ∀ t, (p : ℤ) ^ (phiT (Int.fract ((n : ℚ) / (p : ℚ)))) ∣ blockSum n p t) :

@@ -19,8 +19,8 @@ below `p²`, for every `n`.
 **`restBelowOpen : RestBelowOpen`** — the `m < p²` rows of `Zeta2PtpRunS7.ResidualRunRestOpen`,
 hypothesis-free.  The other half, the polar run-strata rows at or above `p²` (`RestAboveOpen`), and
 the split composing the two into `ResidualRunRestOpen` live in their own file (a sibling unit's);
-nothing here states or assumes them.  Row PT-P does not close and
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry`.
+nothing here states or assumes them.
+
 
 Falsifier: `falsify_ptpruns2.sh` / `out_ptpruns2_falsify.txt`.
 

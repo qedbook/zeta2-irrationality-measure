@@ -36,8 +36,8 @@ is `0` on both sides.  The run `[⟨7r⟩, p−1]` is never named — it is only
 
 WHAT THIS DOES NOT DO.  The φ̃ = 2 run strata (four profile pieces, seven refined strata) need
 the ONE-carry unit part (Anton's congruence, absent from Mathlib) and are not here;
-`Zeta2PtpPolar.PolyHalfOpen` is untouched; PT-P stays OPEN and
-`Zeta2Target.zeta2_not_liouvilleWith` stays `sorry`.
+`Zeta2PtpPolar.PolyHalfOpen` is not touched in this file.
+
 
 Falsifier: `falsify_ptps7.sh` / `out_ptps7_falsify.txt`.
 

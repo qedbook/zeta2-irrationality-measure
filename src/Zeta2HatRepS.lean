@@ -15,15 +15,15 @@ boundary law**.  All three are here:
 
 for every `n ≥ 2` and for every `bh xh : ℚ[X]` with `bh.natDegree ≤ 5` and `xh.natDegree ≤ 120`.
 
-**HEADLINE: the row is NOT closed by this file, and the reason is a naming one.**  The theorem
-quantifies over a family that provably CONTAINS the row's object but does not NAME it.  A
-`#print axioms` receipt on a ∀-statement is not a receipt on the instance the chain consumes —
-LEAN.md §2's own rule, "identify the dependency before you check it", which the D5 fork was
-answered on the wrong side of.  What closes the row is `hbdy_hat_n` INSTANTIATED at `b̂(X−1)` and
-`x̂ n` once PAIR-1 emits them as Lean data; that is one line plus `Zeta2HatShatForm`'s two degree
-helpers, both proved, and it is an emission rather than a proof.  **The degree bounds are TIGHT and
-not slack**: the landed coords header reads `dx = 120` and `FACSYM b 5`, so the real `x̂` has degree
-exactly 120 and the real `b̂` exactly 5.  That is why 5H is instantiation and not re-proof.
+**The theorem here is about a FAMILY; the chain's instance is named elsewhere.**
+It quantifies over a family that provably CONTAINS the row's object but does not
+NAME it.  A `#print axioms` receipt on a ∀-statement is not a receipt on the
+instance the chain consumes — LEAN.md §2's own rule, "identify the dependency
+before you check it".  The instance at `b̂(X−1)` and `x̂ n` is
+`Zeta2HatStarBridge.hbdy_hat_star`.  **The degree bounds are TIGHT and not slack**:
+the landed coords header reads `dx = 120` and `FACSYM b 5`, so the real `x̂` has
+degree exactly 120 and the real `b̂` exactly 5.
+
 
 **`2 ≤ n` enters in exactly one place** — `Zeta2HatRawPoles.numS_eval_belt0`, where the numerator's
 `(2t + 8n+1)` has to sit ABOVE the run bottom `3n+11` that `D`'s cancelled lead-2 block left
@@ -43,8 +43,8 @@ having only the first.
 — which is all the boundary law needs, since its hypothesis is a floor (`4n+1 ≤ k`) and `7n+1`
 clears it with room.  In particular it does NOT prove that the support is exactly `Zeta2HatCancel`'s
 reduced `T₁ ∪ T₂`.  That IS true, and it is measured — the raw route builds the same `Finsupp`, it
-just proves less about it — and whether PAIR-6 needs it as a theorem is PAIR-6's question, not this
-row's.  It also proves nothing about `C₀`'s value: `C₀` is `numS`'s top coefficient because `denS`
+just proves less about it.
+It also proves nothing about `C₀`'s value: `C₀` is `numS`'s top coefficient because `denS`
 is monic, it is never divided by, and `repDelta` cancels it.  Any PAIR-6 use of `repS`
 UNDIFFERENCED would have to face it.
 
@@ -189,8 +189,8 @@ theorem hbdy_hat_n (n : ℕ) (hn : 2 ≤ n) (bh xh : ℚ[X])
 /-! ## The row's SECOND obligation, in the corrected form attempt 3 established
 
 `repS n` represents `Ŝ − C₀`, not `Ŝ` — and this is the form PAIR-6 consumes through
-`Zeta2HatInj.Phihat_of_evalRep`.  It was carried as a sentence for one pass, and a sentence is a
-hypothesis until it elaborates (LEAN.md §3). -/
+`Zeta2HatInj.Phihat_of_evalRep`.
+-/
 
 theorem evalRep_repS_eq_shat (n : ℕ) (hn : 1 ≤ n) (bh xh : ℚ[X])
     (hb : bh.natDegree ≤ 5) (hx : xh.natDegree ≤ 120) (t : ℚ)

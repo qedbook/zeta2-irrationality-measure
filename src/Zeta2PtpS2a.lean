@@ -29,11 +29,11 @@ two of `bit1, bit2, bit4`), so `N` has a double root and `quot_eval_zero_of_doub
 
 WHAT IS ASSUMED, in the TYPE.  `AntonOneCarry p` — the one-carry unit part
 `C(S₀+pS₁, A₀+pA₁)/p ≡ −S₀!/(A₀!(S₀+p−A₀)!) · S₁!/(A₁!(S₁−1−A₁)!)` for `S₀ < A₀ < p`, `S₁ < p`,
-`A₁ < S₁` — is a named hypothesis `hanton` on every theorem below that needs it.  It is being
-built as `Zeta2Anton.choose_div_p_modEq_of_one_carry`; when it lands the binder becomes an import
-and nothing else in this file moves.  `#print axioms` cannot see a binder (LEAN.md §1), so read
-the `#check @` lines: `blockSum_dvd_sq` and `piece2_blocks` carry `hanton`, everything else here
-is unconditional.
+`A₁ < S₁` — is a named hypothesis `hanton` on every theorem below that needs it.
+`#print axioms` cannot see a binder (LEAN.md §1), so read the `#check @` lines:
+`blockSum_dvd_sq` and `piece2_blocks` carry `hanton`, everything else here is
+unconditional.  `Zeta2PtpAHalf.anton_all` proves `AntonOneCarry p` at every prime.
+
 
 Probe: `ptp_s2_mechanism_probe.py` / `.out` (arm M5 checks this exact `hanton` instance verbatim).
 Falsifier: `falsify_ptps2a.sh` / `out_ptps2a_falsify.txt`.

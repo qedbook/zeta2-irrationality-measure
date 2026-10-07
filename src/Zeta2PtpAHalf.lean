@@ -16,8 +16,8 @@ state their pieces with `AntonOneCarry p` as a binder; this file discharges it o
 prime, from `Zeta2Anton.choose_div_p_modEq_of_one_carry` (`anton_all`).  So `aHalfOpen : AHalfOpen`
 carries NO hypothesis and `hP_at_ΔT_of_poly` carries exactly one, `PolyHalfOpen`.  The 26 rows,
 the twelve strata of the five run-carrying pieces and the 29 strata of the 21 run-free ones are all
-theorems.  `PolyHalfOpen` — `v_p(Δ·Π·pnPoly) ≥ φ̃`, measured 366 of 366 — is the whole of what
-PT-P still owes.  The `_of_anton` forms stay as the composition's conditional statement.
+theorems.  `PolyHalfOpen` is `v_p(Δ·Π·pnPoly) ≥ φ̃`, the polynomial half.
+`AHalfOpen_of_anton` and `hP_at_ΔT_of_poly_of_anton` state the composition with Anton as a binder.
 
 Falsifier: `falsify_ptpahalf.sh` / `out_ptpahalf_falsify.txt`.
 

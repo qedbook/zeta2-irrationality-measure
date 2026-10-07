@@ -22,14 +22,14 @@ handful of `Finset.Icc` merges whose side conditions are `omega`.  The four 123-
 lists are tied to their runs by one `decide +kernel` each (§3), so nothing here trusts a
 transcription of the engine's data.
 
-**What it does NOT do.**  It proves no new mathematics (net new arithmetic is zero), it says
-nothing about `Σⱼ α̃ⱼ·hatQ(n+j) = 0` — that is `Zeta2Pair6` — and it does not close the chain.
+**What it does NOT do.**  It proves no new mathematics (net new arithmetic is zero), and it says
+nothing about `Σⱼ α̃ⱼ·hatQ(n+j) = 0` — that is `Zeta2Pair6`.
 
 **The run table is generated evidence, not a reading.**  `pair6_check.py` §3/§4 re-derives both
 identities from `coords/starcoords_cand-t2.txt` in exact ℚ at generic rational `t`, with the
 Π̂-exponent and `(−1)^j` convention seams as falsifier arms; `pair6_check.out` is its receipt.
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2Pair6Runs.lean
 

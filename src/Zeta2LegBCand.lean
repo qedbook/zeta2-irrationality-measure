@@ -66,8 +66,8 @@ noncomputable def blockSum (K : ℕ → ℕ) (i : Fin candidateProfile.length) (
 `0 < a`, `a ≤ b`, `b ≤ a+1` side conditions discharged by `piece_valid` from the verified table —
 and `tendsto_profile_sum` lifts the result over all 26.
 
-The only remaining hypothesis is `hblk`, the per-piece block bound, which is
-`block_sum_close × harmonic_weight_bound`; `hδ0`/`hδlog` are what `psi_error_bound` supplies
+Of its hypotheses, `hblk` is the per-piece block bound, which is
+`block_sum_close × harmonic_weight_bound`; `hδ0`/`hδlog` are what the `ψ` error bound supplies
 through `theta_error_le` and `error_rate_beats_log`. -/
 theorem legB_candidate_threaded
     (K : ℕ → ℕ) (hK : Tendsto K atTop atTop)
@@ -95,8 +95,8 @@ Every hypothesis of `legB_candidate_threaded` is now discharged from a named the
 `blockCount_tendsto` for `K n → ∞`; `hblk_assembled` for the per-piece bound, fed
 `block_lower_bound ∘ blockCount_le_sqrt` for its thresholds and `hE` for the `θ` error.
 
-The ONLY remaining input is `hE` — a `θ` error bound at rate `δ n` above `√n` — which
-`theta_error_le` derives from `psi_error_bound`, itself proved from `MediumPNT` on PNT+.
+Its one input beyond `δ` is `hE` — a `θ` error bound at rate `δ n` above `√n` — which
+`theta_error_le` derives from the `ψ` error bound, which `Zeta2Hpsi.hψ` proves.
 
 `n = 0` is handled separately and vanishes: both sides are `0` there. -/
 theorem legB_candidate_final
@@ -125,13 +125,13 @@ theorem legB_candidate_final
 
 /-- **THE INTERFACE — LEG B AT THE CANDIDATE, FROM THE `ψ` BOUND ALONE.**
 
-This is `legB_candidate_final` with its last hypothesis discharged. The ONLY hypothesis left is a
-`ψ` error bound, stated in the vocabulary `Chebyshev.psi` that BOTH projects share — and it is
-byte-for-byte the statement of `PsiErrorBound.psi_error_bound`, which is proved on PNT+ from
-`MediumPNT` and is `#print axioms`-clean there.
+This is `legB_candidate_final` with its last hypothesis discharged. Its one hypothesis is a
+`ψ` error bound in Mathlib's `Chebyshev.psi` vocabulary — the same statement as
+`Zeta2LegA.psiErrorBoundStatement`, which `Zeta2Hpsi.hψ` proves from the vendored
+`MediumPNT`.
 
-The whole path between the two is CURRENT MATHLIB, which is the cross-toolchain hypothesis form
-(LEAN.md §7) rather than a port:
+The whole path between the two is CURRENT MATHLIB:
+
 
 * `Chebyshev.psi_sub_theta_le_mul_sqrt` — the `ψ → θ` transfer (Mathlib's own, not PNT+);
 * `Zeta2LegB.errRate` + `errRate_antitone` — the threshold bookkeeping: `hE` asks for ONE `δ n`
@@ -224,15 +224,15 @@ theorem legB_candidate_from_psi
   exact legB_candidate_final δ hδnn hδ0 hδlog hE
 
 /-- **THE INTERFACE STATEMENT, NAMED** — written in the SAME text as
-`PsiErrorBound.psiErrorBoundStatement` on PNT+ and `Zeta2PsiInterface.psiErrorBoundStatement`
-on current Mathlib. The three `#print`s are what makes "the statements match" a measurement
-rather than a reading. -/
+`Zeta2LegA.psiErrorBoundStatement`, which `Zeta2Hpsi.hψ` proves; the `#print` at the foot of
+this file shows it.
+-/
 def psiErrorBoundStatement : Prop := ∃ c > 0, ∃ C : ℝ, ∀ᶠ x : ℝ in atTop,
     |Chebyshev.psi x - x| ≤ C * Real.exp (-c * (Real.log x) ^ ((1 : ℝ) / 10)) * x
 
 /-- Kernel check that `legB_candidate_from_psi`'s hypothesis IS that statement — so the text
-above cannot drift away from the theorem it is supposed to describe. On PNT+ the mirror-image
-check is `example : psiErrorBoundStatement := psi_error_bound`. -/
+above cannot drift away from the theorem it is supposed to describe.
+-/
 example (h : psiErrorBoundStatement) := legB_candidate_from_psi h
 
 end Zeta2LegBCandidate

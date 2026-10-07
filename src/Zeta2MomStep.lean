@@ -10,8 +10,8 @@ the kernel evaluates it.  But `Polynomial.sum_bernoulli` — `Σ_{k ≤ j} C(j+1
 This is the four-line recursion of `zeta2-integral-free.md` §5.2 and of
 `Zeta2Moments.momI_eq` (proved there in the other direction, recursion → Bernoulli); here it
 is stated on `Zeta2Defs.momI` directly, so the generated `Zeta2PairP{n}.lean` can `rw` with it
-and hand the arithmetic to `decide +kernel`.  Row PHI-EVAL's general-`n` instance will want
-the same lemma.
+and hand the arithmetic to `decide +kernel`.
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/

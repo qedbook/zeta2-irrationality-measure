@@ -56,12 +56,12 @@ stated at `Zeta2PhiT.PhiT` and therefore at `ΔT`, and it is one of the rows tha
 object: `log_PhiT_eq_blockSum` names `PhiT`, whose window and profile are `ΔT`'s denominator.
 DRATE consumes this file's `tendsto_log_PhiT_div` together with leg A's rate.
 
-## HEADLINE
+## THE MAIN THEOREM
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry` after this file.  This row
-closes ONE row of 43.  `tendsto_log_PhiT_div` carries leg B's own standing hypothesis — the `ψ`
-error bound, proved on PNT+ from `MediumPNT` and NOT on this toolchain — exactly as
-`legB_candidate_from_psi` does; the row adds no new hypothesis and discharges none.
+`tendsto_log_PhiT_div` carries leg B's hypothesis — the `ψ` error bound, which `Zeta2Hpsi.hψ`
+proves — exactly as `legB_candidate_from_psi` does; the row adds no new hypothesis and discharges none.
+
+
 
 ## Receipts
 
@@ -476,8 +476,8 @@ theorem corr_div_tendsto : Tendsto (fun n : ℕ => corr n / (n : ℝ)) atTop (�
 
 /-! ## THE ROW'S LIMIT — what DRATE and HC2 consume
 
-Leg B's own standing hypothesis (the `ψ` error bound, proved on PNT+ from `MediumPNT` and NOT on
-this toolchain) is carried across unchanged.  This row adds no hypothesis and discharges none. -/
+Leg B's hypothesis (the `ψ` error bound, which `Zeta2Hpsi.hψ` proves from the vendored `MediumPNT`)
+is carried across unchanged.  This row adds no hypothesis and discharges none. -/
 
 theorem tendsto_log_PhiT_div
     (hψ : ∃ c > 0, ∃ C : ℝ, ∀ᶠ x : ℝ in atTop,

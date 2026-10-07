@@ -34,7 +34,7 @@ choose `D` (`star_coords_lib.structural_degree_bound`).  Sec15.5's warning that
 never read from a document here.
 
 LEAN IS NOT RUN HERE.  This script only WRITES a file; elaborate it with
-`run_eval_probe.sh`, which ships to the buildbox (owner rule: no Mathlib on the
+`run_eval_probe.sh`, which ships to the buildbox (no Mathlib on the
 laptop, ever).
 """
 

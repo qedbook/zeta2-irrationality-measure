@@ -1,18 +1,18 @@
 /-
-# The arithmetic clearing, assembled — one hypothesis away from the chain's binders
+# The naive arithmetic clearing, assembled — binders of the chain's shape, from `PnCleared`
 
 With the constants PINNED by measurement (`pin_constants.py`, 2026-09-11: `D(13n)·D(16n)·pₙ ∈ ℤ`
-at every `n ≤ 9`, `(13,16)` minimal, `16n` not `16n+1`), the chain's `Δ` is `Zeta2Arith.Δ 13 16`.
+at every `n ≤ 9`, `(13,16)` minimal, `16n` not `16n+1`), this file's `Δ` is `Zeta2Arith.Δ 13 16`.
 This file threads the three landed increments through the bridge at those constants:
 
   * `hΔne`  — `hΔne_of_Δ 13 16`, no hypothesis (increment 1 + 2);
   * `hQ`    — `hQ_of_qn_int qnInt qnInt_cast 13 16`, no hypothesis (increment 3 + 2);
-  * `hP`    — `hP_of_cleared P 13 16 hP`, from the ONE open fact `pn_cleared`.
+  * `hP`    — `hP_of_cleared P 13 16 hP`, from the one hypothesis `PnCleared`.
 
 So `binders_of_pn_cleared` has exactly the SHAPE of `candidate_not_liouvilleWith`'s arithmetic
-binders, given `∃ P, ∀ n, (P n : ℚ) = Δ 13 16 n * pₙ`.  That fact's proof is the scope audit's
-residue-identity row (4b) — the whole-`pₙ` statement, NOT a termwise clearing: the measurement
-shows the harmonic and polynomial halves' denominators cancel in the difference.
+binders, given `∃ P, ∀ n, (P n : ℚ) = Δ 13 16 n * pₙ`.
+
+
 
 WHAT THIS `Δ` IS NOT (scope audit §2.1; zeta2-arith-layer.md §10.4 "WHAT `Δ 13 16` IS AND IS
 NOT"): `D(13n)·D(16n)` is the NAIVE, Legendre-only clearing.  It makes the binders true, but its
@@ -23,8 +23,8 @@ DIVIDING `Δ 16 15 n · qₙ` and `Δ 16 15 n · pₙ`.  NOT `Δ 13 16 n / Φ̃�
 2026-09-11: `(13,16)` clears INTEGRALITY (`pin_constants.py`, still true) but is NOT a `Φ̃`-clearing
 — `profile_check.out` measures 19 violations of `min(ord_p qₙ, ord_p(Δ 13 16 n · pₙ)) ≥ φ̃(n/p)`
 above the Legendre line at `n ≤ 9`, every one a prime `p ∈ (13n, 15n]` on the `pₙ` side (the `qₙ`
-side holds), and 0 violations at `Δ 16 15`.  The `Φ̃` layer is a further layer whose first Lean
-object (`Φ̃ₙ` itself) does not exist yet.  This file is the floor that layer divides; its theorems
+side holds), and 0 violations at `Δ 16 15`.  The `Φ̃` layer is a further layer whose base Lean
+object (`Φ̃ₙ` itself) is `Zeta2PhiT.PhiT`.  This file is the floor that layer divides; its theorems
 are about the naive clearing and are unaffected.
 
 Increment 4b-shape of the arithmetic clearing.  ~seconds.
@@ -40,11 +40,11 @@ namespace Zeta2Arith
 
 open Zeta2Defs
 
-/-- **The one open fact of the arithmetic layer**, at the pinned constants. -/
+/-- **The one hypothesis of `binders_of_pn_cleared`**, at the pinned constants. -/
 def PnCleared : Prop :=
   ∃ P : ℕ → ℤ, ∀ n, (P n : ℚ) = ((Δ 13 16 n : ℕ) : ℚ) * candidateM.pn n
 
-/-- **The chain's arithmetic binders, from `PnCleared` alone.**  `Q n = Δ 13 16 n · qnInt n`
+/-- **Binders of the chain's shape at `Δ 13 16`, from `PnCleared` alone.**  `Q n = Δ 13 16 n · qnInt n`
 is explicit; `P` is the witness of `PnCleared`. -/
 theorem binders_of_pn_cleared (hp : PnCleared) :
     ∃ (Q P : ℕ → ℤ),

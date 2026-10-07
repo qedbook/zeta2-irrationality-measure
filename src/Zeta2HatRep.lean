@@ -21,9 +21,9 @@ produces (`mb2.W2_pole`; PAIR-0 design notes).
 **`rep̂` is NOT an extraction function, and PAIR-4's cell said `rep̂ (R̂ₙ/Π̂) = (B, A)`.**  The
 object that exists is the EVALUATION map `evalRep : Rep̂ → ℚ → ℚ`; "the representation of the
 member" is the theorem `evalRep (repHat n) t = hatPi n * hatMember n t` (`hat_rep_zero` below at
-`n = 0`), and uniqueness is injectivity of `evalRep`, which is PAIR-3's `rep̂_injective`.  Stated
-the other way round, injectivity would have nothing to do.  PHI-REP's row already states its
-tale-1 twin in the evaluation direction (`rep_injective`), so this is the corpus's own convention.
+`n = 0`), and uniqueness is injectivity of `evalRep`, which is PAIR-3's `Zeta2HatInj.evalRep_inj`.  Stated
+the other way round, injectivity would have nothing to do.  PHI-REP states its tale-1 twin,
+`Zeta2T1Inj.evalRep_inj`, in the evaluation direction too, so this is the corpus's own convention.
 
 **Normalisation, pinned here**: `Zeta2Hat`'s `hatA`, `hatBlo`, `hatBhi` are the Π̂-SCALED
 residues (`Π̂·A_k`, `Π̂·B_k` — PAIR-0's derivation), so `repHat n` represents `Π̂(n)·(R̂ₙ/Π̂)`,
@@ -32,12 +32,12 @@ at THAT normalisation; the Π̂-rebase factors are PAIR-7's.
 
 Measured beside this file, in exact rationals over `n ≤ 4` (`hat_rep_probe.py`,
 `hat_rep_probe.out`): the representation (20 of 20 `(n,t)` pairs), the evaluation at the
-member's own cell including `Σ_k B_k = 0` — the `ln 2` coordinate, which the PAIR design notes
-DO already measure at `n ≤ 6`, but on a different object (`gen_hat_lean.out`'s seven "mb2 hat
-value is ln2-free" lines are about the independent EVALUATOR's value, not about this coefficient
-sum over the landed families) — and belt invariance, which agrees with `Φ̂` at the
-neighbour's cell on exactly the 10 of 14 `(n,j)` pairs satisfying `2.5n + 3/4 > 1.5j` and fails
-on the other 4, in the RATIONAL coordinate only.
+member's own cell including `Σ_k B_k = 0` — the `ln 2` coordinate — and belt invariance, which
+agrees with `Φ̂` at the neighbour's cell on exactly the 10 of 14 `(n,j)` pairs satisfying
+`2.5n + 3/4 > 1.5j` and fails on the other 4, in the RATIONAL coordinate only.  Each is also a
+theorem: `Zeta2HatResidues.hat_rep` and `Zeta2HatLn2.ln2_coord` at every `n`, and
+`Zeta2HatBelt.Phihat_rat_belt` at `j ≤ 3`, `2 ≤ n`.
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -57,7 +57,7 @@ tail: that is the whole way in which `Φ̂` is simpler than tale-1's `Φ`. -/
 abbrev Rephat := (ℕ →₀ ℚ) × (ℕ →₀ ℚ)
 
 /-- The evaluation map `Rep̂ → (ℚ → ℚ)`.  A pair `(B, A)` REPRESENTS a function `f` when this
-agrees with `f` off the poles; PAIR-3's `rep̂_injective` is injectivity of THIS map. -/
+agrees with `f` off the poles; PAIR-3's `Zeta2HatInj.evalRep_inj` is injectivity of THIS map. -/
 def evalRep (r : Rephat) (t : ℚ) : ℚ :=
   r.1.sum (fun k b => b / (t + (k : ℚ))) + r.2.sum (fun k a => a / (t + (k : ℚ)) ^ 2)
 

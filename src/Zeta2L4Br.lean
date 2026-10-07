@@ -1,13 +1,13 @@
 /-
 # ROW L4-BR — CLOSED: `hα₃`, `hα₀`, `hrow`, `hM₀` (and `hN₁`) in the target's binder types
 
-`docs/future/zeta2-lean-chain.md` row L4-BR.  Added 2026-09-18, under route B (owner-decided
-2026-09-17, `docs/reference/answered_forks/`).
+`docs/future/zeta2-lean-chain.md` row L4-BR.  Added 2026-09-18, under route B.
 
-**HEADLINE: `Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.**  This file
-closes row L4-BR (and THRESH, whose whole content is the two `le_refl`s below) and nothing
-else: `Zeta2L12.candidate_target_of_certified_constants` still waits on the arithmetic half
-`hΔne hQ hP` (PT-QB, PT-P), on `hdecay` (RDECAY, through L7ID) and on `hgrowth` (QGROW).
+
+This file closes row L4-BR (and THRESH, whose whole content is the two `le_refl`s below); the
+arithmetic half `hΔne hQ hP` (PT-QB, PT-P), `hdecay` (RDECAY, through L7ID) and `hgrowth`
+(QGROW) enter `target_of_arith_and_rates` (§4) as hypotheses.
+
 
 **What is proved.**  Under route B the recurrence `Zeta2L1Asm.hrecq`/`hrecp` is stated at
 `αⱼ := Zeta2L1Asm.αR j`, i.e. `αⱼ n = (−1)^j · cⱼ(n)` cast to ℝ, with `cⱼ(n)` the sharded
@@ -28,8 +28,8 @@ exactly what §1–§3 supply:
         `m₀ := N0 = 4`, `Zeta2L1Asm.qn_four_ne_zero`), `hM₀`, `hN₁` — and
         `target_of_arith_and_rates`: `candidate_target_of_certified_constants` APPLIED with
         them and with L1-ASM's `hrecq`/`hrecp`, so that the composition is executed
-        (LEAN.md §3) and the target's 18 binders are down to the 11 that other rows owe
-        (10 once HC2's landed `hc2` is counted).
+        (LEAN.md §3); the target's other 11 binders are `target_of_arith_and_rates`'s own
+        hypotheses.
 
 **`m₀ := N₀ = 4`, and what that retires.**  The cell's `N₀ = 9` (and its 2026-09-13
 correction to 6) are both above the landed threshold: `Zeta2L1Asm.N0 = 4`, PHI-BDY's floor.
@@ -40,11 +40,11 @@ witness is `k = 4`.  `hrow_at_six` and `hrow_at_nine` record that the cell's `6`
 original `9` work too (each one `decide +kernel`; the `qnInt 9` wall the cell left unmeasured
 is seconds) — as controls and as the falsifier's wrong-`m₀` arms, never as inputs.
 
-**Re-derived vs trusted.**  `Zeta2L4.lean` is IMPORTED here, so its `c0_ne_zero`/`c3_ne_zero`
+**Re-derived from source.**  `Zeta2L4.lean` is IMPORTED here, so its `c0_ne_zero`/`c3_ne_zero`
 are RE-ELABORATED when its olean is built (measured 1m19s–2m0s standalone), not taken from the
-archived receipts.  `Zeta2L1Asm`'s theorems are read from its landed olean in `probes/l1asm`.
+archived receipts.  `Zeta2L1Asm` is imported the same way.
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2L4Br.lean
 
@@ -69,7 +69,7 @@ open Polynomial Zeta2Defs
 
 /-! ## §1 — the bridge (i): `List ℤ → ℝ[X]`, ascending coefficients
 
-`Zeta2L4` speaks about `List ℤ` through `hornerZ`; the chain's growth leg (`Zeta2XL1B`) speaks
+`Zeta2L4` speaks about `List ℤ` through `hornerZ`; the chain's growth leg (`Zeta2QGrow`) speaks
 about `ℝ[X]` through `eval`, `natDegree` and `coeff`.  `ofList` is the Horner form itself as a
 polynomial, so `eval_ofList` is the same induction `hornerZ` is defined by. -/
 
@@ -153,8 +153,8 @@ theorem αR0_eq (n : ℕ) : Zeta2L1Asm.αR 0 n = P0.eval (n : ℝ) := by
   ring
 
 /-- **`P₃(n) ≠ 0` for EVERY natural `n`** — `Zeta2L4.c3_ne_zero` through the bridge.  This is
-the explicit non-root theorem `Zeta2XL1B.candidate_rn_growth_of_recurrence_of_no_root` was
-written for. -/
+what `αR3_ne_zero`, and through it the binder `hα₃` of §4,
+rests on. -/
 theorem P3_eval_ne_zero (n : ℕ) : P3.eval (n : ℝ) ≠ 0 := by
   rw [P3, eval_ofList]
   exact_mod_cast Zeta2L4.c3_ne_zero n
@@ -164,7 +164,7 @@ theorem P0_eval_ne_zero (n : ℕ) : P0.eval (n : ℝ) ≠ 0 := by
   rw [P0, eval_ofList]
   exact_mod_cast Zeta2L4.c0_ne_zero n
 
-/-- The shape facts `Zeta2XL1B` asks of `P₃`: degree at most `dcl = 510`… -/
+/-- The shape facts `Zeta2QGrow` asks of `P₃`: degree at most `dcl = 510`… -/
 theorem P3_natDegree_le : P3.natDegree ≤ 510 := by
   have h := natDegree_ofList_le Zeta2L4.c3
   rwa [Zeta2L4.c3_length] at h
@@ -228,7 +228,7 @@ theorem hrow_at_six : ∃ k, 6 ≤ k ∧ candidateM.qn k ≠ 0 :=
 
 theorem hM₀_at_six : Zeta2L1Asm.N0 ≤ 6 := by decide
 
-/-- The cell's ORIGINAL `m₀ = 9`, measured rather than assumed: `qn 9 ≠ 0` is one
+/-- The cell's ORIGINAL `m₀ = 9`, proved rather than assumed: `qn 9 ≠ 0` is one
 `decide +kernel` on `qnInt 9` (100 `choose` terms), 4.29 s for the whole file including the
 import at load 3.3 — the "kernel wall of `qnInt 9`" the cell left unmeasured is negligible.
 Not consumed below; `falsify_l4br.sh` A1 hands `hrow_at_nine` to the composition in `hrow`'s
@@ -246,8 +246,8 @@ theorem hrow_at_nine : ∃ k, 9 ≤ k ∧ candidateM.qn k ≠ 0 :=
 **THE COMPOSITION, EXECUTED.**  `Zeta2L12.candidate_target_of_certified_constants` applied
 with L1-ASM's recurrence half (`hrecq`, `hrecp` at `αⱼ := αR j`, `N₀ := N0`) and this row's
 five binders.  Of the target's 18 hypotheses, 7 are discharged here by name — `hrecq hrecp
-hN₁ hM₀ hα₃ hα₀ hrow` — and the `αⱼ`, `N₀`, `n₁`, `m₀` are no longer free.  The 11 that remain
-are the certified-rate literals (`hc0 hc1 hc2 hδ`: HC1, HC2 — HC2 is landed as
+hN₁ hM₀ hα₃ hα₀ hrow` — and the `αⱼ`, `N₀`, `n₁`, `m₀` are no longer free.  This theorem's own
+11 hypotheses are the certified-rate literals (`hc0 hc1 hc2 hδ`: HC1, HC2 — HC2 is landed as
 `Zeta2Hc2.candidate_target_of_hc2`, not composed here to keep `Zeta2DPhi` off this file's
 import path), the arithmetic half (`hΔne hQ hP`: PT-QB, PT-P), and the two rate legs
 (`hCr hdecay`: RDECAY; `hCq hgrowth`: QGROW).  This theorem is what makes the binder claims

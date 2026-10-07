@@ -13,12 +13,12 @@ is `2π · B_j(−4n) = 2π · Zeta2Defs.momI (cell n) j`, which is what
 Three pieces, and only the first is real work.
 
 1. **The Bernoulli ADDITION theorem** `B_j(x+y) = Σ_k C(j,k)·B_k(x)·y^{j−k}`, over an arbitrary
-   commutative ℚ-algebra.  `Polynomial.bernoulli_eval_add` is ABSENT at this pin — measured
-   twice, by two censuses — and only `_one_add` (`y = 1`) and `_one_sub` exist.  It is pure
-   algebra over ℚ: expand both sides by `Polynomial.bernoulli_def` plus `add_pow` and reindex
-   the double sum along the INVOLUTION `(i,l) ↦ (j − i + l, l)`.  Its residue is the trinomial
-   revision `C(j,i)·C(i,l) = C(j,k)·C(k,l)`, and that IS in Mathlib — as `Nat.choose_mul`, a
-   name neither earlier census tried (`Nat.choose_mul_choose_eq` and `_le` are both absent).
+   commutative ℚ-algebra.  `Polynomial.bernoulli_eval_add` is ABSENT at this pin: Mathlib has
+   the unit shift `B_j(1+x) = B_j(x) + j·x^{j−1}` (`bernoulli_eval_one_add`) and not the theorem.
+   It is pure algebra over ℚ: expand both sides by `Polynomial.bernoulli_def` plus `add_pow` and
+   reindex the double sum along the INVOLUTION `(i,l) ↦ (j − i + l, l)`.  Its residue is the
+   trinomial revision `C(j,i)·C(i,l) = C(j,k)·C(k,l)`, and that IS in Mathlib — as
+   `Nat.choose_mul` (`Nat.choose_mul_choose_eq` and `_le` are both absent).
 2. **The odd moments vanish**, from `integral_neg_eq_self` and `Odd.neg_pow`; matched on the
    Bernoulli side by `B_k(½) = 0` at odd `k`, from `Polynomial.bernoulli_eval_one_sub`.  The two
    together make the law uniform in `j` rather than a statement about even `j` only.

@@ -4,14 +4,14 @@
 Row PT-QA of `docs/future/zeta2-lean-chain.md` (registry `2B0.AV`), the row's LAST piece.
 `Zeta2CarryFull.lean` holds the residue bridge and all 41 per-piece carry lemmas
 `carry_ge_piece<i>_res`, each stated at the full residue range, `∀ k ∈ window n`.  This module
-adds the three things the row still owed and nothing else:
+adds three things and nothing else:
 
 1. **`phiSingle : ℚ → ℕ`, the row's own profile** — the 41-interval exact single-representation
    profile from `ptqa_refine_probe.out`, half-open `[a, b)`, value `0` off the table.  It is a
    LIST of triples (`phiTable`) and a first-match lookup (`List.find?`), so the data is written
    once and the dispatch is a function by construction.  `phiTable_pairwise` proves the 41
    intervals are nonempty and pairwise disjoint in list order, so the first match is the ONLY
-   match (`piece_unique`, which the piece clumps asserted but did not prove).
+   match (`piece_unique`).
 2. **The dispatch, executed** — `carry_ge_of_mem_table` runs a 41-way case split on table
    membership and closes each case with that piece's lemma.  This is where a wrong table row
    is caught: the row's interval must be EXACTLY the lemma's hypotheses (`falsify_carryfold.sh`
@@ -28,9 +28,9 @@ adds the three things the row still owed and nothing else:
 The row's cell states the target as `phiSingle ({n/p}) ≤ padicValInt p (qnInt n)`.  With
 Mathlib's `padicValInt p 0 = 0` that statement is FALSE at any `n` with `qnInt n = 0` and a
 `p` whose residue lands on the table, so it is provable only through `qnInt n ≠ 0`
-(`padicValInt_dvd_iff : p ^ v ∣ a ↔ a = 0 ∨ v ≤ padicValInt p a`).  No `∀ n, qnInt n ≠ 0` is
-landed anywhere in the corpus — the chain's `hrow` is `∃ k, m₀ ≤ k ∧ qn k ≠ 0`, one index, and
-`Zeta2L1Asm` supplies it at `4` and `6` by kernel — and the consumer PT-QB wants
+(`padicValInt_dvd_iff : p ^ v ∣ a ↔ a = 0 ∨ v ≤ padicValInt p a`).  This file does not
+prove `∀ n, qnInt n ≠ 0` (`Zeta2HatQnInt.qnInt_ne_zero` does, through PAIR), and the
+consumer PT-QB wants
 `PhiT_dvd_qnInt : (PhiT n : ℤ) ∣ qnInt n`, a divisibility.  So the deliverable here is the
 divisibility theorem `pow_phiSingle_dvd_qnInt`, unconditional; `padicValInt_qnInt_ge_phi` is
 the cell's statement with the hypothesis it needs made explicit (`hq : qnInt n ≠ 0`), and
@@ -51,10 +51,10 @@ CLOSED-interval table gives away at 8 real cells (`x = k/13`, `k ≤ 6`, plus `1
 
 ## What this file does NOT claim
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.  This is the q-side of the
-profile at `phiSingle`, the single-representation profile; `phiT` (PT-DEF's `φ̃`) exceeds it by
-one on five sub-intervals and lifting to `φ̃` there is PT-QB, through the hat representation
-and PAIR.  `PhiT_dvd_qnInt` is PT-QA + PT-QB and is not here.
+This is the q-side of the profile at `phiSingle`, the single-representation profile; `phiT`
+(PT-DEF's `φ̃`) exceeds it by one on five sub-intervals and lifting to `φ̃` there is PT-QB,
+through the hat representation and PAIR.  `PhiT_dvd_qnInt` is PT-QA + PT-QB and is not here.
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 API at this pin, measured: `List.Chain'` is `List.IsChain` (`isChain_cons_cons`,
@@ -364,8 +364,8 @@ theorem pow_phiSingle_dvd_qnInt (n p : ℕ) [Fact p.Prime] (hp2 : 26 * n + 1 < p
 
 /-- **The cell's statement, with the hypothesis it needs made explicit.**  `padicValInt p 0 = 0`,
 so `phiSingle ≤ padicValInt p (qnInt n)` is false wherever `qnInt n = 0` and the residue is on
-the table; nothing landed proves `∀ n, qnInt n ≠ 0`, and the chain's own `hrow` asks for one
-index only. -/
+the table; `Zeta2HatQnInt.padicValInt_qnInt_ge_phiSingle` is this theorem with `hq`
+discharged. -/
 theorem padicValInt_qnInt_ge_phi (n p : ℕ) [Fact p.Prime] (hp2 : 26 * n + 1 < p ^ 2)
     (hq : qnInt n ≠ 0) :
     phiSingle (Int.fract ((n : ℚ) / p)) ≤ padicValInt p (qnInt n) :=

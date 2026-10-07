@@ -1,11 +1,12 @@
-# pnt_port — the `MediumPNT` import cone of PrimeNumberTheoremAnd, vendored onto our Mathlib pin
+# The `MediumPNT` import cone of PrimeNumberTheoremAnd, vendored onto this development's Mathlib
 
-Owner ruling 2026-09-24 (docs/reference/owner-rulings.md) funds porting the `MediumPNT` dependency
-cone onto our Mathlib pin, so that the ζ(2) chain's hypothesis `Zeta2LegA.psiErrorBoundStatement`
-is discharged in the same kernel (`external_tests/zeta2_arith/Zeta2Hpsi.lean`).
+The ζ(2) development proves its one analytic input, `Zeta2LegA.psiErrorBoundStatement` (an error
+bound for Chebyshev's `ψ`), from `PrimeNumberTheoremAnd.MediumPNT`, in `Zeta2Hpsi`. So that this
+proof is checked by the same kernel and against the same Mathlib as the rest of the development,
+the modules `MediumPNT` imports are copied here and adapted to this development's toolchain.
 
-This directory is a **third-party copy**. The code is not ours. Both upstreams are licensed under
-Apache-2.0, and their licence texts sit beside it unchanged:
+The vendored files are a **third-party copy**. The code is not ours. Both upstreams are licensed
+under Apache-2.0, and their licence texts are shipped unchanged beside this file:
 
 | upstream | URL | commit | files here | licence |
 |---|---|---|---|---|
@@ -15,23 +16,21 @@ Apache-2.0, and their licence texts sit beside it unchanged:
 Neither upstream ships a `NOTICE` file at these commits. The copyright headers inside each
 source file are kept verbatim.
 
-**Why this commit.** `a5154676` is the commit on which `PsiErrorBound.psi_error_bound` was
-attested (`external_tests/zeta2_binet_design/out_hpsi_settlement.txt`). Upstream `main` has moved
-since then: on 2026-09-24 it bumped to v4.33.1 in `55270df`, and it rewrote `MediumPNT.lean` by
+**Why this commit.** The argument in `Zeta2Hpsi` was written against this commit of PNT+.
+Upstream `main` has since moved to Lean v4.33.1 (`55270df`) and rewritten `MediumPNT.lean` by
 +569/−694 lines. That tree also elaborates on our pin, with one error: P1 below. We port the
-attested text so that the discharge is the one already audited.
+older text so that the argument stays the one already checked.
 
 **What is here.** Here is the whole file-level import cone of `PrimeNumberTheoremAnd.MediumPNT`, minus
 Mathlib, Batteries and Lean core. Two methods independently give the same 23 modules: a
 source-import walk, and the olean header (`env.header.moduleNames`). Module paths are
-preserved, so this directory is a Lean source root: `PrimeNumberTheoremAnd.ZetaBounds` is
-`PrimeNumberTheoremAnd/ZetaBounds.lean`.
+preserved: `PrimeNumberTheoremAnd.ZetaBounds` is `PrimeNumberTheoremAnd/ZetaBounds.lean`.
 
 **Verification that the copy is faithful.** Before the patches were applied, each of the 23 files
-was compared byte-for-byte against `git show <commit>:<path>` of its upstream on the buildbox,
+was compared byte-for-byte against `git show <commit>:<path>` of its upstream,
 and 23 of 23 were identical. The ONLY differences from upstream are the two patches below, plus the
-one-line `-- MODIFIED for the CAS port` comment at each patch site. That comment is Apache-2.0
-§4(b)'s notice that the file was changed.
+one-line `-- MODIFIED for this port` comment at each patch site. That comment is the notice that
+the file was changed, which section 4(b) of the Apache License 2.0 requires.
 
 ## The two patches
 
@@ -92,21 +91,26 @@ identical. This is a tactic-behaviour change. Upstream's rewrite of this file on
 
 ## Kept although unused by `MediumPNT`'s proof term
 
-The constant-level cone probe traces `MediumPNT`'s type and value transitively down to the
+A constant-level trace follows `MediumPNT`'s type and value transitively down to the
 Mathlib boundary. It uses 324 of the cone's 750 declarations, and **no** declaration of LeanArchitect
 (`Architect*`), `PrimeNumberTheoremAnd.Sobolev`, or `PrimeNumberTheoremAnd.Tactic.AdditiveCombination`.
 The last of these is still an elaboration-time dependency, because the `additive_combination` tactic is
 invoked in `ResidueCalcOnRectangles`. All of them elaborate cleanly on our pin.
 
+The vendored `Architect/Load.lean` sets `debug.skipKernelTC` inside `runEnvOfImports`, a helper
+used only by the blueprint-export functions `latexOutputOfImportModule` and `jsonOfImportModule`,
+which nothing in the shipped sources calls. It is the only kernel-bypass construct a search of
+the shipped sources finds (`skipKernelTC`, `native_decide`, `ofReduceBool`, `implemented_by`,
+`trustCompiler`).
+
 Dropping Architect would mean stripping 106 `@[blueprint …]` attributes across 7 files plus
 the `import Architect` lines. Dropping Sobolev would mean deleting its one importer's
 `import` (in `Fourier`) and whatever of `Fourier` uses it. That is over a hundred further edits to vendored text,
 compared with the 2 edits the port actually needs, and it would buy nothing a reviewer can check more easily. They
-are therefore kept. A later pruning is possible and is recorded as optional in the port map.
+are therefore kept.
 
 ## Re-deriving
 
-The census, the harness that measured it, and the map are archived in the port-map scratch
-(`MAP.md`, 2026-09-24). The clean-store build of this cone goes through
-`external_tests/zeta2_arith/clean_close/` (hierarchical module paths supported since this
-landing).
+The file-level cone is the import closure of `PrimeNumberTheoremAnd.MediumPNT` minus Mathlib,
+Batteries and Lean core. The declaration counts above come from tracing `MediumPNT`'s type and
+value through the elaborated environment down to the Mathlib boundary.

@@ -22,9 +22,9 @@ two independent closed forms), with the archived K7 literal, and with the
 with `mb.moments`.
 
 The HAT side's kernel pin `hatP_engine` is in this file rather than in `Zeta2HatCheck.lean`
-(both are rendered by the one `gen_hat_lean.hatP_pin_lines`): the induction base is twelve
-cells, and one file per cell keeps every elaboration independently runnable instead of
-making one file carry the whole base's kernel work.
+(both are rendered by the one `gen_hat_lean.hatP_pin_lines`): one file per cell of the
+induction base keeps every elaboration independently runnable instead of making one file
+carry the whole base's kernel work.
 -/
 import Zeta2Hat
 import Zeta2MomC

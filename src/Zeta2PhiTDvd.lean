@@ -3,8 +3,8 @@
 
 PT-P is `(Zeta2PhiT.PhiT n : ℤ) ∣ P n` for PNCLR's witness `P`, and PNCLR closed on
 2026-09-19 (`Zeta2PnHarmDelta.pn_cleared_1615`, hypothesis-free), so the witness exists for
-the first time.  This file does everything the row needs EXCEPT its per-prime arithmetic, and
-states precisely what is left.
+the first time.  This file reduces the row to its per-prime arithmetic, which
+enters as the hypothesis `hpp`.
 
 **WHICH `Δ` — read this first.**  `Zeta2PnHarmDelta.binders_1615` delivers `hΔne`/`hQ`/`hP` at
 the UN-DIVIDED `Zeta2Arith.Δ 16 15`, while the capstone's rate binders are at
@@ -24,8 +24,8 @@ divisibility is equivalent to one inequality per prime of `phiWindow n`.
 `p ∈ phiWindow n` and `n ≥ 1`, `v_p(Δ 16 15 n) = 2` — EXACTLY 2, both `⌊log_p⌋` terms being 1
 because `p ≤ 15n < 16n ≤ 26n < 26n+1 < p²`.  This is the row's tight margin in one line: the
 clearing factor supplies a fixed 2 at every window prime and the profile asks for up to 2
-(`Zeta2PhiTRate.phiT_le_two`), so there is no room anywhere.  `ptp_phit_probe.py` measures the
-consequence — slack exactly 0 at 357 of 366 cells.
+(`Zeta2PhiTRate.phiT_le_two`), so there is no room anywhere.
+
 
 **3. Two measured negatives, promoted to theorems so nobody re-derives them.**
 
@@ -43,13 +43,13 @@ consequence — slack exactly 0 at 357 of 366 cells.
     the witness `n = 3, p = 13, k = 47` kills it: `φ̃({3/13}) = 1` but `13 ∤ cTerm 3 47`, while
     `v₁₃(Δ 16 15 3) = 2 = 2·⌊log₁₃ 34⌋`, so the term has nothing left to give.
     `ptp_phit_probe.py` finds 23 such cells among 366 and measures that the SUM over the
-    window's `k` beats its worst term by EXACTLY 1 at every one of them — so what the termwise
-    route leaves open is one unit of cancellation across `k`, never more.
+    window's `k` beats its worst term by EXACTLY 1 at every one of them — so the termwise
+    route falls short by one unit of cancellation across `k`, never more.
 
-**WHAT IS LEFT, and it is the whole of PT-P's difficulty:** the per-prime inequality
-`φ̃({n/p}) ≤ v_p(P n)` for `p ∈ phiWindow n`.  The probe measures it at 366 cells with zero
-violations and slack 0 at 357, so it is TRUE and TIGHT.  It is not proved here, and
-`Zeta2Target.zeta2_not_liouvilleWith` stays `sorry`.
+**THE HYPOTHESIS:** the per-prime inequality `φ̃({n/p}) ≤ v_p(P n)` for `p ∈ phiWindow n`.
+Here it is the hypothesis `hpp`.
+
+
 
 Probe: `ptp_phit_probe.py` / `ptp_phit_probe.out` (9 arms, 6 kill controls, 5 recorded inert).
 Census: `Zeta2PhiTDvdCensus.lean` / `out_phitdvd_census.txt` (both directions, two absences).

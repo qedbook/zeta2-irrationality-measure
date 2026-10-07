@@ -11,9 +11,9 @@ evaluated at `t = −k`.  Every such product is one of exactly TWO shapes:
     ∏_{l ∈ Icc a b} (m + l)     (the factors that stay positive)
     ∏_{l ∈ Icc a b} (k − l)     (the factors that go negative, `b < k`)
 
-and both collapse to a factorial ratio.  This file is the SIZING probe for those two atoms: the
-question the row's remaining grade is about is not whether they are true but what they COST at
-symbolic `n`, because the hat's four sub-products are four instances of them.
+and both collapse to a factorial ratio.  This file proves those two atoms at symbolic `n`,
+because the hat's four sub-products are four instances of them.
+
 
 Stated multiplicatively (`… * (…)! = (…)!`) rather than as a division, so no nonvanishing side
 condition travels with them and `field_simp` never has to see a factorial.
@@ -45,9 +45,9 @@ set_option profiler.threshold 100
 
 /-- A factorial cast is never `0`.  It lives HERE rather than beside its first caller because
 every consumer of these atoms divides by one eventually: `Zeta2HatResidues` needs it a dozen
-times, and `Zeta2Resid` currently spells `Nat.cast_ne_zero.2 (Nat.factorial_ne_zero _)` inline at
-five sites — those are the ones to fold into this when that file is next touched, which is why
-the lemma is here and not in the file that first wanted it. -/
+times, and `Zeta2Resid` spells the same fact inline, as
+`Nat.cast_ne_zero.2 (Nat.factorial_ne_zero _)`, at five sites.
+-/
 theorem cast_factorial_ne_zero (m : ℕ) : (((m)! : ℕ) : ℚ) ≠ 0 := by
   exact_mod_cast Nat.factorial_ne_zero m
 

@@ -1,7 +1,7 @@
 /-
 # PNCLR's ASSEMBLY — the Newton-basis identity, and `cleared_of_dvd_PpolZ`'s hypothesis
 
-Row PNCLR of `docs/future/zeta2-lean-chain.md` was left owing exactly two things:
+This file proves two things for row PNCLR of `docs/future/zeta2-lean-chain.md`:
 
   1. the exact identity, as a Lean statement —
 
@@ -21,20 +21,20 @@ form at every integer `t`, poles included; the discharge is `asm_dvd`, and `ppol
 
 ## What is NOT here, said plainly
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.  PNCLR's ROW statement is
-`Zeta2PnCleared.PnClearedAt 16 15`, i.e. `Δ·pₙ ∈ ℤ`, and this file does not reach it:
-`candidateM.pnPoly` is `Σ_j (Ppol n).coeff j · momI (cell n) j` — a sum over the polynomial's
-COEFFICIENTS against Bernoulli moments — while what is proved here is integrality of
-`Δ·Π·Ppol` at integer ARGUMENTS.  No lemma in this corpus takes the second to the first, and
-this file adds none.  So the row's two recorded remaining obligations close and the row does not.
+PNCLR's ROW statement is `Zeta2PnCleared.PnClearedAt 16 15`, i.e. `Δ·pₙ ∈ ℤ`, and this file
+does not reach it (`Zeta2PnHarmDelta.pn_cleared_1615` proves it): `candidateM.pnPoly` is
+`Σ_j (Ppol n).coeff j · momI (cell n) j` — a sum over the polynomial's COEFFICIENTS against
+Bernoulli moments — while what is proved here is integrality of `Δ·Π·Ppol` at integer
+ARGUMENTS.  This file adds no lemma taking the second to the first.
+
 
 ## The three steps, and where each comes from
 
 * **Newton's forward-difference expansion** (`newton_expansion`) — built here: a function
   `f : ℤ → ℤ` with `DegLE N f` satisfies `f y = Σ_{m ≤ N} Δ^m f(0) · C(y, m)` at every integer
-  `y`.  Mathlib has no `Polynomial.binomialPolynomial` and no Newton basis (censused
-  2026-09-18, re-derived at this pin by `Zeta2AsmCensus` before this file was written), so the
-  basis is built: `nbp s m` over ℚ, whose value at an integer node IS `Ring.choose`.
+  `y`.  The Newton basis is built here too:
+  `nbp s m` over ℚ, whose value at an integer node IS `Ring.choose`
+  (`nbp_eval_nat`).
 * **The division** — `Polynomial.div_modByMonic_unique` against the monic `denPoly`, with the
   quotient `Qpoly` and remainder `Rpoly` exhibited.  The identity `Rpoly + denPoly·Qpoly =
   numPoly` is proved by `Polynomial.eq_of_infinite_eval_eq` from agreement at every INTEGER,
@@ -80,11 +80,11 @@ theorem prod_asc (c : ℤ) (len : ℕ) :
     push_cast at habs ⊢
     linear_combination (-((Nat.factorial L : ℕ) : ℤ)) * habs
 
-/-! ## 2. The Newton basis over ℚ — built, because Mathlib has none -/
+/-! ## 2. The Newton basis over ℚ — built here -/
 
 /-- `nbp s m` is the polynomial whose value at `t` is `C(t + s, m)`: the Newton basis, shifted
-by `s`.  `Polynomial.binomialPolynomial` is ABSENT at this pin (re-censused here), and the
-basis cannot live in `ℤ[X]` — `C(X,2) = (X²−X)/2` — so it is built over ℚ. -/
+by `s`.  The basis cannot live in `ℤ[X]` — `C(X,2) = (X²−X)/2` — so it is built over ℚ.
+-/
 noncomputable def nbp (s : ℚ) (m : ℕ) : Polynomial ℚ :=
   C ((Nat.factorial m : ℕ) : ℚ)⁻¹ * ∏ i ∈ range m, (X + C (s - (i : ℚ)))
 
@@ -149,7 +149,7 @@ theorem eq_of_fwd_zero {f : ℤ → ℤ} (h : ∀ x, fwd f x = 0) (y : ℤ) : f 
       rw [← hk]; exact ih
 
 /-- **Newton's forward-difference expansion.**  `f y = Σ_{m ≤ N} Δ^m f(0) · C(y, m)` for any
-`f : ℤ → ℤ` of finite-difference degree `≤ N`, at EVERY integer `y`.  Not in Mathlib. -/
+`f : ℤ → ℤ` of finite-difference degree `≤ N`, at EVERY integer `y`. -/
 theorem newton_expansion : ∀ (N : ℕ) (f : ℤ → ℤ), DegLE N f → ∀ y : ℤ,
     f y = ∑ m ∈ range (N + 1), fwdIter m f 0 * Ring.choose y m := by
   intro N
@@ -460,7 +460,7 @@ theorem poly_identity (n : ℕ) :
   exact eval_identity n t
 
 /-- **THE ROW'S IDENTITY, as polynomials.**  `Ppol` IS the Newton quotient — stronger than the
-value form the cell recorded, and the statement PNCLR was left owing. -/
+value form the cell recorded. -/
 theorem Ppol_eq_Qpoly (n : ℕ) : candidateM.Ppol n = Qpoly n :=
   (Polynomial.div_modByMonic_unique (Qpoly n) (Rpoly n) (candidateM.denPoly_monic n)
     ⟨poly_identity n, Rpoly_degree_lt n⟩).1

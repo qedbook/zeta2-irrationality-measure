@@ -3,21 +3,21 @@
 
 `docs/future/zeta2-lean-chain.md` row PAIR-8.
 
-**READ THE HEADLINE FIRST: the row's two theorems are NOT proved here, and this file does not
-claim them.**  What is proved is `pairing_q_of_chain_rec` and `pairing_p_of_chain_rec`:
+**The row's two theorems, CONDITIONAL.**
+What is proved is `pairing_q_of_chain_rec` and `pairing_p_of_chain_rec`:
 
     ∀ n, hatQ n = qnInt n            GIVEN the CHAIN-side recurrence at `candidateM.qn`
     ∀ n, hatP n = candidateM.pn n    GIVEN the CHAIN-side recurrence at `candidateM.pn`
                                      and the `n < N₀ + 3` base on the p coordinate
 
-The missing hypothesis is **L1-ASM's `hrecq_rat` / `hrecp_rat`**, and it is `not started` —
-it sits behind STAR, STAR-ID, PHI-REP, PHI-BDY and PHI-EVAL, every one of them open.  It was
-named in this row's own column 2 all along (`in: PAIR-VAL, PAIR-6, PAIR-7, L1-ASM (hrecq_rat,
-hrecp_rat …), STAR-ID (ii)`); the PAIR-6/PAIR-7/PAIR-N landings of 2026-09-14 discharged the
-HAT side of the row and left the CHAIN side untouched.  `Zeta2Target.zeta2_not_liouvilleWith`
-is still `sorry`, and this file changes nothing about that.  The same hypothesis is already
-carried, in its ℝ cast, by `Zeta2L9L11Instantiate`'s `hrecq`/`hrecp` binders: the whole chain
-is parametric in it, so taking it as a hypothesis here is the house shape, not a shortcut.
+The CHAIN-side hypothesis is **L1-ASM's `hrecq_rat` / `hrecp_rat`**, theorems in `Zeta2L1Asm`;
+`Zeta2Pair8Close.pairing_q` / `pairing_p` apply the two theorems below to them.
+
+
+
+
+
+
 
 **What IS new, and unconditional:**
 
@@ -33,7 +33,7 @@ is parametric in it, so taking it as a hypothesis here is the house shape, not a
   * `hatQ_chain_rec` / `hatP_chain_rec` — UNCONDITIONAL: the HAT sequences satisfy the CHAIN
     solve's own recurrence for every `n ≥ 2`.  PAIR-6 carried across the seam this row owns.
   * `seq_zero_of_rec` — the strong induction, over an abstract `d` and an abstract operator.
-  * `sum4_of_written` and `chain_rec_of_scaled` — the two shape adapters L1-ASM will need.
+  * `sum4_of_written` and `chain_rec_of_scaled` — two shape adapters (§3).
 
 **THE BASE, AND ITS ARITHMETIC, CHECKED HERE RATHER THAN INHERITED.**  PAIR-6's recurrence
 holds for `n ≥ 2`; L1-ASM's holds for `n ≥ N₀`.  So the difference `d` satisfies a four-term
@@ -43,17 +43,17 @@ PARAMETRIC: this file takes `N₀` as an argument with `2 ≤ N₀` rather than 
 number.  The row's own cell has carried `N₀ = 9` and `N₀ = 6` at different times and its
 PAIR-VAL sibling closed at `n ≤ 8` after `N₀ = 9` turned out to be a misread `max` over a
 differently-indexed family; the honest thing is to take whatever L1-ASM exports.  The q half
-then needs `N₀ ≤ 9`, which is exactly the reach of the landed
-`Zeta2PairVal.hatQ_eq_qnInt_base` (`∀ n < 12`).  The p half takes its base as a hypothesis,
-discharged cell by cell by `Zeta2Hat.hatP_eq_pn_zero` and `Zeta2PairP{1..11}.hatP_eq_pn`
-(receipted through n = 10; the n = 11 cell is generated and unreceipted, so an L1-ASM that
-exports `N₀ = 9` owes that one receipt and an `N₀ ≤ 8` does not).
+then needs `N₀ ≤ 9`, which is exactly the reach of the landed `Zeta2PairVal.hatQ_eq_qnInt_base`
+(`∀ n < 12`).  The p half takes its base as a hypothesis, which `Zeta2Pair8Close` discharges
+from `Zeta2Hat.hatP_eq_pn_zero` and `Zeta2PairP1` … `Zeta2PairP6`, using no cell above `n = 6`.
+
+
 
 **TWO nonvanishings, and they are different theorems.**  `Zeta2PairNTie.betaHat_three_ne_zero`
 (`al3`, deg 154) is what the INDUCTION divides by; `Zeta2Pair8Lam.lden_eval_ne_zero` (λden,
 deg 58) is what the CROSSING divides by.  Neither discharges the other.
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2Pair8.lean
 
@@ -121,8 +121,8 @@ crossing that divided by something zero, or an operator `γ` that were identical
 make section 5 read fine and say nothing.  Neither can happen, and the proof is already in
 hand: `betaHat_three_ne_zero` (PAIR-N) and `lamDen_ne_zero` (this row) make the LEFT side of
 `pair7N` at `j = 3` nonzero, so its RIGHT side is too — which forces BOTH `λnum(n) ≠ 0` and
-`γ₃(n) ≠ 0`, at every `n`, with no new data and no new scan.  PAIR-6's own non-vacuity check
-lives only in its exact-ℚ second implementation (`pair6_check.py` §5); this one is carried by
+`γ₃(n) ≠ 0`, at every `n`, with no new data and no new scan.  This non-vacuity is a theorem
+(`pair7N_three_ne_zero` below), carried by
 a Lean receipt. -/
 
 theorem pair7N_three_ne_zero (n : ℕ) :
@@ -159,8 +159,8 @@ theorem chain_rec_of_hat_rec (f : ℕ → ℚ) (n : ℕ)
 
 /-- **UNCONDITIONAL.**  The HAT solve's `q` sequence satisfies the CHAIN solve's recurrence for
 every `n ≥ 2` — PAIR-6 carried across the seam this row owns.  It is half of what PAIR-8 needs;
-the other half is that `candidateM.qn` satisfies the same relation, which is L1-ASM's and is
-not proved anywhere. -/
+the other half is that `candidateM.qn` satisfies the same relation, which is L1-ASM's
+`hrecq_rat`. -/
 theorem hatQ_chain_rec (n : ℕ) (hn : 2 ≤ n) :
     ∑ j ∈ Finset.range 4, Zeta2Pair8Tie.gammaN n j * ((hatQ (n + j) : ℤ) : ℚ) = 0 :=
   chain_rec_of_hat_rec (fun k => ((hatQ k : ℤ) : ℚ)) n (Zeta2Pair6.hatQ_rec n hn)
@@ -170,13 +170,13 @@ theorem hatP_chain_rec (n : ℕ) (hn : 2 ≤ n) :
     ∑ j ∈ Finset.range 4, Zeta2Pair8Tie.gammaN n j * hatP (n + j) = 0 :=
   chain_rec_of_hat_rec (fun k => hatP k) n (Zeta2Pair6.hatP_rec n hn)
 
-/-! ## 3. Two shape adapters for whatever L1-ASM exports
+/-! ## 3. Two shape adapters
 
-L1-ASM will state its recurrence as a WRITTEN-OUT four-term sum (that is the shape
-`Zeta2L9L11`'s `hrecq`/`hrecp` binders already have), and its `αⱼ` is STAR-ID (ii)'s
-`clearedⱼ/cleared₃`, which is `γⱼ` up to a `j`-independent scalar rather than `γⱼ` on the
-nose.  Both gaps are shape, not mathematics, and both are closed here so that PAIR-8 does not
-have to be rewritten when L1-ASM lands. -/
+A four-term recurrence can arrive as a WRITTEN-OUT sum (that is the shape `Zeta2L9L11`'s
+`hrecq`/`hrecp` binders have) rather than a `Finset.range 4` sum, and in an operator that is
+`γⱼ` only up to a `j`-independent scalar rather than `γⱼ` on the nose.  Both gaps are shape,
+not mathematics, and both are closed here, by `sum4_of_written` and `chain_rec_of_scaled`
+respectively. -/
 
 /-- A written-out four-term relation is the `Finset.range 4` sum this file consumes. -/
 theorem sum4_of_written (a : ℕ → ℕ → ℚ) (f : ℕ → ℚ) (n : ℕ)
@@ -245,7 +245,7 @@ candidateM.pn n` as an equation in `ℚ`.  They are PAIR-0's and PAIR-0p's state
 
 /--
 **ROW PAIR-8, the q coordinate — CONDITIONAL.**  Given the CHAIN solve's four-term recurrence
-at `candidateM.qn` from `N₀` on (L1-ASM's `hrecq_rat`, NOT PROVED anywhere), the hat's `q`
+at `candidateM.qn` from `N₀` on (L1-ASM's `hrecq_rat`), the hat's `q`
 sequence IS the chain's, at every `n`.
 
 `N₀ ≤ 9` is the only bound, and it is the reach of the landed base
@@ -280,9 +280,9 @@ theorem pairing_q_of_chain_rec (N0 : ℕ) (hN2 : 2 ≤ N0) (hN9 : N0 ≤ 9)
 /--
 **ROW PAIR-8, the p coordinate — CONDITIONAL, on two hypotheses rather than one.**  Besides
 L1-ASM's `hrecp_rat` this one takes the base explicitly: PAIR-VAL closed the p coordinate cell
-by cell (`Zeta2Hat.hatP_eq_pn_zero`, `Zeta2PairP{1..10}.hatP_eq_pn`, all receipted, plus an
-unreceipted n = 11) and never assembled the `∀ n < N₀ + 3` statement, so the assembly is a
-lookup rather than a proof and is left to the consumer that knows which `N₀` it has.
+by cell (`Zeta2Hat.hatP_eq_pn_zero`, `Zeta2PairP1.hatP_eq_pn` … `Zeta2PairP6.hatP_eq_pn`) and never
+assembled the `∀ n < N₀ + 3` statement, so the assembly is a lookup rather than a proof and is left
+to the consumer that knows its `N₀`: the p base of `Zeta2Pair8Close` uses no cell above `n = 6`.
 -/
 theorem pairing_p_of_chain_rec (N0 : ℕ) (hN2 : 2 ≤ N0)
     (hbase : ∀ n, n < N0 + 3 → hatP n = candidateM.pn n)

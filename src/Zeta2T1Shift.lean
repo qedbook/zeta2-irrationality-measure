@@ -3,7 +3,7 @@
 
 `docs/future/zeta2-lean-chain.md` row PHI-BDY.
 
-**What the row owed, and what its cell said.**  PHI-BDY was the ONLY row of the 42-row chain
+**What the row's cell said.**  PHI-BDY was the ONLY row of the 42-row chain
 whose size cell read `UNSIZED`, and it carried the scope audit's "row I understand least" (§9.4).
 Its two branches were *"[E] if `ΔS ∈ Rep` and the shift identities are exact on `Rep`, it is ~100
 lines of `Finset` bookkeeping; if the census's strip statement has to be re-derived as a residue
@@ -48,14 +48,14 @@ four cells.
 **`m` is `β₃n`**, so the cell is `M = −m−1` (`Zeta2Defs.Member.cell`) and the harmonic index is
 `k − m − 1` (`Zeta2Defs.Member.harmIndex`), both spelled here exactly as those definitions do.
 
-**WHAT THIS FILE DOES NOT DO, and the row is NOT closed by it.**  It does not exhibit
-`repS n : Rep`, and it does not prove `evalRep (repS n) t = S t` off the poles.  Everything here is
-about `Φ`; nothing here is about `S`, the member, or the census.  What is MEASURED about `S` — in
-exact rationals, on BOTH landed tale-1 coordinate files, by `../zeta2_star_b1/t1_bdy_probe.py`
-(153 checks / 0 failed, eight falsifier arms RED):
+**WHAT THIS FILE DOES NOT DO.**  It does not exhibit `repS n : Rep`, and it does not prove
+`evalRep (repS n) t = S t` off the poles; `Zeta2T1RepS` does both at the candidate
+(`evalRep_repS_eq_S_cand`, `n ≥ 3`) and proves this file's law there (`hbdy_cand`, `n ≥ 4`).
+Everything here is about `Φ`; nothing here is about `S`, the member, or the census.  What is
+MEASURED about `S`, by `t1_bdy_probe.py` (153 checks / 0 failed, eight falsifier arms RED):
 
   * `S`'s poles are ALL SIMPLE at every `n ≥ 1` of a seven-point ladder, up to 177 of them — which
-    is the whole reason `Rep` needs no order-2 family and B2 owes no `Wtwo_shift`.  A single
+    is the whole reason `Rep` needs no order-2 family and B2 no order-2 `Wone_shift`.  A single
     order-2 pole would have been the row's `~500+` branch.
   * `ord` of `S` at the strip integer `−β₃n` is **2 for every `n ≥ 3`, and 1 at `n = 0, 1, 2`**, at
     BOTH members — so the threshold is **SHARP at 3**, not a margin (the `n = 1, 2` case is checked
@@ -93,12 +93,12 @@ open Zeta2Moments Finset Polynomial
 coefficients at `t = −k`.  No order-2 family: `R_n`'s poles are simple
 (`Zeta2Defs.Member.window`), and `t1_bdy_probe.py` §D measures that `S`'s are too, at every
 `n ≥ 1` of a seven-point ladder at both landed members.  That is the whole reason B2's
-`Wone_shift` suffices and no `Wtwo_shift` is owed. -/
+`Wone_shift` suffices and no order-2 analogue of it is needed. -/
 abbrev Rep := Polynomial ℚ × (ℕ →₀ ℚ)
 
 /-- The evaluation map.  A pair `(P, c)` REPRESENTS a function `f` when this agrees with `f`
 off the poles — the EVALUATION direction, which is the corpus's convention
-(`Zeta2HatRep`'s header, PHI-REP's own `rep_injective`). -/
+(`Zeta2HatRep`'s header, PHI-REP's own `Zeta2T1Inj.evalRep_inj`). -/
 noncomputable def evalRep (r : Rep) (t : ℚ) : ℚ :=
   r.1.eval t + r.2.sum (fun k c => c / (t + (k : ℚ)))
 
@@ -223,8 +223,8 @@ theorem Phi_repDelta (m : ℕ) (r : Rep) (hsupp : ∀ k ∈ r.2.support, m + 1 �
     rw [Phi_rat_argshift m r hsupp]; ring
 
 /-- **The row, in the form L1-ASM consumes it.**  `hz` says the representation's derivative at
-the strip integer vanishes — which `t1_bdy_probe.py` §C measures to hold for the candidate's
-and the record's `S` at every `n ≥ 3`, because `S` has a DOUBLE ZERO at `t = −β₃n` there. -/
+the strip integer vanishes.
+-/
 theorem hbdy (m : ℕ) (r : Rep) (hsupp : ∀ k ∈ r.2.support, m + 1 ≤ k)
     (hz : (derivative r.1).eval (-(m : ℚ))
             = r.2.sum (fun k c => c / ((k : ℚ) - (m : ℚ)) ^ 2)) :

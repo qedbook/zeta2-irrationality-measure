@@ -15,7 +15,7 @@ zero-margin cell of the sixth pass, `n = 23, p = 41` (`D = p − 2` exactly), li
 witness.
 
 The hypothesis is `Zeta2PtpS2a.AntonOneCarry p`, the same `def`, a binder on `term_div_eq_of_run`,
-`blockSum_dvd_sq` and `piece16_blocks` — read the `#check @` lines.
+`blockSum_dvd_sq` and `piece16_blocks` — read the `#check @` lines; `Zeta2PtpAHalf.anton_all` proves it.
 
 Probe: `ptp_s2_mechanism_probe.py` / `.out`.  Falsifier: `falsify_ptps2b.sh` / `out_ptps2b_falsify.txt`.
 

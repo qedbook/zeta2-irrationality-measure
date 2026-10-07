@@ -4,9 +4,9 @@
 Row PT-QB of `docs/future/zeta2-lean-chain.md` (registry `2B0.AW`).  PT-QA
 (`Zeta2CarryFold.pow_phiSingle_dvd_qnInt`, landed 2026-09-19) delivers the tale-1 half of the
 `Φ̃` clearing at the SINGLE-representation profile `phiSingle`.  `phiT` (PT-DEF's `φ̃`) exceeds
-`phiSingle` on exactly five intervals (`ptqb_gap_probe.py` ARM A, re-derived from both landed
-tables rather than taken from the cell), and this file builds the machinery the hat half needs
+`phiSingle` on exactly five intervals, and this file builds the machinery the hat half needs
 there.  It adds four things and nothing else:
+
 
 1. **`carry_bit_le_padicValNat_choose` — the units-digit carry bit is a LOWER bound on
    `ord_p C(a+b, b)` for EVERY prime `p`**, with no Legendre validity line.  Kummer counts all
@@ -23,25 +23,25 @@ there.  It adds four things and nothing else:
    under one outer sign, so `Finset.dvd_sum` and `dvd_neg` are the whole proof.  PT-QA's fold had
    to carry an alternating sum through `Dvd.dvd.mul_left`; this one does not.
 4. **`hatQ_ne_zero`, unconditional in `n`** — `hatQ n < 0`, a negated sum of positive terms.
-   PT-QA's `padicValInt_qnInt_ge_phi` carries a hypothesis `qnInt n ≠ 0` that its own header
-   records as unproved anywhere in the corpus (`∀ n, qnInt n ≠ 0`); through PAIR's
-   `Zeta2Pair8Close.pairing_q` this discharges it.  That composition is EXECUTED in
-   `Zeta2HatQnInt.lean`, not asserted here — this file does not import PAIR.
+   PT-QA's `padicValInt_qnInt_ge_phi` carries a hypothesis `qnInt n ≠ 0`; through
+   PAIR's `Zeta2Pair8Close.pairing_q` this discharges it.  That composition is
+   EXECUTED in `Zeta2HatQnInt.lean`, not asserted here — this file does
+   not import PAIR.
 
-## The measured probe this file banks: the cell `(12, 103)`
+## The cell `(12, 103)`, proved here
 
-The row's cell names `2 ≤ padicValInt 103 (hatQ 12)` as its next probe — the hardest of the
+The cell `2 ≤ padicValInt 103 (hatQ 12)` is the hardest of the
 thirteen cells where the tale-1 carry-min is strictly below `φ̃` (`hat_carry_probe.out` line
-174: `φ̃ = 2`, hat carry-min 2, tale-1 carry-min 1) and the largest `n` the 2026-09-11 sweep
+174: `φ̃ = 2`, hat carry-min 2, tale-1 carry-min 1), at the largest `n` the 2026-09-11 sweep
 reached.  `hatQ 12` is a 97-term sum of `C(204+2j, 2j)`-class binomials.  MEASURED-buildbox
 2026-09-19: the whole file elaborates in **5.1 s / 3.4 GB**, so the n = 12 data-scaling point
 is not a wall for this row.
 
 ## What this file does NOT claim
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.  There is no profile here:
-the five gap intervals' carry lemmas and `PhiT_dvd_qnInt` are PT-QB's remaining work.  Nothing
-here mentions `qnInt`, so nothing here is about the chain's `qₙ` until PAIR is applied.
+There is no profile here, and neither the five gap intervals' carry lemmas nor
+`PhiT_dvd_qnInt` is in this file.  Nothing here mentions `qnInt`: the statements here are about
+`hatQ`, and reach the chain's `qₙ` only through PAIR.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 API at this pin, measured: `Nat.Prime 103` needs `import Mathlib.Tactic.NormNum.Prime` (the
@@ -137,8 +137,8 @@ theorem hatQ_neg (n : ℕ) : hatQ n < 0 := by
   simpa [hatQ] using hs
 
 /-- **`hatQ n ≠ 0` at every `n`.**  Through `Zeta2Pair8Close.pairing_q` this is
-`∀ n, qnInt n ≠ 0` — the hypothesis `Zeta2CarryFold.padicValInt_qnInt_ge_phi` carries and whose
-absence that file records ("nothing landed proves `∀ n, qnInt n ≠ 0`").  The composition is in
+`∀ n, qnInt n ≠ 0` — the hypothesis `Zeta2CarryFold.padicValInt_qnInt_ge_phi` carries.
+The composition is in
 `Zeta2HatQnInt.lean`. -/
 theorem hatQ_ne_zero (n : ℕ) : hatQ n ≠ 0 := (hatQ_neg n).ne
 
@@ -172,7 +172,7 @@ theorem pow_dvd_hatQ_of_bits (n p v : ℕ) [Fact p.Prime]
 
 /-! ## The banked cell: `(12, 103)` (LEAN.md §5 — the edge case compiles, so state it) -/
 
-/-- **The cell the row named as its next probe.**  `φ̃({12/103}) = 2`, the tale-1 carry-min is
+/-- **The cell `(12, 103)`.**  `φ̃({12/103}) = 2`, the tale-1 carry-min is
 `1` and the hat carry-min is `2`, so `103² ∣ q₁₂` is exactly what the hat half has to deliver
 and the tale-1 half cannot.  Here on `hatQ`; `Zeta2HatQnInt.lean` transports it to `qnInt`. -/
 theorem hatQ_twelve_emod : hatQ 12 % 10609 = 0 := by

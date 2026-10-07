@@ -1,5 +1,5 @@
 /-
-# Row PAIR-4R — the four open residue obligations, and the UNCONDITIONAL `hat_rep`
+# Row PAIR-4R — the other four residue obligations, and the UNCONDITIONAL `hat_rep`
 
 `docs/future/zeta2-lean-chain.md` row PAIR-4R, §PAIR-4R attempt 2/3.
 
@@ -200,7 +200,7 @@ theorem hatNum_derivative_eval_neg_above (n κ : ℕ) (h2 : 20 * n + 1 < 2 * κ)
 
 /-! ## Row 2 of the pole table — `h₁` on the HI run `[18n+2, 20n+1]`, i.e. `hatBhi`
 
-The row's NAMED next probe (LEAN.md §9), and the cheapest of the four because every run of the
+The cheapest of the four, because every run of the
 cofactor lies on ONE side of the pole: no split at `κ` in the numerator, only in the erased
 simple set.  The seven factorials `hatBhi` is written with are produced exactly — `κ−1 =
 18n+1+i`, `κ−9n−1 = 9n+1+i`, `κ−7n−1 = 11n+1+i`, `κ−18n−2 = i`, `κ−5n−1 = 13n+1+i`,

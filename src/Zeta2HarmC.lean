@@ -14,7 +14,7 @@ both kernel-bearing evaluations of row PAIR-VAL call it `O(n)` times at indices 
 This is the same sharing defect `Zeta2MomC.sum_momI` removed on the moment side — one list
 hoisted out of the sum and indexed — and the second pass of row PAIR-VAL measured it as the
 lever it did not take: `pnHarm_eq` and `hatP_engine` are together the larger half of every
-cell's kernel work, and the base's top cell `n = 11` did not fit inside the owner's 30-minute
+cell's kernel work, and the base's top cell `n = 11` did not fit inside the 30-minute
 rule without it.
 
 `sumList f j = [Σ_{i<0} f i, …, Σ_{i<j} f i]` is ONE object for both (`harm` and `altH` differ
@@ -178,7 +178,7 @@ theorem hatP_shared (n : ℕ) :
 `harm_control`/`altH_control` pin the two summands at a hand-checkable size; the two cell
 controls are `Zeta2PairP1`'s OWN landed literals, reached through the new route, so a
 `harmList` that was off by one, empty, or unreducible cannot pass this file.  (The literals
-themselves are the generators' business: `gen_pn_lean.py` equates `pnHarm` with the tale-1
+themselves are also checked by the generators: `gen_pn_lean.py` equates `pnHarm` with the tale-1
 engine and `gen_hat_lean.py` equates `hatP` with three independent routes, each with
 falsifier arms — `LEAN.md` §6.) -/
 

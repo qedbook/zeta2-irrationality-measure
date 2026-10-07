@@ -11,16 +11,16 @@ carry-free case of this and is `0` mod `p` the moment a carry occurs, which is w
 `φ̃ = 2` strata — one carry, the `p` divided out — need this file and not `Lucas.lean`.
 
 MATHLIB CENSUS AT THE PIN (v4.34.0-rc2 / mathlib 5aedf732), both directions, whole tree:
-  PRESENT  `Nat.choose_modEq_choose_mod_mul_choose_div` and its three siblings
+  PRESENT  `Choose.choose_modEq_choose_mod_mul_choose_div` and its three siblings
            (`Data/Nat/Choose/Lucas.lean`:38, 68, 75, 88 — Lucas, i.e. no carry);
            `ZMod.wilsons_lemma`; `padicValNat_choose` (Kummer as a filter-card, `k ≤ n` form; the
            primed one is the `n + k` form); `padicValNat_factorial_mul` / `_mul_add` (one Legendre
            level); `Nat.ordCompl_mul`, `Nat.not_dvd_ordCompl`, `Nat.factorization_def`
-           (`n.factorization p = padicValNat p n`); `padicValNat.mul` and
-           `padicValNat.eq_zero_of_not_dvd` (PROTECTED, inside `namespace padicValNat` — a grep for
-           `theorem padicValNat.mul` reports them absent).
-  ABSENT   anything named `anton` or `granville` (0 lines, case-insensitive; the two `anton` hits
-           are a bibliography author and the word "spelling"); `choose_div_prime_pow`;
+           (`n.factorization p = padicValNat p n`); `padicValNat.mul` (PROTECTED) and
+           `padicValNat.eq_zero_of_not_dvd`, both inside `namespace padicValNat` — a grep for
+           `theorem padicValNat.mul` reports them absent.
+  ABSENT   anything named `anton` or `granville` (no declaration; the two case-insensitive text
+           hits are a bibliography author and `IsLocallyConstantOn`); `choose_div_prime_pow`;
            `choose_div_pow`; any `ordCompl`-of-a-factorial or of-a-binomial statement; any
            digit-factorial product; `Nat.Prime.lucas_theorem` under that name.
 

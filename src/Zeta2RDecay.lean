@@ -1,8 +1,8 @@
 /-
 # ROW RDECAY — `hdecay` at the real `rₙ`, conditional on `hψ` AND on L7ID's moment value
 
-**HEADLINE: `Zeta2Target.zeta2_not_liouvilleWith` is NOT proved.**  This file closes one row of
-the μ(ζ(2)) chain and discharges none of the others.
+This file closes one row of the μ(ζ(2)) chain.
+
 
 ## What this row delivers, and the TWO binders it carries
 
@@ -13,15 +13,15 @@ Zeta2RDecay.rdecay_of_psi_of_moment
   {ε' : ℝ} (hε' : 0 < ε') : Zeta2TWire.RDECAY_open ε'
 ```
 
-* **`hψ`** — MediumPNT's error rate on Chebyshev's ψ, formalized on `PrimeNumberTheoremAnd` at a
-  different toolchain (LEAN.md §7).  It enters through `Zeta2DRate.ΔT_clearing_rate`, whose first
-  explicit argument it is, exactly as it does in the QGROW twin.  It is the owner's accepted
-  standing binder (answered fork 2026-09-20).
-* **`hP`** — L7ID's remaining residue.  `Zeta2L7IdSum.rn_eq_neg_rLine_iff` proves
+* **`hψ`** — MediumPNT's error rate on Chebyshev's ψ, which `Zeta2Hpsi.hψ` proves from the
+  vendored `MediumPNT`.  It enters through `Zeta2DRate.ΔT_clearing_rate`, whose first
+  explicit argument it is, exactly as it does in the QGROW twin.
+* **`hP`** — L7ID's residue.  `Zeta2L7IdSum.rn_eq_neg_rLine_iff` proves
   `candidateM.rn n = −L7MidM5.rLine n ↔ PpolMomentValue n`, so this binder is not a weakness of
-  this row's proof: it IS L7ID's open obligation, carried rather than assumed away.  It leaves
-  the moment L7ID closes, and `rdecay_of_psi` below is the one-line statement that will then be
-  available.
+  this row's proof: it IS L7ID's identification of `candidateM.rn`, carried rather than assumed
+  away, and `Zeta2PpolMoment.ppolMomentValue` proves it at every `n`.
+
+
 
 **AND `#print axioms` CANNOT SEE EITHER OF THEM** (LEAN.md §1, 2026-09-20): a binder is not an
 axiom, so every receipt in this file reads `[propext, Classical.choice, Quot.sound]` whether the
@@ -151,13 +151,13 @@ theorem relax_le (ε' : ℝ) :
   have h := epsR_lt_deltaR
   linarith
 
-/-! ## §4. THE ROW — against the scaffold's own `Prop`, verbatim
+/-! ## §4. THE ROW — against `Zeta2TWire`'s own `Prop`, verbatim
 
 The conclusion is `Zeta2TWire.RDECAY_open ε'` itself, not a twin: a consumer built to a guessed
 shape is impossible here, which is the LEAN.md §3 acceptance. -/
 
 /--
-**RDECAY, CLOSED CONDITIONALLY ON `hψ` AND ON L7ID's `PpolMomentValue`.**
+**RDECAY, from `hψ` AND L7ID's `PpolMomentValue`.**
 
 `Cr := 1` and `Nr` is `ΔT_clearing_rate`'s own threshold; `c₀` and `δ` are §1's.  Read
 `#check @rdecay_of_psi_of_moment` beside the receipt: `#print axioms` on this theorem reads
@@ -172,7 +172,7 @@ theorem rdecay_of_psi_of_moment (hψ : Zeta2LegA.psiErrorBoundStatement)
     Zeta2L12.decay_relax (Cr := 1) (f := fun n => Zeta2PhiT.ΔT n * candidateM.rn n)
       zero_le_one (relax_le ε') hM⟩
 
-/-- **The row against the scaffold's corrected interface.**  `Zeta2TWire.RDECAY_deliverable` is
+/-- **The row against `Zeta2TWire`'s corrected interface.**  `Zeta2TWire.RDECAY_deliverable` is
 `hψ → RDECAY_open ε'`; inhabiting it — modulo `hP` — is what makes "RDECAY is closed" a statement
 the typechecker can check rather than one the doc asserts. -/
 theorem rdecay_of_moment (hP : ∀ n : ℕ, 1 ≤ n → Zeta2L7IdSum.PpolMomentValue n)
@@ -193,8 +193,8 @@ theorem hdecay_of_psi_of_moment (hψ : Zeta2LegA.psiErrorBoundStatement)
 
 /-! ## §5. THE COMPOSITION, EXECUTED — T-WIRE with RDECAY and QGROW both supplied
 
-`Zeta2QGrow.target_of_two_open_rows` left `hψ`, PT-P and RDECAY.  This is the same application
-with RDECAY supplied from §4, so the chain's remaining obligations are exactly `hψ`, PT-P and
+`Zeta2QGrow.target_of_two_open_rows` takes `hψ`, PT-P and RDECAY.  This is the same application
+with RDECAY supplied from §4, so its hypotheses are exactly `hψ`, PT-P and
 L7ID's `PpolMomentValue` — three things, none of them RDECAY.  It is the LEAN.md §3 acceptance
 for this row: the theorem produced is the theorem consumed. -/
 

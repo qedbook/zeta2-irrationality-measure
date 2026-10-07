@@ -1,11 +1,11 @@
 /-
 # X-L1, first half — a landed abstract theorem APPLIED to the real linear form
 
-Every receipted theorem in the μ(ζ(2)) chain so far is about an abstract object:
 `Zeta2StarB1.poincare_upper_bound` takes an arbitrary `y : ℕ → ℝ`, `star_growth_bound_eventual`
 an arbitrary sequence with arbitrary clearing data.  `Zeta2Defs.Member.rn` is the first object
 in the corpus that IS the ζ(2) candidate, so this file does the obvious next thing: it hands
 `rn` to the capstone and reads what comes out.
+
 
 **What this buys, and what it does not.**  It buys the composition, executed rather than
 asserted — `LEAN.md` §3 is emphatic that "proving pieces with the others as hypotheses" fails
@@ -13,10 +13,10 @@ on casts and indexing exactly when nobody runs the glue, and it failed both time
 in this program.  Here it goes through unchanged, which means D1's statement really does fit
 the real object and no re-statement is needed.
 
-It does NOT buy L1.  The hypothesis `hL` — that `rn` satisfies the three-term recurrence — is
-row B1 + B2 + B3 + B4 of `zeta2-integral-free.md` §5.3, and none of them is proved for `rn`.
-That is the honest position of this row: the interface is fitted, the input is named, and the
-input is the work.
+`rn_growth_of_L1` takes L1 as a hypothesis: `hL` — that `rn` satisfies the four-term recurrence —
+is row B1 + B2 + B3 + B4 of `zeta2-integral-free.md` §5.3.
+
+
 
 Elaborated against CURRENT Mathlib (`v4.34.0-rc2`, mathlib `5aedf732`) on the buildbox.
 -/
@@ -38,32 +38,32 @@ Decay is what the CHAIN needs of `r_n`, and it is L7's job; this theorem is the 
 half and bounds growth from above.  Calling it decay reads as though the chain's hard analytic
 step were already discharged here, which is the most expensive way a docstring can be wrong.
 
-The one hypothesis that is NOT available today is `hL`, L1 for `rn`.  It is stated here in the
-exact shape B1's `star_telescopes` + the shift lemma will deliver it (`α_j` as `ℕ → ℝ`
-coefficients, `B` the clearing polynomial), so that closing B1 discharges it verbatim rather
-than after a re-statement.
+`hL` is L1 for `rn`.  It takes `α_j : ℕ → ℝ` alongside a clearing polynomial `B`, exactly the
+vocabulary the solve produces.
 
-**CORRECTED 2026-09-09: "closing B1 discharges it verbatim" is HALF true, and the false half is
-the conclusion.**  `Zeta2XL1B.lean` §3 tested this sentence instead of repeating it, and split
-it into two theorems.  *True — the SHAPE.*  `hL` takes `α_j : ℕ → ℝ` alongside a clearing
-polynomial `B`, exactly the vocabulary the solve produces; `Zeta2XL1B.star_telescopes_four` is
-`star_telescopes` instantiated at `K := ℝ`, `m := 4` with no restatement, and `h₀`–`h₃` are
-discharged at the real `candidateM.rn` there.  *False — the CONCLUSION.*  `star_telescopes`
-ends at `Σ_j α_j · ρ_j t = S (t+1) − S t`; `hL` needs `= 0`, at the SEQUENCE `r_{n+j}` rather
-than at a contour variable `t`.  Closing that needs a linear functional `Φ` with `Φ ρ_j =
-r_{n+j}`, and **`Φ` does not exist in Lean at all**.  Nor does the "shift lemma" named two
-sentences above.  `Zeta2XL1B` §3 measured this by census — *"`rn (n + 1)` occurs in exactly
-three places across every `.lean` file in `external_tests/`, and all three are this same
-hypothesis statement"* — and ⟦re-measured 2026-09-09 by the 2B0.U staleness sweep, that COUNT
-is already stale: there are now SEVEN statement sites (`Zeta2Instantiate` ×2, `Zeta2XL1` ×1,
-`Zeta2XL1B` ×4, the last four added by `Zeta2XL1B` itself in the same landing that wrote the
-sentence).  **The substantive claim survives the re-count and that is the point: all seven are
-still the same hypothesis, so no theorem anywhere relates the linear form at consecutive
-indices.**  A census is a measurement with a date; quote its finding, not its integer.⟧
-`Zeta2XL1B.rec_of_telescoping_of_linear` states the missing step as one theorem, so the
-remaining work is "supply `Φ`, its linearity and `hbdy`" rather than "connect two theorems
-somehow".  The sentence is corrected rather than deleted because it is what made the interface
-fit; only its last clause over-reached. -/
+For `qₙ` and `pₙ`, `Zeta2L1Asm.hrecq` and `Zeta2L1Asm.hrecp` prove the four-term recurrence from
+`N0` on, with no hypothesis, and `Zeta2Final` feeds those two to the capstone.  Within the
+modules `Zeta2Target` imports, this file's two theorems are used only by
+`Zeta2XL1.candidate_rn_growth_of_recurrence`, and nothing uses that theorem.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-/
 theorem rn_growth_of_L1 (m : Member)
     (α₀ α₁ α₂ α₃ : ℕ → ℝ) (P₀ P₁ P₂ P₃ B : ℝ[X]) (N₀ : ℕ)
     (hL : ∀ n : ℕ, N₀ ≤ n →

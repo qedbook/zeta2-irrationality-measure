@@ -7,7 +7,7 @@ run strata, except the ones `coeff_runLow_S7` closes.  It has two halves by `m :
 
 * `m < p²` — `Zeta2PtpRunS2.RestBelowOpen`, the sibling unit's (the four φ̃ = 2 strata below `p²`),
   PROVED there hypothesis-free as `Zeta2PtpRunS2.restBelowOpen`.
-* `m ≥ p²` — **`RestAboveOpen`**, this file's, and OPEN.
+* `m ≥ p²` — **`RestAboveOpen`**, stated here; PROVED as `Zeta2PtpMbigS2.restAboveOpen`.
 
 `residualRunRestOpen_of_split : RestBelowOpen → RestAboveOpen → ResidualRunRestOpen` and, with the
 sibling's theorem spent, **`polyHalfOpen_of_above : RestAboveOpen → PolyHalfOpen`** — the
@@ -20,7 +20,7 @@ digits with top digit `1`.  The family is infinite and sparse at small `n`: the 
 (`row_717_137`); none at `n ≤ 60` (the `n = 11, p = 17, r = 169` cell is polar but OFF the run
 strata — `11/17` — and `Zeta2PtpResPair.coeff_bound_sq_offrun` already closes it).
 
-WHAT THE PROBE FOUND (not proved here).  Not termwise: every row has a term two places short.
+WHAT THE PROBE FOUND.  Not termwise: every row has a term two places short.
 The mechanism is two-level — the fold `F(i) = T(i) + T(p² + i)` gains one place by a
 SECOND-ORDER pair law, `F(j) ≡ −p·λ(j)·T(j) (mod p^{v(T(j))+2})`, and the folded `p`-blocks
 gain the other by the SAME block lemma as below `p²` (`Zeta2PtpRunBlock.lo_block_dvd`, which takes
@@ -37,9 +37,9 @@ namespace Zeta2PtpMbig
 
 /-! ## 1. The `m ≥ p²` half -/
 
-/-- **THE `m ≥ p²` HALF — OPEN.**  The coefficient bound at every polar row on the five run
-strata with `p² ≤ m = 11n + 1 + r`.  (No `¬ S7` clause: `coeff_runLow_S7` needs `m < p²`, so every
-row here, the φ̃ = 1 stratum's included, is owed.) -/
+/-- **THE `m ≥ p²` HALF.**  The coefficient bound at every polar row on the five run
+strata with `p² ≤ m = 11n + 1 + r`.  (No `¬ S7` clause: `coeff_runLow_S7` needs `m < p²`, so this
+statement covers every row here, the φ̃ = 1 stratum's included.) -/
 def RestAboveOpen : Prop :=
   ∀ n p r : ℕ, p ∈ Zeta2PhiT.phiWindow n → r < 16 * n → p ∣ r + 1 →
     Zeta2PtpKumRows.RunStrata p (n % p) →

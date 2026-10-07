@@ -8,8 +8,8 @@ coefficients (docs/future/zeta2-chain-close.md §L2).  Do not hand-edit:
 `gen_d4_lean.py --check` regenerates and diffs.
 
 Every literal below is derived from those four integers by exact integer arithmetic, and
-`norm_num` re-does all of it.  The general lemmas that CONSUME these facts (L12's arithmetic,
-L4's dominance criterion) are in `Zeta2D4.lean`.
+`norm_num` re-does all of it.
+
 -/
 import Mathlib.Tactic.NormNum
 

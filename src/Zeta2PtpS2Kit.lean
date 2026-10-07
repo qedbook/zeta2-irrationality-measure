@@ -31,9 +31,9 @@ THIS FILE, stratum-free:
    `term/p`, in the exact shape a stratum file discharges residue by residue.
 
 WHAT THIS DOES NOT DO.  No stratum is closed here.  Anton's congruence itself is NOT here — it is
-being built as `Zeta2Anton.choose_div_p_modEq_of_one_carry`; until it lands each stratum file
-states the instance it consumes as a named hypothesis `hanton`.  `PolyHalfOpen` is untouched;
-PT-P stays OPEN and `Zeta2Target.zeta2_not_liouvilleWith` stays `sorry`.
+`Zeta2Anton.choose_div_p_modEq_of_one_carry`; each stratum file states the instance it
+consumes as a named hypothesis `hanton`.  `PolyHalfOpen` is not touched in this
+file.
 
 Probe: `ptp_s2_mechanism_probe.py` / `.out`.  Falsifier: `falsify_ptps2kit.sh` / `out_ptps2kit_falsify.txt`.
 

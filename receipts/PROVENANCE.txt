@@ -1,0 +1,184 @@
+receipts/PROVENANCE.txt — written by the export, never by hand.
+
+This tree was exported from commit 0df42692526b1d7ffe7978ec844b69ffdfd1dbd1 of the source repository.
+The receipts of record in this directory are copied from that commit unchanged. For a receipt
+whose first line names a commit as the export reads one, a lower-case hexadecimal hash after "@"
+or "commit", the export compared every module of src/ that came from the source repository with
+that commit's copy, using the source repository's comment-only check: a file passes when it has as
+many lines as at that commit and the same code on every line, comments removed. It compared the two
+STAR manifests too, which must be the same bytes, so that the generated modules are. The export
+refuses to write the tree when any of these differs. Two kinds of receipt were not checked against
+any commit, and this file says nothing about which sources they describe: one whose first line names
+no commit, holding no "@", no word "commit" and no word of 7 to 40 hexadecimal digits; and one whose
+first line holds such a thing but no lower-case hash after "@" or "commit", which the export did not
+read as naming a commit and the list below quotes. src/Receipts.lean, which the export writes, has no
+counterpart at any commit.
+
+The receipts, and the commit each one's first line names:
+  out_axioms_unconditional.txt: commit e6b3c1a08, checked against it below
+  out_axioms_target.txt: commit e6b3c1a08, checked against it below
+  out_sorry_census.txt: commit e6b3c1a08, checked against it below
+  out_final_falsify.txt: names no commit, so it was not checked against any commit
+  out_unconditional_falsify.txt: names no commit, so it was not checked against any commit
+
+Commit e6b3c1a08 (e6b3c1a08827a731b6bb65b9ed03e654be1be857), named by out_axioms_unconditional.txt, out_axioms_target.txt and out_sorry_census.txt:
+  The comment-only check passes. Modules in src/ from the source repository: 188; identical to that commit's: 40; different in comments only: 148; different in code: 0. Generated modules: 559, the ones that commit's manifests list.
+  Different in comments only:
+    src/L7MidM5.lean
+    src/L7MidM6Mod.lean
+    src/PrimeNumberTheoremAnd/MediumPNT.lean
+    src/PrimeNumberTheoremAnd/MellinCalculus.lean
+    src/Zeta2Anton.lean
+    src/Zeta2Arith.lean
+    src/Zeta2ArithAssemble.lean
+    src/Zeta2ArithBridge.lean
+    src/Zeta2C7Mod.lean
+    src/Zeta2Capstone.lean
+    src/Zeta2CarryFold.lean
+    src/Zeta2CarryFull.lean
+    src/Zeta2CarryP1.lean
+    src/Zeta2D4Data.lean
+    src/Zeta2DPhi.lean
+    src/Zeta2DRate.lean
+    src/Zeta2Defs.lean
+    src/Zeta2Final.lean
+    src/Zeta2HarmC.lean
+    src/Zeta2Hat.lean
+    src/Zeta2HatAssemble.lean
+    src/Zeta2HatBelt.lean
+    src/Zeta2HatCarry.lean
+    src/Zeta2HatDispatch.lean
+    src/Zeta2HatGap.lean
+    src/Zeta2HatGap2.lean
+    src/Zeta2HatInj.lean
+    src/Zeta2HatLinear.lean
+    src/Zeta2HatLn2.lean
+    src/Zeta2HatPoles.lean
+    src/Zeta2HatQnInt.lean
+    src/Zeta2HatRawPoles.lean
+    src/Zeta2HatRep.lean
+    src/Zeta2HatRepOf.lean
+    src/Zeta2HatRepS.lean
+    src/Zeta2HatResidues.lean
+    src/Zeta2HatShatForm.lean
+    src/Zeta2HatShift.lean
+    src/Zeta2HatStarBridge.lean
+    src/Zeta2Hc1.lean
+    src/Zeta2Hc2.lean
+    src/Zeta2Hpsi.lean
+    src/Zeta2Instantiate.lean
+    src/Zeta2L12.lean
+    src/Zeta2L1Asm.lean
+    src/Zeta2L4.lean
+    src/Zeta2L4Br.lean
+    src/Zeta2L5Char.lean
+    src/Zeta2L7Id0.lean
+    src/Zeta2L7Id0Val.lean
+    src/Zeta2L7IdContour.lean
+    src/Zeta2L7IdHinge.lean
+    src/Zeta2L7IdMoment.lean
+    src/Zeta2L7IdResid.lean
+    src/Zeta2L7IdSplit.lean
+    src/Zeta2L7IdSum.lean
+    src/Zeta2L7IdTermVal.lean
+    src/Zeta2L7LineInt.lean
+    src/Zeta2L9L11.lean
+    src/Zeta2L9L11Instantiate.lean
+    src/Zeta2LegA.lean
+    src/Zeta2LegB.lean
+    src/Zeta2LegBCand.lean
+    src/Zeta2Legendre.lean
+    src/Zeta2MomStep.lean
+    src/Zeta2MomentLaw.lean
+    src/Zeta2Moments.lean
+    src/Zeta2NewtonAssemble.lean
+    src/Zeta2NewtonCarry.lean
+    src/Zeta2Pair6.lean
+    src/Zeta2Pair6Runs.lean
+    src/Zeta2Pair7Pi.lean
+    src/Zeta2Pair8.lean
+    src/Zeta2Pair8Close.lean
+    src/Zeta2Pair8Lam.lean
+    src/Zeta2Pair8Tie.lean
+    src/Zeta2PairN.lean
+    src/Zeta2PairNTie.lean
+    src/Zeta2PairP1.lean
+    src/Zeta2PairP2.lean
+    src/Zeta2PairP3.lean
+    src/Zeta2PairP4.lean
+    src/Zeta2PairP5.lean
+    src/Zeta2PairP6.lean
+    src/Zeta2PairVal.lean
+    src/Zeta2PartialFractions.lean
+    src/Zeta2PhiT.lean
+    src/Zeta2PhiTDvd.lean
+    src/Zeta2PhiTRate.lean
+    src/Zeta2PnCleared.lean
+    src/Zeta2PnFunc.lean
+    src/Zeta2PnHarmDelta.lean
+    src/Zeta2PpolInt.lean
+    src/Zeta2PpolVal.lean
+    src/Zeta2PrI.lean
+    src/Zeta2ProdEval.lean
+    src/Zeta2Profile.lean
+    src/Zeta2PtpAHalf.lean
+    src/Zeta2PtpBlock.lean
+    src/Zeta2PtpCoeff.lean
+    src/Zeta2PtpCong.lean
+    src/Zeta2PtpKumRes.lean
+    src/Zeta2PtpKumRows.lean
+    src/Zeta2PtpKumS1.lean
+    src/Zeta2PtpKumS2.lean
+    src/Zeta2PtpKumS3.lean
+    src/Zeta2PtpKumS4.lean
+    src/Zeta2PtpKummer.lean
+    src/Zeta2PtpMbig.lean
+    src/Zeta2PtpMbigS2.lean
+    src/Zeta2PtpMbigS7.lean
+    src/Zeta2PtpPolar.lean
+    src/Zeta2PtpPoly.lean
+    src/Zeta2PtpResPair.lean
+    src/Zeta2PtpRun.lean
+    src/Zeta2PtpRunBlock.lean
+    src/Zeta2PtpRunG2.lean
+    src/Zeta2PtpRunS2.lean
+    src/Zeta2PtpRunS7.lean
+    src/Zeta2PtpS2Kit.lean
+    src/Zeta2PtpS2a.lean
+    src/Zeta2PtpS2b.lean
+    src/Zeta2PtpS2c.lean
+    src/Zeta2PtpS2d.lean
+    src/Zeta2PtpS7.lean
+    src/Zeta2PtpStratum.lean
+    src/Zeta2QGrow.lean
+    src/Zeta2RDecay.lean
+    src/Zeta2Resid.lean
+    src/Zeta2SechMoment.lean
+    src/Zeta2SinSqSeries.lean
+    src/Zeta2StarB1.lean
+    src/Zeta2StarId.lean
+    src/Zeta2StarIdIIJ0.lean
+    src/Zeta2StarIdIIJ1.lean
+    src/Zeta2StarIdIIJ2.lean
+    src/Zeta2StarIdIIJ3.lean
+    src/Zeta2StarIdPhi.lean
+    src/Zeta2StarIdPi.lean
+    src/Zeta2StarIdSign.lean
+    src/Zeta2T1Eval.lean
+    src/Zeta2T1Inj.lean
+    src/Zeta2T1RepS.lean
+    src/Zeta2T1Shift.lean
+    src/Zeta2TWire.lean
+    src/Zeta2Target.lean
+    src/Zeta2Unconditional.lean
+    src/Zeta2XL1.lean
+
+out_axioms_unconditional.txt states a module count of 748 for its run. This tree ships 747 of those modules, and every module it ships is among them. The run also covered Zeta2RouteBL7Capstone, which this tree does not ship and no module it ships imports in its code:
+  Zeta2RouteBL7Capstone entered that run's module list through a line "import Zeta2RouteBL7Capstone" in a comment of Zeta2L7IdContour, which that run's walk read as an import.
+
+out_axioms_target.txt states a module count of 748 for its run. This tree ships 747 of those modules, and every module it ships is among them. The run also covered Zeta2RouteBL7Capstone, which this tree does not ship and no module it ships imports in its code:
+  Zeta2RouteBL7Capstone entered that run's module list through a line "import Zeta2RouteBL7Capstone" in a comment of Zeta2L7IdContour, which that run's walk read as an import.
+
+out_sorry_census.txt states a module count of 748 for its run. This tree ships 747 of those modules, and every module it ships is among them. The run also covered Zeta2RouteBL7Capstone, which this tree does not ship and no module it ships imports in its code:
+  Zeta2RouteBL7Capstone entered that run's module list through a line "import Zeta2RouteBL7Capstone" in a comment of Zeta2L7IdContour, which that run's walk read as an import.
+So whatever that run found absent from the modules it covered, of what it counted there (`sorry` tokens outside the census's allowlist in their code, `axiom` declarations in their code, 'declaration uses sorry' warnings in their build logs, constants of theirs in the kernel environment after `import Zeta2Target` that use `sorryAx`, and constants of theirs there that are axioms), is absent from every module this tree ships.

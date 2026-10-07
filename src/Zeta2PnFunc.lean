@@ -1,9 +1,9 @@
 /-
 # `Zeta2PnFunc.lean` — row PNCLR: the VALUES → COEFFICIENTS step
 
-`Zeta2NewtonAssemble` left row PNCLR owing the step from what it proved —
-`Δ 16 15 n · Π(n) · Ppol_n(t) ∈ ℤ` at every integer ARGUMENT `t` — to what the row's statement
-is about, the polynomial's COEFFICIENTS:
+`Zeta2NewtonAssemble` proves `Δ 16 15 n · Π(n) · Ppol_n(t) ∈ ℤ` at every integer ARGUMENT
+`t`.  This file takes the step from there to what row PNCLR's statement is about, the
+polynomial's COEFFICIENTS:
 
     candidateM.pnPoly n = Σ_{j < 16n} (Ppol n).coeff j · momI (cell n) j.
 
@@ -26,15 +26,15 @@ The `-4n` in the functional is `momI (candidateM.cell n) j = (Polynomial.bernoul
 between them (the bridge is `Zeta2T1Eval.momI_agree`).  This file is on `Zeta2Defs.momI`
 throughout, because that is what `Member.pnPoly` sums against.
 
-## What is NOT here, said plainly
+## What enters here as a hypothesis, said plainly
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`, and **row PNCLR does not
-close here either** — for a reason no earlier cell of the chain doc stated as an obligation.
 `pₙ = -sgn·Π·(pnPoly - pnHarm)` has TWO halves, and the landed harmonic lemma
 `Zeta2PnHarm.harmInt_cast` clears its half by `D (22n)²`, which is not a divisor of
 `Δ 16 15 n = D(16n)·D(15n)` — `D (22n)` does not even divide `D (16n)`.  So the row's harmonic
-half is open AT THE ROW'S OWN CONSTANTS.  `pn_cleared_1615_of_harm` states exactly what is left,
-and `harm_cleared_of_dvd` reduces it to ONE divisibility with no sum in it:
+half is a HYPOTHESIS here, AT THE ROW'S OWN CONSTANTS: `pn_cleared_1615_of_harm` takes it as its
+one hypothesis, and `harm_cleared_of_dvd` reduces it to ONE divisibility with no sum in it
+(`Zeta2PnHarmDelta.harm_dvd` proves that divisibility):
+
 
     D (k - 4n - 1)² ∣ Δ 16 15 n · cTerm n k      for every k in the window
 
@@ -45,11 +45,11 @@ and `harm_cleared_of_dvd` reduces it to ONE divisibility with no sum in it:
 
 * `nbp_absorb`, `nbp_pascal`, `nbp_comp_add_one` — the Newton basis's three laws, each by
   `Polynomial.funext` from `Zeta2NewtonAssemble.nbp_eval`.
-* `umb_shift` — the umbral lift `Σ_j p.coeff j • bernoulli j` intertwines the shift with the
-  derivative.  Its whole content is Mathlib's `Polynomial.sum_bernoulli`, used at `k - 1`.
-  Censused 2026-09-19 at this pin: Mathlib has NO Nörlund/Stirling-style bridge between
-  `Polynomial.bernoulli` and binomial coefficients, and no
-  `derivative_ascPochhammer`/`derivative_descPochhammer`; `sum_bernoulli` is the one hinge.
+* `umb_shift` — the umbral lift `umb p = Σ_j p.coeff j • bernoulli j` satisfies
+
+      umb (p(X+1)) = umb p + p'.
+
+  Its whole content is Mathlib's `Polynomial.sum_bernoulli`, used at `k - 1`.
 * `deriv_nbp` — `d/du C(u, r+1) = Σ_{m ≤ r} (-1)^m/(m+1) · C(u, r-m)`, built here by induction
   through `nbp_absorb`.  Measured first as an exact polynomial identity for `r ≤ 25`
   (`pn_functional_probe.py` arm A5), and the whole decomposition measured containment-style
@@ -234,8 +234,8 @@ theorem cf_mul_succ (m : ℕ) : cf m * ((m : ℚ) + 1) = (-1 : ℚ) ^ m := by
   rw [cf]
   field_simp
 
-/-- **`d/du C(u, r+1) = Σ_{m ≤ r} (-1)^m/(m+1) · C(u, r-m)`** — built here; Mathlib has no
-derivative rule for `ascPochhammer`/`descPochhammer`/`Ring.choose` (censused at this pin). -/
+/-- **`d/du C(u, r+1) = Σ_{m ≤ r} (-1)^m/(m+1) · C(u, r-m)`** — built here, by induction
+through `nbp_absorb`. -/
 theorem deriv_nbp (s : ℚ) : ∀ r : ℕ,
     derivative (nbp s (r + 1)) = ∑ m ∈ range (r + 1), C (cf m) * nbp s (r - m) := by
   intro r
@@ -478,7 +478,7 @@ theorem Δ_mul_Pin_pnPoly_int (n : ℕ) :
   rw [Zeta2Arith.Δ, Nat.cast_mul, hsplit, hvq, hwq]
   field_simp
 
-/-! ## 6. What the row still owes, stated so it can be discharged in one step -/
+/-! ## 6. The row from its harmonic half, and the harmonic half from one divisibility -/
 
 theorem sgn_candidate (n : ℕ) : candidateM.sgn n = -1 := by
   rw [candidate_sgn]
@@ -501,8 +501,8 @@ theorem pn_cleared_1615_of_harm
   ring
 
 /-- **And the harmonic half, from ONE divisibility with no sum in it.**  `D (k-4n-1)²` divides
-the clearing factor times the term's own integer `cTerm n k`, at every `k` of the window.
-Measured 16 863 / 16 863 termwise at `n ≤ 6` (`pn_harm_delta_probe.py` arm B2). -/
+the clearing factor times the term's own integer `cTerm n k`, at every `k` of the window
+(`Zeta2PnHarmDelta.harm_dvd`; measured 16 863 / 16 863 termwise at `n ≤ 6` beside it). -/
 theorem harm_cleared_of_dvd (n : ℕ)
     (h : ∀ k ∈ candidateM.window n,
       (D (k - 4 * n - 1)) ^ 2 ∣ Δ 16 15 n * Zeta2Arith.cTerm n k) :

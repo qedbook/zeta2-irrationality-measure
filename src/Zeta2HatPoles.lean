@@ -3,11 +3,11 @@
 
 `docs/future/zeta2-lean-chain.md` row PAIR-4R, §PAIR-4R design notes.
 
-This file is the row's **named next probe** (LEAN.md §9 — test the load-bearing assumption
-first): instantiate `Zeta2PF.partialFractions` at the hat member's pole sets at **symbolic `n`**
-and discharge ONLY `hdisj` and `hdeg` — the two hypotheses that are pure index bookkeeping —
-before touching the residue conditions.  The design notes named exactly this chunk as the
-one nothing had executed.
+This file instantiates `Zeta2PF.partialFractions` at the hat member's pole sets at
+**symbolic `n`** and discharges `hdisj` and `hdeg`, the two hypotheses that are pure index
+bookkeeping.  The residue conditions are named hypotheses of that instantiation
+(`hat_partialFractions`, `hat_cleared`); the last section proves the two runs of them that the
+numerator's `(2t+l)` zeros make free.
 
 The hat member is
 
@@ -194,8 +194,8 @@ theorem hat_hdeg_two (n : ℕ) :
 /-! ## The instantiation — the probe's actual verdict
 
 `partialFractions` applied at the hat's pole sets with the two structural hypotheses
-DISCHARGED and the residue conditions left as named hypotheses.  This is what the probe
-was for: the index bookkeeping composes at symbolic `n`, and what remains is arithmetic about
+DISCHARGED and the residue conditions as named hypotheses `h₁`–`h₃`.  The index
+bookkeeping composes at symbolic `n`; the residue conditions are arithmetic about
 `hatA` / `hatLam` / `hatBlo` / `hatBhi` and nothing structural. -/
 
 open scoped Classical in
@@ -411,7 +411,7 @@ theorem hatDen_eval_eq (n : ℕ) (t : ℚ) :
 block is the bridge: the VALUE of each family at a node, its support, and the evaluation map
 rewritten as two `Finset` sums over the pole sets.  PAIR-4's `repHatA_sum`/`repHatB_sum` say
 what happens to a functional APPLIED to the family; what is needed here is the family's
-coefficient AT one pole, which is a different question and has no landed answer. -/
+coefficient AT one pole, which is a different question. -/
 
 theorem sum_single_apply (c m : ℕ) (v : ℕ → ℚ) (κ : ℕ) :
     (∑ j ∈ range m, Finsupp.single (c + j) (v j)) κ
@@ -479,10 +479,10 @@ theorem evalRep_repHat_eq (n : ℕ) (t : ℚ) :
 
 /-! ## The clearing — PAIR-4R modulo the residue conditions
 
-Everything structural is discharged here.  What is left is THREE hypotheses, which across the
-four-row pole table are SIX local statements about `hatA`, `hatLam`, `hatBlo` and `hatBhi` at a
-pole — one per simple run, two per double run — and nothing else.  Same shape as RESID's
-`partial_fractions_of_residues`, for the same reason. -/
+Everything structural is discharged here.  The residue conditions enter as THREE hypotheses,
+which across the four-row pole table are SIX local statements about `hatA`, `hatLam`, `hatBlo`
+and `hatBhi` at a pole — one per simple run, two per double run — and nothing else.  Same shape
+as RESID's `partial_fractions_of_residues`, for the same reason. -/
 
 /-- The node sums, back in index vocabulary.  Stated with `g` ABSTRACT so that unfolding
 `poleS1` touches only the summation index and never the `pf1`/`pf2` arguments — rewriting the

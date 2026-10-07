@@ -6,14 +6,14 @@ proof; `docs/future/zeta2-integral-free.md` §5.1 writes the target `¬ Liouvill
 This file proves both links against CURRENT Mathlib, in the shape the chain's other rows
 produce and consume.
 
-**Three design decisions, each of which the chain's own prose gets wrong or leaves open.**
+**Three design decisions.**
 
-1. **No `limsup`.**  The chain phrases L8/L5 as `limsup (1/n)·log|y n| ≤ c`.  That is FALSE as a
+1. **No `limsup`.**  Written as `limsup (1/n)·log|y n| ≤ c`, L8/L5 would be FALSE as a
    Lean statement over ℝ, twice over (`Real.log 0 = 0` makes a vanishing sequence satisfy every
    rate bound; `sInf` returns junk when the normalised log tends to `-∞`), and both traps are
    committed as positive falsifier theorems elsewhere in this corpus.  L11 here consumes
    `∀ n ≥ N, |y n| ≤ C · ρ ^ n` with `C` carried EXPLICITLY and `ρ` a plain real — the same shape
-   `Zeta2L5.poincare_upper_bound` / `Zeta2StarB1.star_growth_bound_eventual` produce, so no
+   `Zeta2StarB1.poincare_upper_bound` / `Zeta2StarB1.star_growth_bound_eventual` produce, so no
    restatement stands between the rate rows and this one.
 
 2. **The gap hypothesis is `ρq * ρr ^ (p₀ - 1) < 1`, not `1 + v/u < p₀`.**  The two are
@@ -28,14 +28,14 @@ produce and consume.
    `2·Cr·q·ρr^t ≤ 1`, so the upper bound on `t` comes from minimality rather than from a
    logarithm, and the whole `ε` limit disappears into the single hypothesis `hgap`.
 
-**What is NOT here.**  L9's hypotheses are the chain's inputs, and two of them are not proved
-anywhere in the repo: the three-term recurrence for `q`/`p` (rows B1–B5 of
+**What the theorems below take as hypotheses.**  L9's hypotheses are the chain's inputs, among
+them the four-term (third-order) recurrence for `q`/`p` (rows B1–B5 of
 `zeta2-integral-free.md` §5.3, i.e. L1) and the finite exact data `m₀ = 1120/1127` with
 `q_1127 ≠ 0` (row D4-L4).  They enter as hypotheses, named in the vocabulary those rows produce.
 Nothing here asserts them.
 
-Elaborated against CURRENT Mathlib (`v4.34.0-rc2`, mathlib `5aedf732`) on the buildbox; Lean
-never runs on the laptop (owner ruling 2026-09-07).
+Elaborated on Lean `v4.34.0-rc2` with mathlib `5aedf732`, on the buildbox; Lean
+never runs on the laptop.
 -/
 import Mathlib.NumberTheory.Transcendental.Liouville.LiouvilleWith
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
@@ -65,7 +65,7 @@ theorem rpow_natPow_comm {a : ℝ} (ha : 0 ≤ a) (i : ℕ) (c : ℝ) :
 
 /-! ## §1. L9's two propagation lemmas
 
-Both are pure algebra over the three-term recurrence
+Both are pure algebra over the four-term (third-order) recurrence
 `α₀ n · y n + α₁ n · y (n+1) + α₂ n · y (n+2) + α₃ n · y (n+3) = 0`, which is the shape
 `Zeta2Instantiate.rn_growth_of_L1` already takes for `rn`.  Forward propagation needs the
 LEADING coefficient nonzero (`α₃`, i.e. `P₃` of L4); backward propagation needs the TRAILING
@@ -203,21 +203,21 @@ consecutive integer linear forms `Q_m a − P_m b`, `m = t, t+1, t+2`, are not a
 
 Every hypothesis is one of the chain's own links, in the vocabulary its row produces:
 
-* `hrecq` / `hrecp` — **L1**, the three-term recurrence, for `q` and for `p` separately
-  (rows B1–B5; *not* proved anywhere yet).  Same shape as `Zeta2Instantiate.rn_growth_of_L1`.
+* `hrecq` / `hrecp` — **L1**, the four-term (third-order) recurrence, for `q` and for `p`
+  separately (rows B1–B5).  Same shape as `Zeta2Instantiate.rn_growth_of_L1`.
 * `hQ` / `hP` / `hΔ` — **L10's arithmetic clearing**: `Q_n = Δ_n q_n` with `Δ_n ≠ 0`.  The
   cleared integers do NOT satisfy the recurrence (the clearing factor moves with `n`), which is
   exactly why the propagation runs on `q`, `p` and transfers through `Δ`.
 * `hα₃` / `hα₀` — **L4**: `P₃(n) ≠ 0` for `n ≥ n₁`, `P₀(n) ≠ 0` for `n ≥ m₀`.
 * `hrow` — the finite exact residue: one index `≥ m₀` with `q ≠ 0`.  On the candidate this is
   `q_1127 ≠ 0` (20,567 digits), row D4-L4.
-  **CORRECTED 2026-09-09: this line used to end "it is NOT in the repo", and that absence is
-  over.**  Row D4-L4 landed `external_tests/chain_close_design/results/solution_a.txt` with its
+  Row D4-L4 landed `external_tests/chain_close_design/results/solution_a.txt` with its
   generator `l4_data.py` (`533c3b114`, 2026-09-08), and `Zeta2L4.q1127_ne_zero` proves the
-  residue in Lean, axiom-clean.  What is NOT yet available is the bridge: `Zeta2L4` states it
-  about a `List ℤ` through `Zeta2L4.hornerZ`, while `hrow` below wants `q : ℕ → ℝ`, and
-  `Zeta2XL1.lean` records that no `List ℤ → ℝ[X]` bridge exists anywhere in this corpus.  So
-  `hrow` is still a hypothesis here — on a missing bridge, not on missing data.
+  residue in Lean, axiom-clean.
+
+
+
+
 * `hdecay` — **L8 + L10**, the decay of `R_n = Q_n ζ − P_n`.
 * `hirr` — `Irrational ζ`, which in the final composition is FREE from
   `LiouvilleWith.irrational` (`zeta2-integral-free.md` §4). -/

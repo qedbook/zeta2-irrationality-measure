@@ -16,8 +16,8 @@ BINOMIALS over `i ≤ 13n`, each with one units-carry bit at a window prime.  `c
 C(11n, i)·|H(i)|` (`cTerm_eq_choose_mul_Habs`) is the identity that makes it the harmonic half's
 own object with the fourth factor `C(11n, i)` replaced by `C(m, i)`.
 
-WHAT IS NOT CLAIMED.  No valuation is bounded here; `CoeffBoundOpen` stays open, PT-P stays open,
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry`.
+WHAT IS NOT CLAIMED.  No valuation is bounded here, and `CoeffBoundOpen` is not touched in this
+file.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/

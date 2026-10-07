@@ -4,13 +4,13 @@
 `docs/future/zeta2-lean-chain.md` row PAIR-3.  PAIR-4 landed `Rep̂`, `evalRep` and `Φ̂`, and
 PAIR-4L/4C consumed `Φ̂` only COORDINATEWISE — through `repHatA_sum`/`repHatB_sum`, which are
 additivity in the coefficient VALUE at a fixed family.  Neither needed `Φ̂` to be additive as a
-MAP `Rep̂ → ℚ³`, which is why PAIR-3 stayed at MED when the whole PAIR-4 block closed.
+MAP `Rep̂ → ℚ³`.
 
 `Σⱼ αⱼ · Φ̂ rⱼ = Φ̂ (Σⱼ αⱼ · rⱼ)` is what PAIR-6 applies: the (★) telescoping gives a linear
 relation among the hat MEMBERS, and the recurrence on `(hatP, hatQ)` is that relation pushed
 through `Φ̂`.  This file proves it, and the same three facts for `evalRep`, which is what carries
 the relation from the members to `Rep̂` in the first place (with PAIR-3's other half,
-`rep̂_injective`).
+`Zeta2HatInj.evalRep_inj`).
 
 **No poles anywhere in this file.**  `evalRep` divides by `t + k`, and in ℚ `b / 0 = 0`, so
 `evalRep · t` is linear at EVERY `t`, pole or not — the hypothesis-free form is the true one and

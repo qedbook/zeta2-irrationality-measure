@@ -4,8 +4,8 @@
 A2 — the moment recursion `I` of `docs/future/zeta2-integral-free.md` §5.2, and
 B2 — the SHIFT LEMMA of §2.1/§2.2, on both bases the evaluator uses.
 
-Elaborated against CURRENT Mathlib (`v4.34.0-rc2`, mathlib `5aedf732`) on the buildbox;
-Lean never runs on the laptop (owner ruling 2026-09-07).
+Elaborated on Lean `v4.34.0-rc2` with mathlib `5aedf732`, on the buildbox;
+Lean never runs on the laptop.
 -/
 import Mathlib.NumberTheory.BernoulliPolynomials
 import Mathlib.Analysis.Calculus.Deriv.Add

@@ -1,9 +1,9 @@
 /-
-# Row STAR-ID part (iii) — the `'alt'` sign is a THEOREM, at the indices where it can be one today
+# Row STAR-ID part (iii) — the `'alt'` sign is a THEOREM
 
 `docs/future/zeta2-lean-chain.md` row STAR-ID.  Added 2026-09-17 by the row's closing unit.
 
-**HEADLINE: `Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.**
+
 
 **WHAT (iii) IS, and why it was a trap.**  The chain's certified quadruple `cⱼ` annihilates
 `(−1)ⁿ rₙ`, not `rₙ` — equivalently, the recurrence the sequence obeys is
@@ -47,10 +47,10 @@ cost the 3 h 46 m its elaboration did.  `(0,3)` was then RE-SHARDED as `(1,2)` h
 (`Zeta2StarIdIIJ0`/`J3`, importable in minutes), and §5a adds `alt_weight_j0`/`_j3` on the same
 three-`have` pattern, `plain_fails_j3`, and the `w13` ties across all four generated modules.
 With that, row STAR-ID is CLOSED: `Zeta2StarIdPhi` + the four `alt_weight_j` are everything
-L1-ASM's recurrence half needs from it.  Nothing here transports to ℝ (row L4-BR); nothing here
-applies Φ to the telescoping (row L1-ASM).
+L1-ASM's recurrence half needs from it.  Nothing here transports to ℝ; nothing here
+applies Φ to the telescoping.
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2StarIdSign.lean
 
@@ -306,7 +306,7 @@ theorem plain_fails_j3 :
     linear_combination (-1 / 2 : ℚ) * (hplain - halt)
   exact mul_ne_zero hc hP h2
 
-/-! ## 6. The same `W` on both sides, as the consumer will see it -/
+/-! ## 6. The same `W` on both sides -/
 
 /-- `Zeta2StarIdIIJ1.Wq` and `Zeta2StarIdIIJ2.Wq` are one function of `n`. -/
 theorem Wq_tie (n : ℕ) : Zeta2StarIdIIJ1.Wq n = Zeta2StarIdIIJ2.Wq n := by

@@ -1,0 +1,20 @@
+{
+  "commit": "0df42692526b1d7ffe7978ec844b69ffdfd1dbd1",
+  "counted": "the modules of src/ by kind, and their total; a module's lines are its newline characters, as wc -l counts them; src/Receipts.lean, which the export writes, is not counted",
+  "chain": {
+    "modules": 165,
+    "lines": 73092
+  },
+  "vendored": {
+    "modules": 23,
+    "lines": 13184
+  },
+  "generated": {
+    "modules": 559,
+    "lines": 430631
+  },
+  "total": {
+    "modules": 747,
+    "lines": 516907
+  }
+}

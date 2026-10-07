@@ -679,7 +679,6 @@ roots = [
   "Zeta2L7LineInt",
   "Zeta2L7Id0",
   "Zeta2L7Id0Val",
-  "Zeta2RouteBL7Capstone",
   "L7MidM6Mod",
   "Zeta2L7IdHinge",
   "Zeta2L7IdSplit",

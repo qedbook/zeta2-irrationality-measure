@@ -6,9 +6,9 @@ measured that `φ̃ > φ` on exactly five intervals and that the hat's four-bit 
 `φ̃` on all of them; `ptqb_cover_probe.py` measured the case structure — 4 essential branches
 for each `v = 2` cell, 3 for the one `v = 1` cell.  Neither is a Lean proof.
 
-This module does the `v = 1` cell, `[3/13, 4/17)`, the smallest of the five, as the shape test
-the row's cell names as its next probe: if the branch structure does not go through here, the
-other four do not either.
+This module proves the `v = 1` cell, `[3/13, 4/17)`, the smallest of the five, first, and then
+the `v = 2` cells 1 and 5 with the same three reusable pieces; `Zeta2HatGap2` proves cells 3
+and 4.
 
 ## The three reusable pieces, and where they came from
 
@@ -16,7 +16,7 @@ other four do not either.
 Both are SPECIALISED — `mul_mod_small` needs `a * (n % p) < p`, which is false for the hat's
 `17n` on every one of the five cells, and `bit4_sum_mod` is stated at the tale-1 window's own
 two offsets.  So this module proves the general forms rather than importing and working around
-them, and a later clump should re-point the tale-1 call sites at these:
+them:
 
 * `mul_mod_congr` — `a * n % p = a * (n % p) % p`, no size condition at all.
 * `mod_eq_sub_mul` — `a % p = a − k·p` when `k·p ≤ a` and `a − k·p < p`.  This is the piece
@@ -48,9 +48,9 @@ weaker than its proof gets noticed.
 
 ## What this file does NOT claim
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.  This is ONE of the five
-gap cells.  The other four — all `v = 2`, all needing four branches and two bits each — and the
-`φ̃ ≤ max(φ, φ̂)` dispatch over the 52-cell refinement, and `PhiT_dvd_qnInt`, are not here.
+These are three of the five gap cells; cells 3 and 4 are `Zeta2HatGap2`'s.  The
+`φ̃ ≤ max(φ, φ̂)` dispatch over the refinement and `PhiT_dvd_qnInt` are not here;
+`Zeta2HatAssemble` has them.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -188,8 +188,8 @@ theorem hat_carry_lowcell (n p j : ℕ) [hp : Fact p.Prime] (hj : j ≤ 8 * n)
 /-- **GAP CELL 2 OF 5, at its own bounds**: `[3/13, 4/17)`, which is `3p ≤ 13·(n%p)` and
 `17·(n%p) < 4p` — exactly `Int.fract (n/p) ∈ [3/13, 4/17)` through
 `Zeta2CarryFull.fract_ge_iff`/`fract_lt_iff`.  One `omega` away from `hat_carry_lowcell`,
-because `3p ≤ 13r` gives `5r ≥ 15p/13 > p`.  This is the instance the profile dispatch will
-consume; the theorem above is what is actually true. -/
+because `3p ≤ 13r` gives `5r ≥ 15p/13 > p`.  This is the instance `Zeta2HatAssemble.viaGap2`
+consumes; the theorem above is what is actually true. -/
 theorem hat_carry_gap2 (n p j : ℕ) [Fact p.Prime] (hj : j ≤ 8 * n)
     (hlo : 3 * p ≤ 13 * (n % p)) (hhi : 17 * (n % p) < 4 * p) :
     1 ≤ (if p ≤ (2 * j) % p + (17 * n) % p then 1 else 0)

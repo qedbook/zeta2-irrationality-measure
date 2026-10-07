@@ -2447,7 +2447,7 @@ lemma log_pow_over_xsq_integral_bounded :
         apply intervalIntegral.integral_congr
         intro x hx
         simp
-        -- MODIFIED for the CAS port (2026-09-24): trailing `rfl` removed; see external_tests/pnt_port/PROVENANCE.md P2.
+        -- MODIFIED for this port (2026-09-24): trailing `rfl` removed; see PROVENANCE.md, P2 (THIRD_PARTY/ in the export; external_tests/pnt_port/ in the source tree).
       rw [change_int_power, integral]
       have : T ^ (-1 : ℤ) > 0 := by
         refine zpow_pos ?_ (-1)

@@ -2,7 +2,7 @@
 # Row PT-P, layer 2 — the short run's MECHANISM, in the units digit
 
 `Zeta2PhiTDvd.lean` (layer 1) reduced PT-P to ONE inequality per window prime,
-`φ̃({n/p}) ≤ v_p(P n)`, and stopped there.  `ptp_cancel_probe.py` then reduced that to ONE
+`φ̃({n/p}) ≤ v_p(P n)`.  `ptp_cancel_probe.py` then measured that as ONE
 congruence per CELL over a contiguous run of residues `u = m mod p` — and QUOTED the run's two
 endpoints as MEASURED numbers (`(3,13) → [8,12]`, `(5,43) → [12,22]`), which is a census entry
 and not something Lean can be told.  This file proves the predicate those numbers were samples
@@ -34,21 +34,21 @@ intervals, so BOTH of its endpoints are drawn from those two four-element lists 
 in `r` and `p` with no `n` and no block index in it.
 `ptp_run_endpoint_probe.py` / `.out` scores that at 1744 cells (4.8× `ptp_cancel_probe`'s box):
 arm E8a 206/206, arm E4 3488/3488, arm E5 reproducing all 23 of the sibling's measured endpoint
-pairs, 5 controls all fired.  **WHICH of the four ends binds at a given cell is MEASURED, not
-proved** — u0 by `(11r)%p` at 81 cells, `(7r)%p` at 14, `(5r)%p` at 8; u1 by `(22r)%p` at 57,
-`(−4r−1)%p` at 29, `p−1` at 22 — and that selection is the honest remaining gap between this
-file and a Lean statement of the endpoints themselves.
+pairs, 5 controls all fired.  **WHICH of the four ends binds at a given cell is not touched in
+this file** (the probe's counts: u0 by `(11r)%p` at 81 cells, `(7r)%p` at 14, `(5r)%p`
+at 8; u1 by `(22r)%p` at 57, `(−4r−1)%p` at 29, `p−1` at 22) — so this file stops short of a Lean
+statement of the endpoints themselves.
 
-**WHAT THIS FILE GIVES THE OPEN CONGRUENCE.**  `pow_dvd_cTerm_of_units` is the half that matters
-for it: every term whose units carries reach `φ̃` is already `0 mod p^φ̃`, so the whole open
-obligation is supported on the run and nothing outside it has to be looked at.
+**WHAT THIS FILE GIVES THE RUN CONGRUENCE.**  `pow_dvd_cTerm_of_units` is the half that matters
+for it: every term whose units carries reach `φ̃` is already `0 mod p^φ̃`, so the whole
+congruence is supported on the run and nothing outside it has to be looked at.
 `vp_cTerm_residue_invariant` is `ptp_cancel_probe`'s arm A10 ("the run is the SAME in every
 block of the cell", 84 of 84) as a theorem rather than a sample: `v_p(cTerm n k)` depends on
 `(n, k)` only through `n % p` and `(k−4n−1) % p`.
 
-**WHAT IT DOES NOT GIVE, and the row is not closed.**  The congruence itself —
-`Σ_{u in the run} (−1)^{k−1} cTerm(n,k) ≡ 0 mod p^φ̃` — is untouched.  PT-P stays OPEN and
-`Zeta2Target.zeta2_not_liouvilleWith` stays `sorry`.
+**WHAT IT DOES NOT GIVE.**  The congruence itself,
+`Σ_{u in the run} (−1)^{k−1} cTerm(n,k) ≡ 0 mod p^φ̃`,
+is not touched in this file.
 
 **THE WINDOW HYPOTHESIS IS LOAD-BEARING, and there is a theorem saying so.**
 `units_eq_needs_the_window` exhibits `n = 1, p = 2, k = 16`: `p² = 4 ≤ 27 = 26n+1`, the four
@@ -140,7 +140,7 @@ theorem vp_cTerm_eq_units {n k p : ℕ} (hp : p ∈ phiWindow n)
     vp_choose_eq_cb (by omega) l1, vp_choose_eq_cb (by omega) l2,
     vp_choose_eq_cb (by omega) l3, vp_choose_eq_cb (by omega) l4]
 
-/-! ## 3. What the open congruence gets: the run is its whole support -/
+/-! ## 3. What the run congruence gets: the run is its whole support -/
 
 theorem cTerm_ne_zero {n k : ℕ} (hk : k ∈ candidateM.window n) : cTerm n k ≠ 0 := by
   obtain ⟨h1, h2⟩ := (mem_window_iff n k).1 hk
@@ -149,7 +149,7 @@ theorem cTerm_ne_zero {n k : ℕ} (hk : k ∈ candidateM.window n) : cTerm n k �
     (Nat.choose_ne_zero (by omega))) (Nat.choose_ne_zero (by omega)))
     (Nat.choose_ne_zero (by omega))
 
-/-- **Everything OUTSIDE the short run is already `0 mod p^v`.**  So the open congruence
+/-- **Everything OUTSIDE the short run is already `0 mod p^v`.**  So the run congruence
 `Σ_k (−1)^{k−1} cTerm(n,k) ≡ 0 mod p^φ̃` only ever has to look at the `k` whose units carries
 fall short — which is the run, an interval of residues `u` fixed by `r = n % p`. -/
 theorem pow_dvd_cTerm_of_units {n k p v : ℕ} (hp : p ∈ phiWindow n)

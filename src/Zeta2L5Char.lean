@@ -5,8 +5,8 @@ coefficients (chi_op, L2 CLOSED; external_tests/chain_close_design/results/chi_a
   A2*rho^2 + A1*rho + A0 <= rho^3       (cleared to integers over a common D)
 
 with A_j = |l_j / l_3| * (1 + 10^-12)  and  rho = A2 * (1 + 10^-30).
-Certified consequence (probe chi.py): log rho - C1 = 1.0e-12, against a mu budget
-of 1.334e-7 -- a margin factor of 1.3e5.
+
+
 -/
 
 import Mathlib.Tactic.NormNum

@@ -4,9 +4,9 @@
 `Zeta2PtpStratum.lean` landed the run-free dichotomy's easy side **at seven cells**, and said so
 in its own header:
 
-    "WHAT THIS DOES NOT DO, and the row is NOT closed.  It is a statement about SEVEN CELLS, one
-     per run-free stratum, and NOT about the strata — the per-stratum statement quantifies over
-     all `(r, p)` in the stratum and is not proved here in any of the seven."
+    "WHAT THIS DOES NOT DO.  It is a statement about SEVEN CELLS, one per run-free stratum, and
+     NOT about the strata — the per-stratum statement quantifies over all `(r, p)` in the
+     stratum and is not stated in this file for any of the seven."
 
 **This file proves the per-stratum statement.**  For every one of the seven run-free strata,
 `NoShort p n v` holds at EVERY `(n, p)` whose residue `r = n % p` lies in the stratum — not at a
@@ -65,21 +65,21 @@ exactly: `omega` discharges the branches that are ARITHMETICALLY UNREACHABLE on 
 real content — it is what proves the quadruple intersection empty), `simp` the ones that are
 reachable and whose goal is then true by evaluation.
 
-## What this does NOT do, and the row is NOT closed
+## What this does NOT do
 
-* **`Zeta2PtpPolar.AHalfOpen` is UNTOUCHED.**  This file shows the open congruence has empty
+* **`Zeta2PtpPolar.AHalfOpen` is not touched here.**  This file shows the run congruence has empty
   support on seven of the twelve strata and names its support exactly on the other five; it does
   not prove the congruence on any stratum where the support is non-empty.  Obligation (2), the
-  per-cell run congruence `Σ_{u ∈ run} (−1)^{k−1}·cTerm(n,k) ≡ 0 mod p^φ̃`, has no mechanism here
-  and is still RESEARCH.
-* **`Zeta2PtpPolar.PolyHalfOpen` is UNTOUCHED** and remains measured-only (366 of 366), so even a
-  complete `AHalfOpen` would not close the row on its own.
-* **The φ̃ WIRE IS NOT PROVED HERE.**  Each stratum theorem carries its exponent as a LITERAL
+  per-cell run congruence `Σ_{u ∈ run} (−1)^{k−1}·cTerm(n,k) ≡ 0 mod p^φ̃`, has no mechanism
+  in this file.
+* **`Zeta2PtpPolar.PolyHalfOpen` is not touched here**; `Zeta2PtpMbigS2.polyHalfOpen` proves it
+  and `Zeta2PtpAHalf.aHalfOpen` proves `AHalfOpen`.
+* **The φ̃ WIRE IS NOT IN THIS FILE.**  Each stratum theorem carries its exponent as a LITERAL
   (`NoShort p n 2` / `NoShort p n 1`), the value the profile takes on the piece the stratum
   refines.  `Zeta2PhiT.phiT` is a `List.find?` over 26 triples, and `phiT (Int.fract (n/p)) = v`
   on a symbolic stratum is a separate 26-way elimination that this file does not do.  A consumer
   therefore has to supply that equation; it is named here rather than assumed.
-* **PT-P stays OPEN and `Zeta2Target.zeta2_not_liouvilleWith` stays `sorry`.**
+
 
 ## Non-vacuity
 
@@ -393,7 +393,7 @@ theorem noShort_S7 {n p : ℕ} (hp : 0 < p)
     (hlo : 10 * p ≤ 11 * (n % p)) (hhi : 13 * (n % p) < 12 * p) : NoShort p n 2 :=
   noShort_of_bits hp fun _ hu => bits_S7 hu (Nat.mod_lt _ hp) hlo hhi
 
-/-! ## 4. The wire: the open congruence has EMPTY SUPPORT on those seven strata -/
+/-! ## 4. The wire: the run congruence has EMPTY SUPPORT on those seven strata -/
 
 /-- The four run-free strata of φ̃ = 2, as one predicate on `(p, r)`. -/
 def RunFreeTwo (p r : ℕ) : Prop :=
@@ -423,7 +423,7 @@ theorem noShort_of_runFreeOne {n p : ℕ} (hp : 0 < p) (h : RunFreeOne p (n % p)
   · exact noShort_S3 hp a b
   · exact noShort_S4 hp a b
 
-/-- **THE OPEN CONGRUENCE HAS EMPTY SUPPORT ON THE FOUR φ̃ = 2 RUN-FREE STRATA, AS STRATA.**
+/-- **THE RUN CONGRUENCE HAS EMPTY SUPPORT ON THE FOUR φ̃ = 2 RUN-FREE STRATA, AS STRATA.**
 `Zeta2PtpStratum.pow_dvd_signed_sum` divides every signed sum termwise; what is new is that its
 `NoShort` hypothesis is now discharged for EVERY `(n, p)` in the stratum, at every `p`, rather
 than at one pinned cell each. -/
@@ -442,8 +442,8 @@ theorem pow_dvd_signed_sum_runFreeOne {n p : ℕ} (hp : p ∈ phiWindow n)
 
 /-! ## 5. Obligation (1) — the DROPPED INDEX on the five run-carrying strata
 
-On a run-carrying stratum the short set is non-empty, and the cell's own words for what was
-owed were: *"deriving the dropped index from the piece's own inequalities, which is a comparison
+On a run-carrying stratum the short set is non-empty, and the cell's own words for this
+step were: *"deriving the dropped index from the piece's own inequalities, which is a comparison
 of residues rather than research"*.  Here it is, per STRATUM (the per-PIECE form is refuted —
 `ptp_dropped_probe` arm N1).  Each φ̃ = 2 theorem states two things at once:
 

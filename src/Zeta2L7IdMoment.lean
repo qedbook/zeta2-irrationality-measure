@@ -17,35 +17,35 @@ of a polynomial against `sech²`.  That is a reduction in KIND, not in size, and
 route sentence's "recognise the per-`n` integrals as `Ppol`-moments" is reachable at all.
 
 WHAT IT DOES NOT PROVE, stated so the green is not read as more than it is.  The moment's VALUE
-is not proved here.  Measured (`l7id_moment_check.py` ARM 5, exact ℚ against numerics at
-n = 0,1,2,3):
+is not touched in this file; `Zeta2PpolMoment.integral_PpolArm_lineA` proves it, at every `n`
+(as `∫ PpolArm n (lineA n s) ds = 2π · Π(n) · pnPoly n`):
 
-    ∫_{Re t = −4n−1/2} Ppol_n(t) (π / sin π t)² dt  =  2πi · pnPoly n        (NOT proved)
+    ∫_{Re t = −4n−1/2} Ppol_n(t) (π / sin π t)² dt  =  2πi · pnPoly n
 
 and it does NOT vanish at any `n ≥ 1` — `pnPoly 1 = −31098482130308598631825920/13`.  It
 vanishes only at `n = 0`, where `Ppol 0 = 0`, which is exactly why row L7ID-0 never met this arm
 and why its file is a poor template here.
 
-Given ONE `n`-independent analytic input — the even `sech²` moment table, `SechMomentTable`
-below — the rest of that identity is ALGEBRA over ℚ: binomial expansion plus the Bernoulli
-addition theorem, run exactly at 96 identities in `l7id_moment_check.py` ARM 3.  Two census
-results decide the next unit's price and are recorded here as findings
+Apart from ONE `n`-independent analytic fact — the even `sech²` moment table, `SechMomentTable`
+below, proved as `Zeta2SechMoment.sech_moment_table` — the rest of that identity is ALGEBRA over
+ℚ: binomial expansion plus the Bernoulli addition theorem.  Two census
+results are recorded here as findings
 (`Zeta2L7IdMomentCensus.lean`, run against the pin, its errors read as its verdict):
 
-  * **`Polynomial.bernoulli_eval_add` is ABSENT.**  Mathlib has `bernoulli_eval_one_add` and
-    `bernoulli_eval_one_sub` only, so the addition theorem `B_j(x+y) = Σ C(j,k) B_k(x) y^{j−k}`
-    is the next unit's to build.  It is `Polynomial.bernoulli_generating_function` (PRESENT)
-    away, or an induction on `bernoulli_eval_one_add`.
+  * **`Polynomial.bernoulli_eval_add` is ABSENT.**  Mathlib has the unit shift
+    `B_j(1+x) = B_j(x) + j·x^{j−1}` (`bernoulli_eval_one_add`) but not the addition theorem
+    `B_j(x+y) = Σ C(j,k) B_k(x) y^{j−k}` at this pin.  `Zeta2MomentLaw.bernoulli_aeval_add`
+    proves the addition theorem, over any commutative ℚ-algebra.
   * **`Real.hasDerivAt_tanh` and `Real.tendsto_tanh_atTop` are ABSENT**, so the antiderivative
     route to the table has no Mathlib head start; `MeasureTheory.integral_of_hasDerivAt_of_tendsto`
     (PRESENT, and it is the two-sided improper FTC over all of ℝ) still makes it the cheaper of
     the two routes, the other being `riemannZeta_two_mul_nat` (PRESENT, exact signature recorded
     in the census log) through `η(2m)`.
 
-AND WHAT IT CHANGES FOR RDECAY: NOTHING.  `hdecay` is stated on `|Δ n * candidateM.rn n|`, and
-nothing in this file or anywhere else in the chain mentions `candidateM.rn`.  This file is about
-the `Ppol` arm of `Hn`'s line integral, which reaches `rn` only after the whole of L7ID closes.
-Recording the non-move is the point.
+
+
+
+
 
 VINTAGE: leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732b6987e8c26ab3c9ebc855314f82b045f.
 -/
@@ -123,9 +123,9 @@ theorem kernel_lineA_nonneg (s : ℝ) :
     0 ≤ (Real.pi / Real.cosh (Real.pi * s)) ^ 2 := sq_nonneg _
 
 /-- The shape `Zeta2L7IdSplit.PpolArm` takes on this line, stated for an ARBITRARY coefficient
-`w` so that no second copy of `PpolArm` is spelled here (LEAN.md §6) and this file does not
-import a module that was still in the landing queue when it was written.  A consumer applies it
-at `w = Π(n) · aeval (lineA n s) (candidateM.Ppol n)`, which is `PpolArm n (lineA n s)`. -/
+`w` so that no second copy of `PpolArm` is spelled here (LEAN.md §6).  A consumer applies it
+at `w = Π(n) · aeval (lineA n s) (candidateM.Ppol n)`, which is
+`PpolArm n (lineA n s)`. -/
 theorem arm_lineA (w : ℂ) (n : ℕ) (s : ℝ) :
     w * ((Real.pi : ℂ) / Complex.sin ((Real.pi : ℂ) * lineA n s)) ^ 2
       = w * (((Real.pi / Real.cosh (Real.pi * s)) ^ 2 : ℝ) : ℂ) := by
@@ -167,12 +167,12 @@ evaluates `B_j` at.  Stated in ℚ because `momI` is rational; `lineA_re` is its
 theorem lineA_abscissa_add_half (n : ℕ) :
     (-4 * (n : ℚ) - 1 / 2) + 1 / 2 = -(4 * n : ℚ) := by ring
 
-/-! ## §4. The ONE remaining analytic obligation, named
+/-! ## §4. The ONE analytic fact, named
 
-Everything else in the arm is algebra over ℚ.  This is the whole of what is left, it is
-`n`-INDEPENDENT, and it is stated once so the next unit does not re-spell it.  Measured for
-`m = 0..8` in `l7id_moment_check.py` ARM 4 against an exact prediction; odd moments vanish by
-parity (ARM 4b), which is `B_k(½) = 0` at odd `k`. -/
+Everything else in the arm is algebra over ℚ.  This is the arm's whole analytic content, it is
+`n`-INDEPENDENT, it is stated once, here, and `Zeta2SechMoment.sech_moment_table` proves it.
+Odd moments vanish by parity, which is `B_k(½) = 0` at odd `k`.
+-/
 
 /-- **`SechMomentTable`** — the even moments of `π² sech²(π s)` are `(−1)^m · 2π · B_{2m}(½)`.
 Given this, the per-monomial moment law and hence `∫ PpolArm = 2πi · Π(n) · pnPoly n` are
@@ -183,9 +183,9 @@ def SechMomentTable : Prop :=
     = (-1 : ℝ) ^ m * (2 * Real.pi)
         * (((Polynomial.bernoulli (2 * m)).eval (1 / 2 : ℚ) : ℚ) : ℝ)
 
-/-- The table's `m = 0` instance, written out: `∫ π² sech²(π s) ds = 2π`.  Recorded as a
-`Prop` rather than proved — `Real.hasDerivAt_tanh` is ABSENT at this pin (census), so even this
-instance needs `tanh`'s derivative built first. -/
+/-- The table's `m = 0` instance, written out: `∫ π² sech²(π s) ds = 2π`.  `Real.hasDerivAt_tanh`
+is ABSENT at this pin (census), so even this instance needs `tanh`'s derivative;
+`sechMomentTable_zero_of` derives it from the table, which `Zeta2SechMoment.sech_moment_table` proves. -/
 def SechMomentTableZero : Prop :=
   (∫ s : ℝ, Real.pi ^ 2 / Real.cosh (Real.pi * s) ^ 2) = 2 * Real.pi
 

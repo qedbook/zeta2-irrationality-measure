@@ -3,9 +3,9 @@
 
 `docs/future/zeta2-lean-chain.md` row STAR-ID.  Added 2026-09-17 by the row's closing unit.
 
-**HEADLINE: `Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.**  This file
-discharges two of the three things the row still owed — the `hr` spelling and the composition
+This file discharges two of the row's last three pieces — the `hr` spelling and the composition
 with STAR.  The third, part (iii)'s `'alt'` sign, is `Zeta2StarIdSign.lean`.
+
 
 **WHAT THIS FILE PAYS, and why neither half was free.**
 
@@ -32,16 +32,16 @@ with STAR.  The third, part (iii)'s `'alt'` sign, is `Zeta2StarIdSign.lean`.
    failed on casts and indexing BOTH times it was left to paper in this program.
 
 **WHAT THIS FILE DOES NOT DO.**  It does not apply the contour functional to the telescoping —
-turning `∑ⱼ Ãⱼ · Φ(ρ_{n+j}) = 0` into `hrecq` is row **L1-ASM**.  It says nothing about the
+turning `∑ⱼ Ãⱼ · Φ(ρ_{n+j}) = 0` into `hrecq`.  It says nothing about the
 cleared `cⱼ` (that is (ii), landed) nor about the sign (that is (iii)).  Nothing here transports
-to ℝ; that is row **L4-BR**.
+to ℝ.
 
 **NON-VACUITY IS PROVED, not assumed.**  `repR_satisfies` exhibits a `Rep` meeting `star_phi_rho`'s
-hypothesis, so the theorem is not green-because-empty.  §6's `bad_is_inhabited` and
-`badK_not_everything` pin the exceptional set from both sides: it is nonempty (so it is doing
+hypothesis, so the theorem is not green-because-empty.  §6's `bad_nonempty` and
+`zero_not_bad` pin the exceptional set from both sides: it is nonempty (so it is doing
 work) and it is not all of ℚ (so the theorems have content).
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2StarIdPhi.lean
 

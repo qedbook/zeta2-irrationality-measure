@@ -3,9 +3,9 @@
 
 `docs/future/zeta2-lean-chain.md` row PHI-BDY, §PHI-BDY design notes.
 
-**What the row owed after `Zeta2T1Shift`, and what this file pays.**  `Zeta2T1Shift.hbdy` proves the
+**What this file adds to `Zeta2T1Shift`.**  `Zeta2T1Shift.hbdy` proves the
 row's LAW for an ARBITRARY `Rep` supported above `m`, given one hypothesis `hz`.  §6 of the row's
-design notes records what was left: *"Nothing in §1–§3 exhibits `repS n : Rep` or proves
+design notes recorded what was left: *"Nothing in §1–§3 exhibits `repS n : Rep` or proves
 `evalRep (repS n) t = S t` off the poles."*  This file exhibits it, proves it represents, and
 discharges `hz` — so `Φ (β₃n) (repDelta (repS n)) = 0` is a theorem about the row's own object.
 
@@ -17,7 +17,7 @@ discharges `hz` — so `Φ (β₃n) (repDelta (repS n)) = 0` is a theorem about 
      `Rep`'s polynomial part — the part `Rep̂` does not have, and the reason the hat's
      `numS_natDegree_le` + `natDegree_sub_lead_lt` device is deleted rather than ported.
   2. *"ONE genuinely new algebraic lemma, the derivative of a simple-pole representation in closed
-     form … [E] 80–150 lines"* — **REAL, and it is `res_deriv_id` + `phi_coord_eq`, ~45 lines.**
+     form … [E] 80–150 lines"* — **REAL, and it is `res_deriv_eval` + `phi_coord_eq`, ~45 lines.**
      Under the band, for a reason worth recording: the per-key step is an identity `ring` closes.
      With `den = (X+k)·E_k`, `den′·E_k − E_k′·den = E_k²` ON THE NOSE, so the closed form is one
      `Finset.sum_congr` over that.  No `HasDerivAt`, no analysis, exactly as the cell predicted.
@@ -47,7 +47,7 @@ survives, the reduction is still never performed, and what the row pays is one c
 **What is GENERIC here and what is not.**  Everything through §5 is generic in `(S, NUM)`: no
 member, no star solve, no census.  §6 instantiates at a `Zeta2Defs.Member` with the star numerator
 `bT`, `xT` OPAQUE — only `natDegree` bounds are ever asked of them, as at the hat — and `D`'s index
-set `dIdx` abstract, carrying only the two containment facts `t1_bdy_probe.py` measures.  The
+set `dIdx` abstract, carrying only two containment facts, which `hbdy_cand` discharges.  The
 literal coordinate lists never enter the proof, which is the same shape as `hbdy_hat_n`'s
 `∀ (bh, xh) of bounded degree`.
 
@@ -406,8 +406,8 @@ theorem hbdy_repSOf (S : Finset ℕ) (hS : S.Nonempty) (NUM : ℚ[X]) (m : ℕ) 
 
 `bT` (the star solve's `b(·−1)`) and `xT` (its degree-`dx` coefficient list) are OPAQUE — exactly
 as `bh`/`xh` are at the hat, and for the same reason: the degree-141 certificate that priced the
-earlier route out is not in the route.  `dIdx` is `D`'s index set, abstract, carrying only the two
-containment facts the probe measures. -/
+earlier route out is not in the route.  `dIdx` is `D`'s index set, abstract, carrying only two
+containment facts, which `hbdy_cand` discharges at the candidate. -/
 
 /-- `S = b(·−1)·numPoly·x / (denPoly · ∏_D)` — the (★) antidifference's numerator. -/
 noncomputable def numS (mem : Member) (n : ℕ) (bT xT : ℚ[X]) : ℚ[X] :=
@@ -512,12 +512,12 @@ theorem evalRep_repS_eq_S (mem : Member) (hm : mem.WF) (n : ℕ) (bT xT : ℚ[X]
 
 /-! ## §7 — the two landed tale-1 members, with `D`'s runs written down
 
-The literals below are the ONLY member-specific data in this file, and a literal transcribed from
-a 21 MB coordinate file by eye is a claim rather than evidence.  The instrument that turns it into
-evidence is `../zeta2_star_b1/t1_druns_check.py`: **113 checks, 0 failed, four falsifier arms all
-as wanted** on BOTH landed coordinate files.  Its §A compares `D`'s factor MULTISET off the file
-against exactly these three runs at ten `n` (0,1,2,3,4,5,6,9,17,40) — multiset and not set, since
-a repeated index would be an order-2 pole and everything above is stated at `S₂ = ∅`.
+The literals below are the ONLY member-specific data in this file.  At the candidate,
+`Zeta2L1Asm.evalRep_Sr` proves that the `Rep` built on `dIdxCand` represents the star solve's
+own antidifference.  Beside it, `../zeta2_star_b1/t1_druns_check.py` (113 checks, 0 failed, on
+BOTH landed coordinate files) compares `D`'s factor MULTISET off the file against exactly these
+three runs at ten `n` (0,1,2,3,4,5,6,9,17,40) — multiset and not set, since a repeated index
+would be an order-2 pole and everything above is stated at `S₂ = ∅`.
 
 **Both thresholds below are MEASURED SHARP, not margins** (that checker's §G, stated as an
 EQUALITY so an arm moving the threshold in either direction reds):
@@ -528,7 +528,7 @@ EQUALITY so an arm moving the threshold in either direction reds):
   * `4 ≤ n` — from here the strip integer `β₃n` is not a written pole, which is `hstrip`.  Below
     it `D`'s β₂-slope run `[β₂n+1, β₂n+L]` CONTAINS `β₃n`, since `(β₃−β₂)n ≤ L`.
 
-Both clear the row's own `N₀ = 6`, so nothing downstream moves.  **This `4` and
+**This `4` and
 `t1_bdy_probe.py`'s SHARP `3` are different measurements of different objects and both are
 right**: that probe measures the order of the REDUCED `S`, and at `n = 3` the record's own
 `b`-factor `(t + n + 3)` happens to vanish at the strip integer as well, so the reduced order is

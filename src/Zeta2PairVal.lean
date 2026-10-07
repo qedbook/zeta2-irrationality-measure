@@ -3,8 +3,8 @@
 
 Row PAIR-VAL of `docs/future/zeta2-lean-chain.md`.  The pairing `∀ n, hatQ n = qnInt n` (row
 PAIR) is delivered as a recurrence plus a base, and the base has to reach `N₀ + 3` where
-`N₀ = max(N₀_tale1, N₀_hat)` is the first `n` from which BOTH recurrences are proved — today
-`max(9, 2) = 9`, so **`n < 12`**.
+`N₀ = max(N₀_tale1, N₀_hat)` is the first `n` from which BOTH recurrences are proved; this
+file proves the base at every **`n < 12`**, which covers any `N₀ ≤ 9`.
 
 This file is the Q half.  It needs no generated data at all: `hatQ n` and `qnInt n` are both
 explicit finite sums over factorials and binomials, so each instance is an IDENTITY the kernel
@@ -16,9 +16,9 @@ exponential (the PAIR-0 pattern).
 `n = 0, 1, 2` are already `Zeta2Hat.hatQ_eq_qnInt_{zero,one,two}` and are reused, not restated.
 
 **The P half is NOT here and is not claimed.**  `hatP n = candidateM.pn n` is
-`Zeta2PairP{1,2,3}.hatP_eq_pn` at `n = 1, 2, 3` and `Zeta2Hat.hatP_eq_pn_zero` at `n = 0`;
-`4 ≤ n ≤ 11` is OPEN, and each one needs a generated `Zeta2PairP{n}.lean` (the quotient/
-remainder witnesses and the engine's `hatP` pin).  Row PAIR-VAL's status cell carries the count.
+`Zeta2Hat.hatP_eq_pn_zero` at `n = 0` and `hatP_eq_pn` in `Zeta2PairP1` … `Zeta2PairP6` at
+`n = 1, …, 6`, each in a generated file (the quotient/remainder witnesses and the engine's
+`hatP` pin).  The P base `Zeta2Pair8Close` assembles at `N₀ = 4` uses no cell above `n = 6`.
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -71,7 +71,7 @@ theorem hatQ_eq_qnInt_eleven : hatQ 11 = qnInt 11 := by
   decide +kernel
 
 /-- **The Q half of row PAIR-VAL's base**: `hatQ n = qnInt n` at every `n < 12`, i.e. at every
-cell the induction on the two recurrences will need before `N₀ = 9` takes over. -/
+cell the induction on the two recurrences needs as its base for any `N₀ ≤ 9`. -/
 theorem hatQ_eq_qnInt_base : ∀ n < 12, hatQ n = qnInt n := by
   intro n hn
   interval_cases n

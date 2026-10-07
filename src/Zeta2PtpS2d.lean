@@ -15,7 +15,7 @@ the run is `u ≥ c` (`Zeta2PtpCong.dropped_S24b`; `bit1 = bit2 = 0` hold there 
 `22n₁ + 19`; the last block `22n₁ + 20` has only off-run residues in the window.
 
 `hanton : Zeta2PtpS2a.AntonOneCarry p` is the one binder on `term_div_eq_of_run`,
-`blockSum_dvd_sq`, `piece25_blocks`.
+`blockSum_dvd_sq`, `piece25_blocks`; `Zeta2PtpAHalf.anton_all` proves it.
 
 Probe: `ptp_s2_mechanism_probe.py` / `.out` (5 window cells of `n ≤ 60`, M1–M7 GREEN).
 Falsifier: `falsify_ptps2d.sh` / `out_ptps2d_falsify.txt`.

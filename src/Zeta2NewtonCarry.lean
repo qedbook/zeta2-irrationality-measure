@@ -1,7 +1,7 @@
 /-
-# PNCLR's remaining obligation — the termwise invariant, as a theorem
+# Row PNCLR — the termwise invariant, as a theorem
 
-Row PNCLR's one open statement (chain doc, 2026-09-17) is the TERMWISE divisibility
+Row PNCLR's cell (chain doc, 2026-09-17) recorded the TERMWISE divisibility
 
     L₀ · C(L₀ + r, L₀)  ∣  D(K) · h_{L₀+r}        for every r,
 
@@ -32,8 +32,8 @@ it at `D m` into two independent halves — neither of which mentions the other'
 
 WHAT THIS FILE DOES NOT DO.  It proves the invariant.  It does NOT state, in Lean, the exact
 identity `Π·Ppol(t) = Σ_r h_{L₀+r}·C(Y−L₀, r) / (L₀·C(L₀+r, L₀))` that turns the invariant into
-`Zeta2PpolInt.cleared_of_dvd_PpolZ`'s hypothesis, and it does not instantiate `H` at the member's
-three blocks.  Those are PNCLR's remaining ASSEMBLY; see the chain doc's cell.
+`Zeta2PpolInt.cleared_of_dvd_PpolZ`'s hypothesis; `Zeta2NewtonAssemble` does.
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -326,7 +326,7 @@ functions of finite-difference degree `≤ K`, and `h_m = Δ^m H(0)`,
     L₀ · C(L₀ + r, L₀)  ∣  D K · h_{L₀+r}        for every `r`.
 
 At the member's own objects `K = 13n` (the longest block), `L₀ = 11n + 1`, and this is exactly the
-statement the chain doc's PNCLR cell records as FOUND, exact, termwise and open.  It is sharper
+statement the chain doc's PNCLR cell recorded as FOUND, exact and termwise.  It is sharper
 than the measured general conjecture, which carried `K = max(max_s L_s, L₀)`. -/
 theorem termwise_invariant (K L₀ r : ℕ) (hL : 0 < L₀) (fs : List (ℤ → ℤ))
     (hfs : ∀ f ∈ fs, DegLE K f) (x : ℤ) :
@@ -405,8 +405,8 @@ With `L₀ = 11n + 1` and `K = 13n` the longest block,
 
     (11n+1) · C(11n+1+r, 11n+1)  ∣  D(13n) · h_{11n+1+r},   h_m = Δ^m H(0).
 
-This is, verbatim, the divisibility the chain doc's PNCLR cell records as FOUND, exact, termwise,
-measured at `n = 1..5` and OPEN.  It is no longer open. -/
+This is, verbatim, the divisibility the chain doc's PNCLR cell recorded as FOUND, exact, termwise,
+measured at `n = 1..5`. -/
 theorem termwise_invariant_member (n r : ℕ) :
     (((11 * n + 1) * ((11 * n + 1 + r).choose (11 * n + 1)) : ℕ) : ℤ)
       ∣ (Zeta2Arith.D (13 * n) : ℤ)

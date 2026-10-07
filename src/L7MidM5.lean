@@ -682,7 +682,7 @@ theorem binet_remainder (z : ℂ) (hz : 0 < z.re) :
 For `Re z ≥ 23/10`,
 `|log‖Γ(z)‖ − Re[(z−½)·Log z] + Re z − ½·log 2π| ≤ (2/5)(1/(Re z)² + 1/Re z)`.
 
-This is the row `zeta2-integral-free.md` §5.3 marks **ABSENT** and "BUILD, HIGH — THE blocker".
+This is row C1 of `zeta2-integral-free.md` §5.3.
 It is obtained WITHOUT Binet's first formula and WITHOUT complex Stirling: the tie (above) via the
 Gauss limit and natural-number Stirling, and the bound via steps (b′)+(c). -/
 theorem binet_bound (z : ℂ) (hz : 23/10 ≤ z.re) :
@@ -1085,7 +1085,7 @@ identity instead), so `q = (9,7,5,11,4,2)`, `D = 22`, `qmax = 11`, `κ = 1/2`.
 Route B (σ̃ = 58008700/9999999): `q = (13−σ̃, 11−σ̃, 9−σ̃, 15−σ̃, σ̃, σ̃−2, σ̃−4)`,
 `D = 26 − σ̃`, `qmax = 15 − σ̃`, `κ = 1`.  `Σq = 42 − σ̃`.
 
-EDGE CHECKS (LEAN.md §5), all discharged below or in `margins_c6.py`:
+EDGE CHECKS (LEAN.md §5) on the statements below:
 * `w = 0`: `concavity_criterion` is proved for every real `w`, `0` included; at `w = 0` it
   reads `1/D < Σ 1/q_i`, which the two hypotheses imply.  No case split, no exclusion.
 * smallest admissible `q`: route B's is `σ̃ − 4 = 18008704/9999999 ≈ 1.80087 > 0`.  It is
@@ -1150,8 +1150,8 @@ theorem routeB_concaveOn (c : ℝ) :
 
 Proving the pieces "with the others as hypotheses" is not composing.  The two theorems below
 thread every piece at the ACTUAL parameters and end in exactly the pair of statements §6
-consumes, with nothing left but the finitely many numeric facts.  Witnesses certified in
-`margins_c6.py` (exact rational intervals, self-tested against π, log 2, arctan 1, log 100):
+consumes, with the finitely many numeric facts as hypotheses; at route B, C7 proves them in Lean.
+Witnesses from `margins_c6.py` (exact rational intervals, self-tested against π, log 2, arctan 1, log 100):
 
   route B: `ws = 21506301979428750516/10^19`, `r = 10^-9`,
            `g'(ws-r) = +1.14089695326e-9 > 0`, `g'(ws+r) = -1.14089695303e-9 < 0`,
@@ -1239,13 +1239,13 @@ What it establishes, in dependency order:
 * **§6–§7 the composition**, and its instantiation at the certified route-A / route-B
   parameters through `Zeta2SupScheme.routeA_ingredients` / `routeB_ingredients`.
 
-**WHAT IS STILL A HYPOTHESIS, and it is named, not hidden.**  `l7_rate_from_pointwise` takes
+**WHAT THIS SECTION TAKES AS HYPOTHESES, named and not hidden.**  `l7_rate_from_pointwise` takes
 `hrep` — L7 Theorem 5 (the pointwise bound on `log‖H_n‖`) composed with Lemma 9 (the contour
 move) and the identification of `r_n` with the line integral.  Those are L7's Lemmas 2, 3, 5
-and 9, and none of them exists in Lean anywhere; C1 is L7's Lemma 1 and C6 is L7's Lemmas 6–8,
-i.e. the two ENDS of the link.  The numeric facts of C6 (bracket signs, `g(w*) ≤ G`,
-`g'(3) ≤ −c₀`) also remain hypotheses, discharged outside Lean by `margins_c6.py` /
-`margins_xl7.py`; that is the C7 row.
+and 9; C1 is L7's Lemma 1 and C6 is L7's Lemmas 6–8,
+i.e. the two ENDS of the link.  The route theorems of §7 also take the numeric facts of C6
+(bracket signs, `g(w*) ≤ G`, `g'(3) ≤ −c₀`) as hypotheses.  At route B, for M5's `rLine`,
+`Zeta2RouteBL7.routeB_l7_rate_sigmaTilde` discharges every one of them.
 -/
 
 namespace Zeta2L7Assembly
@@ -1515,8 +1515,8 @@ theorem lemma4_upper {n : ℕ} (hn : 1 ≤ n) {q w : ℝ} (hq : 0 < q) (hnq : 9 
 
 /-! ## §5. L7 §6's integral split — the step that CONSUMES C6 -/
 
-/-- `∫_a^∞ e^{−b w} dw = e^{−ab}/b` for `b > 0`.  Mathlib has only the `b = 1` case
-(`integral_exp_neg_Ioi`). -/
+/-- `∫_a^∞ e^{−b w} dw = e^{−ab}/b` for `b > 0` — Mathlib's `integral_exp_mul_Ioi` at slope
+`−b`, restated in the form §5 consumes. -/
 theorem integral_exp_neg_mul_Ioi {b : ℝ} (hb : 0 < b) (a : ℝ) :
     ∫ w in Set.Ioi a, Real.exp (-b * w) = Real.exp (-b * a) / b := by
   have hb0 : b ≠ 0 := ne_of_gt hb
@@ -1615,7 +1615,7 @@ theorem integral_exp_phase_le {g : ℝ → ℝ} {G c₀ t : ℝ}
 /-! ## §6. The composition -/
 
 /-- **L7 §6, assembled.**  Given the line-integral representation `hrep` — which is L7's
-Theorem 5 and Lemma 9, the part of L7 that is NOT formalized — the phase facts C6 supplies
+Theorem 5 and Lemma 9 — the phase facts C6 supplies
 deliver the chain's interface: for every `ε > 0`, eventually `|r n| ≤ e^{n(G+ε)}`.
 
 `hrep` is stated exactly as `zeta2-l7-proof.md` §6 opens: `|r_n| ≤ (n/π)·e^C·∫₀^∞ e^{n g(w)} dw`,
@@ -1655,8 +1655,8 @@ theorem l7_rate_from_pointwise {r : ℕ → ℝ} {g : ℝ → ℝ} {G c₀ C : �
 Both routes go through `Zeta2SupScheme.routeA_ingredients` / `routeB_ingredients` at the real
 parameter families, so nothing here is a restatement: the phase, its concavity, the bracket
 scheme and the tangent tail are the C6 theorems, and the integral split and interface are §5–§6
-above.  What remains a hypothesis is `hrep` (Theorem 5 + Lemma 9) and the six numeric facts
-(the C7 row). -/
+above.  Each route theorem takes `hrep` (Theorem 5 + Lemma 9) and the six numeric facts
+(the C7 row) as hypotheses. -/
 
 /-- The C6 phase is continuous — needed by §5's integrability argument, and immediate from
 `Zeta2SupScheme.hasDerivAt_phase`. -/
@@ -1666,7 +1666,7 @@ theorem phase_continuous {ι : Type*} (s : Finset ι) (qf : ι → ℝ) (D κ c 
   continuous_iff_continuousAt.mpr fun x =>
     (Zeta2SupScheme.hasDerivAt_phase s qf D κ c hq hD x).continuousAt
 
-/-- **X-L7 at route B (the primary route).**  Hypotheses: the six numeric facts C6 leaves open
+/-- **X-L7 at route B (the primary route).**  Hypotheses: the six numeric facts on the phase
 (the C7 row) and the line-integral representation `hrep`.  Conclusion: the chain's interface. -/
 theorem routeB_l7_rate {rn : ℕ → ℝ} (c : ℝ) {ws rr ε₀ G c₀ C : ℝ}
     (hrr : 0 ≤ rr) (hc₀ : 0 < c₀)
@@ -2528,8 +2528,8 @@ theorem Lterm_abs (q v : ℝ) : Lterm q |v| = Lterm q v := by
 
 /-- `cosh x ≤ exp |x|`.  **MEASURED ABSENCE** (`LEAN.md` §2): current Mathlib has
 `Real.cosh_le_exp_half_sq`, `Real.one_le_cosh`, `Real.cosh_abs` and `Real.cosh_le_cosh`, but no
-comparison of `cosh` with `exp |x|` — searched across `Mathlib/Analysis/` by concept
-(`cosh_le`, `le_cosh`, `cosh_lt`, `exp_le_cosh`, `cosh_le_exp`) on 2026-09-08. Three lines. -/
+lemma bounding `cosh x` by `exp |x|` — searched by concept (`cosh_le`, `le_cosh`, `cosh_lt`,
+`exp_le_cosh`, `cosh_le_exp`). Three lines. -/
 theorem cosh_le_exp_abs (x : ℝ) : Real.cosh x ≤ Real.exp |x| := by
   rw [Real.cosh_eq]
   have h1 : Real.exp x ≤ Real.exp |x| := Real.exp_le_exp.mpr (le_abs_self x)
@@ -2963,12 +2963,12 @@ open MeasureTheory Set
 
 /-! ## §1. `e^{−b|s|}` is integrable on ℝ
 
-**MEASURED ABSENCE** (`LEAN.md` §2): current Mathlib has `exp_neg_integrableOn_Ioi`,
-`integrableOn_exp_mul_Iic`, `integrableOn_exp_Iic` and the Gaussian `integrable_exp_neg_mul_sq`,
-but nothing about `exp (-b * |x|)` on the whole line — searched by concept across
-`Mathlib/MeasureTheory/` and `Mathlib/Analysis/SpecialFunctions/` on 2026-09-08
-(`integrable_exp_neg_abs`, `exp_neg_abs`, `comp_abs`, `Laplace`).  Six lines from the two
-half-line lemmas. -/
+From Mathlib's two half-line lemmas: on `Ioi 0`, where
+`|s| = s`, integrability comes from `exp_neg_integrableOn_Ioi`,
+and on `Iic 0`, where `|s| = −s`, from `integrableOn_exp_mul_Iic`.
+`integrableOn_union` joins the two halves, and `Set.Iic_union_Ioi`
+says that their union `Iic 0 ∪ Ioi 0` is all of ℝ.
+-/
 theorem integrable_exp_neg_mul_abs {b : ℝ} (hb : 0 < b) :
     Integrable (fun s : ℝ => Real.exp (-b * |s|)) volume := by
   have hIoi : IntegrableOn (fun s : ℝ => Real.exp (-b * |s|)) (Ioi (0 : ℝ)) volume :=
@@ -3141,13 +3141,13 @@ which is `hrep` verbatim, at `C := C_B` and `c := kappaPi`.
    COMPLEX; the chain wants a real sequence, so `rLine n := (rIntC n).re` and the bridge is
    `Complex.abs_re_le_norm`, one step, no realness proof.  The arithmetic identification
    `r_n = q_n ζ(2) − p_n` is L1/A2 and is deliberately NOT on this row's path
-   (`zeta2-l7-middle.md` §5); `hrep_of_le_norm` is stated so that whoever does it inherits the
-   bound for the real `r_n` without reopening anything here.
+   (`zeta2-l7-middle.md` §5); `Zeta2PpolMoment.rn_eq_neg_rLine_uncond` proves
+   `candidateM.rn n = −rLine n` at `1 ≤ n`.
 
 2. **INTEGRABILITY IS DERIVED, from the SAME two C6 facts `integral_exp_phase_le` already
    consumes.**  This row introduces no hypothesis of its own: `hsup`/`htail` come out of
    `Zeta2SupScheme.routeB_ingredients`, which is what `routeB_l7_rate` calls anyway, so the
-   final theorem stands on the six C7 numeric facts and nothing else.
+   row's last theorem takes the six C7 numeric facts and nothing else; C7 proves all six.
 
 3. **The `∫`-junk value, and why 2 is not optional.**  Lean's `∫` of a non-integrable function
    is `0`.  So `hrep`'s right-hand side is not automatically positive: without the tail decay
@@ -3208,8 +3208,8 @@ noncomputable def rIntC (n : ℕ) : ℂ :=
 
 /-- The real sequence the chain consumes.  `H_n`'s line integral is real (it is
 `q_n ζ(2) − p_n`), but that is L1/A2's identification and this row does not need it: taking the
-real part costs one `Complex.abs_re_le_norm` and leaves the identification free to land later
-against `hrep_of_le_norm`, which is stated for ANY real sequence dominated by `‖rIntC‖`.
+real part costs one `Complex.abs_re_le_norm` and keeps the identification separate:
+`hrep_of_le_norm` is stated for ANY real sequence dominated by `‖rIntC‖`.
 
 Named `rLine` — the real part of the σ̃-contour LINE integral — and not `rB`, since 2026-09-10:
 the capstone's conclusion also carries C7's bracket radius `Zeta2C7.rB = 10⁻⁹`, and two `rB`s in
@@ -3275,10 +3275,10 @@ theorem norm_rIntC_le {n : ℕ} (hn : 1 ≤ n) {G c₀ : ℝ} (hc₀ : 0 < c₀)
   exact L7MidM5Probe.norm_line_integral_le phaseB_continuous hnpos hc₀ hsup htail
     (fun s => norm_Hn_lineB_le hn s)
 
-/-- **`hrep`, for any real sequence dominated by the line integral.**  Stated with exactly the
-hypothesis its future caller PRODUCES (`LEAN.md` §3's corollary): the row that formalizes
-`r_n = q_n ζ(2) − p_n` will have `|r_n| = ‖rIntC n‖` (or `≤`), and hands it straight in.  Until
-then `rLine` below is the witness that the interface is inhabited. -/
+/-- **`hrep`, for any real sequence dominated by the line integral.**  Stated for any real `ρ`
+with `|ρ n| ≤ ‖rIntC n‖` (`LEAN.md` §3's corollary: the hypothesis a caller produces);
+`hrep_rLine` below applies it to `rLine`, the real part of `rIntC`, for which the
+domination is `Complex.abs_re_le_norm`. -/
 theorem hrep_of_le_norm {ρ : ℕ → ℝ} {G c₀ : ℝ} (hc₀ : 0 < c₀)
     (hsup : ∀ w : ℝ, 0 ≤ w → phase Finset.univ qB (26 - sigT) 1 kappaPi w ≤ G)
     (htail : ∀ w : ℝ, 3 ≤ w →
@@ -3307,13 +3307,13 @@ the composition run: it applies the REAL `Zeta2L7Assembly.routeB_l7_rate` with `
 so the kernel checks that what M5 proved is what X-L7 assumes. -/
 
 /-- **THE ROW'S DELIVERABLE.**  `Zeta2L7Assembly.routeB_l7_rate` with `hrep` DISCHARGED: the
-chain's L7 interface for the explicit `r` of §1, standing on the six C7 numeric facts
-(`hbl`, `hbr`, `hε₀`, `hG`, `h3`, `hs3`) and nothing else.
+chain's L7 interface for the explicit `r` of §1, whose hypotheses are the six C7 numeric facts
+(`hbl`, `hbr`, `hε₀`, `hG`, `h3`, `hs3`), which C7 proves, and nothing else.
 
 `hrr`, `hc₀`, `hε` are not facts to discharge — they are the positivity of the bracket radius,
 of the tail slope and of `ε`, all supplied by the caller at the certified witnesses
-(`r = 10⁻⁹`, `c₀ = 4/5`).  So the honest count is: **seven hypotheses in, one closed here, six
-left, and all six are C7's.** -/
+(`r = 10⁻⁹`, `c₀ = 4/5`).  So the count is: **seven hypotheses in, one discharged here, and the
+six this theorem takes are C7's.** -/
 theorem routeB_l7_rate_hrep_discharged {ws rr ε₀ G c₀ : ℝ} (hrr : 0 ≤ rr) (hc₀ : 0 < c₀)
     (hbl : 0 ≤ phaseD Finset.univ qB (26 - sigT) 1 (ws - rr))
     (hbr : phaseD Finset.univ qB (26 - sigT) 1 (ws + rr) ≤ 0)
@@ -3327,8 +3327,8 @@ theorem routeB_l7_rate_hrep_discharged {ws rr ε₀ G c₀ : ℝ} (hrr : 0 ≤ r
   exact Zeta2L7Assembly.routeB_l7_rate (rn := rLine) kappaPi hrr hc₀ hbl hbr hε₀ hG h3 hs3
     (hrep_rLine hc₀ hs ht) hε
 
-/-- The same composition for an ARBITRARY real `r_n` dominated by the line integral — the shape
-the arithmetic-identification row will use, so that row never has to reopen M5. -/
+/-- The same composition for an ARBITRARY real `r_n` dominated by the line integral, through
+`hrep_of_le_norm`. -/
 theorem routeB_l7_rate_of_le_norm {ρ : ℕ → ℝ} {ws rr ε₀ G c₀ : ℝ} (hrr : 0 ≤ rr) (hc₀ : 0 < c₀)
     (hbl : 0 ≤ phaseD Finset.univ qB (26 - sigT) 1 (ws - rr))
     (hbr : phaseD Finset.univ qB (26 - sigT) 1 (ws + rr) ≤ 0)

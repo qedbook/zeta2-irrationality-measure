@@ -3,7 +3,7 @@
 
 `docs/future/zeta2-lean-chain.md` row PHI-EVAL.
 
-**What the row owes.**  `Zeta2Defs.Member.qn`/`.pn` are DEFINED as the §1.1/§5.2 closed forms —
+**What this file proves.**  `Zeta2Defs.Member.qn`/`.pn` are DEFINED as the §1.1/§5.2 closed forms —
 `qₙ = sgn·Π·Σ_k c_k` and `pₙ = −sgn·Π·(Σ_j P_j I_j(C) − Σ_k c_k H⁽²⁾_{k+⌊C⌋})`.  `Zeta2T1Shift.Phi`
 is defined on `Rep = ℚ[X] × (ℕ →₀ ℚ)`, abstractly, by the two coordinates the tale-1 kernel
 produces.  **The row is the claim that those two definitions are the same numbers**, once the
@@ -39,8 +39,8 @@ then only the witness that some representing `Rep` exists, not the object the co
   * `Zeta2MomStep.momI_step` — **NOT used.**  It is the moment RECURSION as a rewrite rule, which
     is what PAIR-0p's per-instance evaluation of the 16n moments needed.  This row never evaluates
     a moment: `Lpoly_Ppol` moves the whole moment sum across symbolically.  Listed here because a
-    named input that turns out to be unnecessary is a measurement about the row's size, and the
-    cell should stop charging for it.
+    named input that turns out to be unnecessary is a measurement about the row's size.
+
 
 **What this file does NOT do, and the row's honest scope.**  It does not identify `ρⱼ` with
 `R_{n+j}/Π` — that is STAR-ID, and `Phi_rho`'s hypothesis `hr` is exactly the shape STAR-ID must

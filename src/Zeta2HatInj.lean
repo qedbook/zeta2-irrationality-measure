@@ -1,5 +1,5 @@
 /-
-# Row PAIR-3, second half — `rep̂_injective`, and the bridge PAIR-6 consumes
+# Row PAIR-3, second half — `evalRep_inj`, and the bridge PAIR-6 consumes
 
 `docs/future/zeta2-lean-chain.md` row PAIR-3: *two elements of `Rep̂` whose `evalRep`s agree off
 finitely many points are equal*.  This is what lifts a POINTWISE identity between hat members
@@ -153,7 +153,7 @@ theorem eq_zero_of_evalRep_vanishes (r : Rephat) (E : Finset ℚ)
       simpa [Finsupp.mem_support_iff] using hns
   exact Prod.ext hz1 hz2
 
-/-- **`rep̂_injective`** — row PAIR-3.  Two representations whose evaluations agree off ANY
+/-- **`evalRep_inj`** — row PAIR-3.  Two representations whose evaluations agree off ANY
 finite set are the same representation: the partial-fraction data of a rational function with
 poles of order ≤ 2 at negative integers is unique. -/
 theorem evalRep_inj (r s : Rephat) (E : Finset ℚ)

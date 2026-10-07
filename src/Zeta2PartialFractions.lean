@@ -3,13 +3,13 @@
 
 `docs/future/zeta2-lean-chain.md` rows PAIR-4R and RESID, §PAIR-4R design notes.
 
-Mathlib has **no partial-fraction API** (census 2026-09-12: zero occurrences of
-`partialFraction` / `partial_fraction` / `partialFrac` in 8487 `.lean` files).  Both rows are
-the same obstacle on two members: PAIR-4R is the hat member's decomposition (simple AND double
-poles), RESID is the tale-1 member's (`numPoly %ₘ denPoly`, simple poles only).  This file is
-that missing lemma, built so ONE theorem serves both: `partialFractions` takes two DISJOINT
-pole sets `S₁` (simple) and `S₂` (double), and RESID is its `S₂ = ∅` instance
-(`partialFractions_simple`, derived below, not re-proved).
+Mathlib's `div_prod_eq_quo_add_sum_rem_div` gives a partial-fraction decomposition in existence form:
+`f / ∏ gᵢ = q + Σ rᵢ / gᵢ` with `deg rᵢ < deg gᵢ`, for monic, pairwise coprime `gᵢ`.  This file
+proves the explicit form at simple AND double poles, each coefficient fixed by a local condition
+at its pole.  Both rows need it on two members: PAIR-4R for the hat member (simple AND double
+poles), RESID for the tale-1 member (`numPoly %ₘ denPoly`, simple poles only).  ONE theorem
+serves both: `partialFractions` takes two DISJOINT pole sets `S₁` (simple) and `S₂` (double),
+and RESID is its `S₂ = ∅` instance (`partialFractions_simple`, derived below, not re-proved).
 
 The route is elementary and needs no residue theory:
 

@@ -1,7 +1,7 @@
 /-
-# `Zeta2PpolVal.lean` — row PNCLR's next probe, reduced to ONE integer divisibility
+# `Zeta2PpolVal.lean` — row PNCLR's value statement, reduced to ONE integer divisibility
 
-**HEADLINE: `Δ·Π·Ppol(t) ∈ ℤ` is NOT proved here.**  What is proved is the reduction the
+**HEADLINE: `Δ·Π·Ppol(t) ∈ ℤ` from ONE integer divisibility.**  What is proved is the reduction the
 measurement asked for (`pn_halves_probe.out` arm E: `Π·Ppol` is not integer-valued at integers,
 but `Δ 16 15 n` cleared every failing value at every sampled `t`), plus both of its integer
 ingredients:
@@ -16,21 +16,21 @@ ingredients:
     fractions`) plus `Ppol_spec`, multiplied by `Π` and evaluated: the residue side is integral
     because `Π·c_k = ±cTerm n k` (row 3's landed `Pin_mul_ckAbs_eq_cTerm`).  **No division and no
     side condition** — it holds at the poles too, where both sides are `0 = 0`.
-  * **`cleared_of_denInt_dvd`** — the remaining obligation, stated on INTEGERS alone: if
+  * **`cleared_of_denInt_dvd`** — the reduction itself, stated on INTEGERS alone: if
     `den(t) ∣ Δ 16 15 n · z` for the witness `z` above, then `Δ·Π·Ppol(t) ∈ ℤ`.
 
-So the row's next probe is now exactly: **`∏_{k ∈ window}(t+k)` divides `Δ 16 15 n · N_n(t)`**,
+So `cleared_of_denInt_dvd`'s hypothesis is exactly: **`∏_{k ∈ window}(t+k)` divides `Δ 16 15 n · N_n(t)`**,
 with `N_n(t) = Π·numPoly(t) − Σ_k (Π·c_k)·∏_{j ≠ k}(t+j)` the integer this file constructs.
 Measured true at every sampled `t` for `n ≤ 3` (`ppol_value_probe.out`), and measured LOOSE:
 the lcm of the denominators over the whole sampled range is `2²·13`, `2³·5²·23`, `3·13·37` at
 `n = 1, 2, 3`, so `D(15n)` alone clears the sample — `Δ` is not the sharp constant here.
 
-**Two things this file does NOT do.**  (1) It does not prove the divisibility — that is the open
-statement, and `PpolValueCleared` names it.  (2) The reduction is vacuous at the `11n+1` POLE
-integers `t = −k`, `k ∈ window`, where `den(t) = 0`: there `denInt_mul_Pin_Ppol_int` says `0 = 0`
-and `cleared_of_denInt_dvd`'s `hne` fails.  Those values need the separate argument that a
-polynomial integral at enough non-pole integers is integral everywhere (Newton's forward-
-difference basis — NOT built here, and not in the corpus).
+**Two things this file does NOT do.**  (1) The divisibility is a hypothesis here (`hd`), and
+`PpolValueCleared` names the value statement, which `Zeta2NewtonAssemble.ppolValueCleared`
+proves.  (2) The reduction is vacuous at the `11n+1` POLE integers `t = −k`, `k ∈ window`, where
+`den(t) = 0`: there `denInt_mul_Pin_Ppol_int` says `0 = 0` and `cleared_of_denInt_dvd`'s `hne`
+fails.  Those values need the separate argument that a polynomial integral at enough non-pole
+integers is integral everywhere (Newton's forward-difference basis — NOT built here).
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -147,15 +147,15 @@ theorem denInt_mul_Pin_Ppol_int (n : ℕ) (t : ℤ) :
   push_cast at hmul ⊢
   linear_combination hmul
 
-/-! ## 5. What remains, stated on integers alone -/
+/-! ## 5. The value statement, and its reduction on integers alone -/
 
-/-- **The row's next probe.**  `Δ 16 15 n · Π(n) · Ppol_n(t) ∈ ℤ` for every `n` and every integer
-`t` — measured true for `n ≤ 5` and NOT proved. -/
+/-- **The row's value statement.**  `Δ 16 15 n · Π(n) · Ppol_n(t) ∈ ℤ` for every `n` and every integer
+`t`. -/
 def PpolValueCleared : Prop :=
   ∀ (n : ℕ) (t : ℤ), ∃ w : ℤ,
     ((Δ 16 15 n : ℕ) : ℚ) * (candidateM.Pin n * (candidateM.Ppol n).eval ((t : ℚ))) = (w : ℚ)
 
-/-- **The reduction to ONE integer divisibility.**  Off the poles, the probe follows from
+/-- **The reduction to ONE integer divisibility.**  Off the poles, the value statement follows from
 `den(t) ∣ Δ · z` with `z` the integer of `denInt_mul_Pin_Ppol_int` — a statement with no
 rationals, no polynomials and no `Π` in it. -/
 theorem cleared_of_denInt_dvd (n : ℕ) (t : ℤ) (z : ℤ)

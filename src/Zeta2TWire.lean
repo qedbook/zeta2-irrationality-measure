@@ -1,38 +1,38 @@
 /-
-# ROW T-WIRE — the composition DRY RUN.  **IT PROVES THE WIRING, NOT THE THEOREM; since
-# 2026-09-24 it carries NO `sorry`.**
+# ROW T-WIRE — the composition, executed.  **It proves the target from the three rows'
+# statements; §4 names the theorem with no hypothesis that applies it.**
 
 **HEADLINE: PROVED ELSEWHERE, 2026-09-24.**  `Zeta2Unconditional.zeta2_not_liouvilleWith` (and
-`Zeta2Target.zeta2_not_liouvilleWith`, which applies it) close the headline with no binder.  This
-file's former §4 — `PT_P_sorried`, `RDECAY_sorried`, `QGROW_sorried` and the `twire_target_sorried`
-built from them, carrying `sorryAx` by design — was REMOVED that day (owner directive: no sorry in
-the proof), because every row it stubbed is proved: PT-P by `Zeta2PtpClose.pt_p`, RDECAY by
-`Zeta2RDecay.rdecay_of_psi_of_moment`, QGROW by `Zeta2QGrow.qgrow_of_psi`, and their standing
+`Zeta2Target.zeta2_not_liouvilleWith`, which applies it) close the headline with no binder.
+
+The three rows this file takes as hypotheses are each proved elsewhere: PT-P by
+`Zeta2Final.ptpOpen_of_poly Zeta2PtpMbigS2.polyHalfOpen`, RDECAY by
+`Zeta2RDecay.rdecay_of_psi_of_moment`, QGROW by `Zeta2QGrow.qgrow_of_psi`, and their shared
 binder `hψ` by `Zeta2Hpsi.hψ`.  Every receipt below reads the allowlist.
 
-**What this file is for.**  Thirty-seven of the chain's forty-three rows are closed and **not one
-line anywhere checked that they compose.**  `Zeta2L12.candidate_target_of_certified_constants`
+**What this file is for.**  It checks that the chain's rows compose.
+`Zeta2L12.candidate_target_of_certified_constants`
 binds eighteen hypotheses; a row that "closes" a binder in prose but proves a differently
 quantified, differently indexed or differently NORMALISED statement fails at the application and
 nowhere else (LEAN.md §3: composition failed on casts and indexing BOTH times it was tried on
 this corpus).  So §3's acceptance is the EXECUTED application, and that is what §2 below is:
-every binder the doc calls closed is filled from its real landed theorem, and only the three rows
-the doc lists as OPEN — PT-P, RDECAY, QGROW — are left as hypotheses.
+every other binder is filled from its real landed theorem, and the three rows — PT-P, RDECAY,
+QGROW — are the hypotheses of `target_of_open_rows`, each proved elsewhere (see above).
 
 **CORRECTED 2026-09-20 by row QGROW — §1b, and the correction is in the INTERFACE, not in prose.**
-Two of those three rows cannot be stated hypothesis-free AND be provable: RDECAY and QGROW both
+Two of those three rows are stated hypothesis-free but proved from `hψ`: RDECAY and QGROW both
 reach `Δ̃`'s rate through `Zeta2DRate`, every theorem of which takes
-`hψ : Zeta2LegA.psiErrorBoundStatement` explicitly, so the strongest statement either can produce
-is `hψ → …`.  §1b names those two implications (`QGROW_deliverable`, `RDECAY_deliverable`) and §2's
+`hψ : Zeta2LegA.psiErrorBoundStatement` explicitly, so each row's theorem is the implication
+`hψ → …`.  §1b names those two implications (`QGROW_deliverable`, `RDECAY_deliverable`) and §2's
 `target_of_deliverable_rows` executes the composition in that shape.  QGROW is landed against it
-(`Zeta2QGrow.qgrow_of_psi`); RDECAY is not, and its own blocker — L7ID's `rn` identification —
-is unchanged by the correction.
+(`Zeta2QGrow.qgrow_of_psi`), and so is RDECAY (`Zeta2RDecay.rdecay_of_moment`).
+
 
 **§2's `target_of_open_rows` is the deliverable and it is AXIOM-FREE.**  It is not "the pieces
-with their neighbours as hypotheses": its hypotheses are exactly the three open rows' own
-statements, at the objects the capstone binds, and every CLOSED row in the composition is the
-landed theorem itself.  (Until 2026-09-24 a §4 discharged those three with `sorry` to execute the
-eighteen-binder term in one piece; it is removed — the headline files now execute it for real.)
+with their neighbours as hypotheses": its hypotheses are exactly the three rows' own
+statements, at the objects the capstone binds, and every other row in the composition is the
+landed theorem itself.
+
 
 **The composition GOES THROUGH.**  All eighteen binders are supplied, nothing had to be weakened,
 and no landed theorem needed a bridge.  The chain's two previously-disjoint partial compositions
@@ -66,7 +66,7 @@ namespace Zeta2TWire
 
 open Zeta2Defs
 
-/-! ## §1. The three OPEN rows, stated at the objects the capstone binds
+/-! ## §1. The three rows' statements, at the objects the capstone binds
 
 Each is written at `Zeta2PhiT.ΔT` (the chain's `Δ̃`), at `Zeta2HatAssemble.QT` (the integer
 sequence PT-QB's `hQ_at_ΔT` is about), at `candidateM.rn` and at `candidateM.pn` — never at a
@@ -74,19 +74,19 @@ stand-in — and each rate is at the constant its certifying row PINS: `c1 := Re
 Zeta2XL1.rhoChar` (HC1) and `c2 := 31 − Zeta2DPhi.dPhi + ε'` (HC2).  Writing them at a
 re-derived literal instead would need a bridge nobody has built. -/
 
-/-- **PT-P, OPEN** — the p-half of the clearing at `Δ̃`.  PNCLR proves this at `Δ 16 15`;
+/-- **PT-P** — the p-half of the clearing at `Δ̃`.  PNCLR proves this at `Δ 16 15`;
 PT-P is the division by `Φ̃ₙ`. -/
 def PT_P_open : Prop :=
   ∃ P : ℕ → ℤ, ∀ n, ((P n : ℤ) : ℝ) = Zeta2PhiT.ΔT n * ((candidateM.pn n : ℚ) : ℝ)
 
-/-- **RDECAY, OPEN** — `hc0`, `hδ`, `hCr` and `hdecay` travel together, because `c0` and `δ`
+/-- **RDECAY** — `hc0`, `hδ`, `hCr` and `hdecay` travel together, because `c0` and `δ`
 are FIXED by the decay bound and by nothing else in the chain.
 
-**NOT DELIVERABLE AS STATED — see `RDECAY_deliverable` below.**  This `Prop` is the row's TARGET
+**Proved from `hψ` — see `RDECAY_deliverable` below.**  This `Prop` is the row's TARGET
 and is hypothesis-free; the row's OUTPUT is `hψ → RDECAY_open ε'`, because the `Δ̃` half comes
 from `Zeta2DRate.ΔT_clearing_rate(_hc2)`, whose first explicit argument is
-`Zeta2LegA.psiErrorBoundStatement`.  RDECAY's own remaining blocker is unchanged by that
-observation: it is L7ID's identification of `candidateM.rn`. -/
+`Zeta2LegA.psiErrorBoundStatement`.
+-/
 def RDECAY_open (ε' : ℝ) : Prop :=
   ∃ (c0 δ Cr : ℝ) (Nr : ℕ),
     (29.10787127 : ℝ) ≤ c0 ∧ δ ≤ 1 / 10 ^ 16 ∧ 0 < Cr ∧
@@ -95,7 +95,7 @@ def RDECAY_open (ε' : ℝ) : Prop :=
 
 /-- **QGROW** — `hCq` and `hgrowth`, at HC1's own `c1` and HC2's own `c2`.
 
-**NOT DELIVERABLE AS STATED — see `QGROW_deliverable` below.**  This `Prop` is the row's TARGET
+**Proved from `hψ` — see `QGROW_deliverable` below.**  This `Prop` is the row's TARGET
 and is hypothesis-free; the row's OUTPUT is `hψ → QGROW_open ε'`, and that is what is landed
 (`Zeta2QGrow.qgrow_of_psi`, 2026-09-20).  `QT n = Δ̃ₙ · qₙ`
 (`Zeta2HatAssemble.hQ_at_ΔT`), so bounding `|QT n|` needs a rate for `Δ̃`, and all six landed
@@ -105,28 +105,28 @@ def QGROW_open (ε' : ℝ) : Prop :=
     ∀ n, Nq ≤ n → |((Zeta2HatAssemble.QT n : ℤ) : ℝ)|
       ≤ Cq * Real.exp (Real.log Zeta2XL1.rhoChar + (31 - Zeta2DPhi.dPhi + ε')) ^ n
 
-/-! ### §1b. The SHAPE CORRECTION — what the two rate rows can actually deliver
+/-! ### §1b. The SHAPE CORRECTION — what the two rate rows deliver
 
 **Added 2026-09-20 by row QGROW, and it is an interface fix rather than a remark.**  §1 states
-all three open rows hypothesis-free.  For `PT_P_open` that is right — it is pure arithmetic.  For
+all three rows hypothesis-free.  For `PT_P_open` that is right — it is pure arithmetic.  For
 the two RATE rows it is not: both reach `Δ̃`'s growth through `Zeta2DRate`, every theorem of which
-takes `hψ : Zeta2LegA.psiErrorBoundStatement` as its first explicit argument, so the strongest
-statement either row can produce is the IMPLICATION.  Leaving only the hypothesis-free form in the
-scaffold let `QGROW_sorried`/`RDECAY_sorried` (both removed 2026-09-24) read as promises that some file would discharge them
-outright; neither can, and no `#print axioms` anywhere in this corpus could have said so, because
-a binder is not an axiom (LEAN.md §1).
+takes `hψ : Zeta2LegA.psiErrorBoundStatement` as its first explicit argument, so each row's
+theorem is the IMPLICATION, and the hypothesis-free form follows by applying it to
+`Zeta2Hpsi.hψ`.  A binder is not an axiom, so `#print axioms` cannot tell the two forms apart
+(LEAN.md §1); a theorem's type states which form it proves, and §1 and the two definitions
+below name both.
 
-The owner's answered fork of the same day makes `hψ` an ACCEPTED STANDING BINDER of the headline,
-so these two definitions are the honest interface and not a weakening: a consumer written against
-them cannot silently assume the unconditional form. -/
+These two definitions are the honest interface and not a weakening: a consumer written against
+them cannot silently assume the unconditional form.
+-/
 
 /-- **What row QGROW delivers.**  Landed: `Zeta2QGrow.qgrow_of_psi` inhabits this at every
 `0 < ε'`. -/
 def QGROW_deliverable (ε' : ℝ) : Prop :=
   Zeta2LegA.psiErrorBoundStatement → QGROW_open ε'
 
-/-- **What row RDECAY delivers.**  Not yet inhabited — RDECAY is blocked on L7ID's `rn`
-identification, which this correction does not touch. -/
+/-- **What row RDECAY delivers.**  Landed: `Zeta2RDecay.rdecay_of_moment` inhabits this at every
+`0 < ε'`, given `hP`. -/
 def RDECAY_deliverable (ε' : ℝ) : Prop :=
   Zeta2LegA.psiErrorBoundStatement → RDECAY_open ε'
 
@@ -144,9 +144,9 @@ Eighteen binders.  Fifteen are filled from landed theorems, by name:
 | `hQ` | `Zeta2HatAssemble.hQ_at_ΔT` | PT-QB |
 
 and the remaining three — `hP`, the `hc0`/`hδ`/`hCr`/`hdecay` block, and `hCq`/`hgrowth` — are
-this theorem's hypotheses, which is what an open row is. -/
+this theorem's hypotheses. -/
 
-/-- **T-WIRE.**  The capstone applied with every closed row's real theorem; the three open rows
+/-- **T-WIRE.**  The capstone applied with every other row's real theorem; PT-P, RDECAY and QGROW
 are the hypotheses.  Axiom-free: `#print axioms` below. -/
 theorem target_of_open_rows {ε' : ℝ} (hε' : ε' ≤ 1 / 10 ^ 8)
     (hPT_P : PT_P_open) (hRDECAY : RDECAY_open ε') (hQGROW : QGROW_open ε') :
@@ -161,8 +161,8 @@ theorem target_of_open_rows {ε' : ℝ} (hε' : ε' ≤ 1 / 10 ^ 8)
     hCr hdecay hCq hgrowth
 
 /-- **T-WIRE in the deliverable shape** (added 2026-09-20 with §1b).  The same eighteen-binder
-application, with the two rate rows taken in the form they can actually be proved and `hψ`
-carried explicitly — which is the form the owner's answered fork accepts.  It is `¬ LiouvilleWith
+application, with the two rate rows taken in the form their theorems prove and `hψ`
+carried explicitly.  It is `¬ LiouvilleWith
 5.0495243 zeta2` from: `hψ`, PT-P, RDECAY-as-an-implication, and QGROW-as-an-implication.  Axiom
 free, and its TYPE is the disclosure `#print axioms` cannot make. -/
 theorem target_of_deliverable_rows (hψ : Zeta2LegA.psiErrorBoundStatement)
@@ -171,7 +171,7 @@ theorem target_of_deliverable_rows (hψ : Zeta2LegA.psiErrorBoundStatement)
     ¬ LiouvilleWith (5.0495243 : ℝ) zeta2 :=
   target_of_open_rows hε' hPT_P (hRDECAY hψ) (hQGROW hψ)
 
-/-! ## §3. Diagnostics — the checks this dry run exists to make
+/-! ## §3. Diagnostics — the checks this file exists to make
 
 None of these is a step of the chain.  Each is a question that had never been asked in Lean. -/
 
@@ -216,11 +216,11 @@ theorem certified_value_is_strictly_between_the_two_literals :
 `LiouvilleWith` is downward-closed in the exponent, so `Zeta2Target.zeta2_irrationality_measure_le`
 turns `¬ LiouvilleWith 5.0495243` into `¬ LiouvilleWith p` for every `p ≥ 5.0495243` and for no
 `p` below it.  `5.04952429` is below it.  So the doc-title claim is STRICTLY STRONGER than the
-chain's, not a rounding of it, and no closing of the open rows will produce it. -/
+chain's, not a rounding of it, and the chain's proof does not produce it. -/
 theorem headline_numeral_is_not_reached_by_mono :
     ¬ ((5.0495243 : ℝ) ≤ 5.04952429) := by norm_num
 
-/-- **Δ INSTANTIATION — the check the whole dry run was for.**  `Zeta2PhiT.ΔT` (the chain's
+/-- **Δ INSTANTIATION — the check this file exists for.**  `Zeta2PhiT.ΔT` (the chain's
 `Δ̃`, what `Zeta2DRate.ΔT_growth` bounds and what `hdecay`/`hgrowth` must be about) and
 `Zeta2Arith.Δ 16 15` (what row PNCLR's `binders_1615` is about) are DIFFERENT FUNCTIONS.  At
 `n = 1` they differ by `Φ̃₁ = 5929`.  The capstone binds ONE `Δ`, so at most one of the two can
@@ -238,7 +238,7 @@ theorem PNCLR_delta_is_not_the_chain_delta :
 /-- **And PNCLR's binders DO typecheck into the capstone — which is exactly why the check above
 was needed.**  This is the same executed composition as §2 with `Δ := Δ 16 15` and PNCLR's
 `binders_1615` in the three arithmetic slots.  Lean raises no objection; what it does is FORCE
-the decay and growth hypotheses to be about `Δ 16 15`, and no landed row bounds that.
+the decay and growth hypotheses to be about `Δ 16 15`; the chain's rates are at `ΔT` instead.
 (`Zeta2DRate`'s own falsifier arm N1 is the row restated at the un-divided `Δ 16 15`, and it
 REDS.)  So the binder SHAPE is satisfied at both objects and only one of them carries the
 headline μ — LEAN.md §0a's trap, executed rather than argued. -/
@@ -266,11 +266,11 @@ because that is the only one with a landed rate.  What separates PNCLR's landed 
 from the capstone's `hP` at `ΔT` is therefore ONE divisibility — `Φ̃ₙ` divides PNCLR's own
 witness — and this theorem is that reduction, executed: hand it the divisibility and it hands
 back `PT_P_open`.  `Zeta2PhiT.ΔT_mul_PhiT` is the landed arithmetic bridge and it is NOT enough
-on its own; the missing content is the divisibility, the p-side twin of PT-QB's landed
+on its own; the extra content is the divisibility, the p-side twin of PT-QB's landed
 `Zeta2HatAssemble.PhiT_dvd_qnInt`.  So PNCLR is not closed at the wrong object — its row
 statement is `PnClearedAt 16 15` and its declared consumer is PT-P — but `binders_1615` is a
 STAND-IN triple, and none of the capstone's three arithmetic binders at the chain's `Δ` comes
-from it. -/
+from it.  `Zeta2Final.ptpOpen_of_poly Zeta2PtpMbigS2.polyHalfOpen` proves `PT_P_open`. -/
 theorem PT_P_of_PhiT_dvd
     (h : ∀ P : ℕ → ℤ,
       (∀ n, ((P n : ℤ) : ℝ)
@@ -314,13 +314,13 @@ one is strictly positive at every `n`, so `hQ`/`hP` are statements about genuine
 multiples and not about the zero sequence. -/
 theorem wired_delta_is_positive (n : ℕ) : 0 < Zeta2PhiT.ΔT n := Zeta2PhiT.ΔT_pos n
 
-/-! ## §4. REMOVED 2026-09-24 — the `sorry`'d one-piece term
+/-! ## §4. The eighteen-binder term, with no hypothesis
 
-§4 used to apply `target_of_open_rows` to `sorry`'d copies of the three open rows
-(`PT_P_sorried`, `RDECAY_sorried`, `QGROW_sorried`, giving `twire_target_sorried`, which carried
-`sorryAx` by design).  Every one of those rows is now proved, and the eighteen-binder term is
-executed for real, with no hypothesis, by `Zeta2Unconditional.zeta2_not_liouvilleWith`; the
-scaffold is deleted under the owner's 2026-09-24 directive that the proof carry no `sorry`. -/
+The eighteen-binder term is executed with no hypothesis by
+`Zeta2Unconditional.zeta2_not_liouvilleWith`, which reaches §2's `target_of_deliverable_rows`
+through `Zeta2RDecay.target_of_one_open_row`.
+
+-/
 
 end Zeta2TWire
 

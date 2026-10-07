@@ -3,7 +3,7 @@
 
 `docs/future/zeta2-lean-chain.md` row PAIR-5, §PAIR-5 design notes attempt 5.
 
-**What the row owed that this file pays.**  PAIR-5's first obligation is *exhibit* `repS n : Rep̂`
+**What this file is for.**  PAIR-5's first obligation is *exhibit* `repS n : Rep̂`
 and its second is *`evalRep (repS n) t = Ŝ t − C₀` off a finite set*.  The corpus had that step
 only at the hat member: `Zeta2HatPoles.hat_rep_of_residues` goes from the cleared polynomial
 identity to `evalRep (repHat n) t = hatPi n * hatMember n t`, but it does it with the residues
@@ -28,17 +28,17 @@ polynomial of this corpus: `S₁`, `S₂` and `N` are free.  It is the generic h
 sets arrive in `Zeta2HatRawPoles` and the row's object in `Zeta2HatRepS`.  It also proves nothing
 about `repOf`'s support beyond `⊆ S₁ ∪ S₂` — in particular nothing about which of those keys carry
 a NONZERO residue, which for `Ŝ` is a strictly smaller set (`Zeta2HatCancel`'s reduced `T₁ ∪ T₂`,
-measured, unproved on this route and not needed by it).
+measured, and not needed on this route).
 
 **Where the node vocabulary lives, and why it lives here.**  `nodes`/`card_nodes`/`nodes_disjoint`/
 `sum_nodes` translate an index `Finset ℕ` into the `Finset ℚ` of poles `t = −k` that
 `Zeta2PF.partialFractions_res` consumes.  They are generic in exactly the way `Zeta2PartialFractions`
-is, and the design's reuse census recommends they end up there.  They are HERE instead because the
-move is not free: `nodes` rests on `Zeta2HatPoles.neg_cast_inj` and the cofactor lemmas `pf1_eq`/
-`pf2_eq` rest on `image_erase_comm`/`poly_prod_image`/`poly_prod_image_sq`, all four LANDED in
-`Zeta2HatPoles`, which references them seventeen times — so relocating them re-elaborates and
-re-receipts the whole hat chain.  That is its own landing, and A→B ≡ B→A: nothing here has to
-change when it happens.  What this file does NOT do is make a second copy of any of them.
+is.  They are HERE instead because the move is not free: `nodes` rests on
+`Zeta2HatPoles.neg_cast_inj` and the cofactor lemmas `pf1_eq`/`pf2_eq` rest on
+`image_erase_comm`/`poly_prod_image`/`poly_prod_image_sq`, all four LANDED in
+`Zeta2HatPoles`, which references them seventeen times — so relocating them
+re-elaborates and re-receipts the whole hat chain.  What this file does NOT do is
+make a second copy of any of them.
 
 **Elaborate with the corpus oleans on the path** — it imports `Zeta2HatPoles`:
 

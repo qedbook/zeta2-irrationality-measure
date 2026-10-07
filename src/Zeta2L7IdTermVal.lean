@@ -32,8 +32,8 @@ with `j = k − m ≥ k − 4n ≥ 11n + 1` gives `∑_k c_k · 2π · (ζ(2) �
 `Zeta2Defs.Member.harmIndex n k = k − b₃n − 1 = k − 4n − 1` at the candidate — the chain's own
 index, not a lookalike.  That summation is NOT performed here: it needs the `m`/`k` sum
 interchange and `Zeta2Defs.hasSum_zeta2`, and it is its own step.  Nothing here mentions
-`candidateM.rn`, so RDECAY gains nothing; obligation 2's estimate is untouched; the `Ppol` arm
-still rests on `Zeta2L7IdMoment.SechMomentTable`.
+`candidateM.rn`; obligation 2's estimate and the `Ppol` arm are not touched in this file.
+
 
 ACCEPTANCE (LEAN.md §1, as sharpened 2026-09-20): the receipt AND the printed type.  Every
 theorem prints both.

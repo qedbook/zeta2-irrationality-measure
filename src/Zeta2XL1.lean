@@ -2,13 +2,13 @@
 # Row X-L1 (lemma half) — nine of the fourteen hypotheses, discharged at the real operator
 
 `Zeta2Instantiate.candidate_rn_growth_of_L1` is landed and receipt-clean: it applies the B1/D1
-capstone to the REAL `candidateM.rn`.  Its ASSEMBLY was never the open work — its **fourteen
-hypotheses** were, and they do not all belong to the same row:
+capstone to the REAL `candidateM.rn`.  Its **fourteen hypotheses** do not all belong to the
+same row:
 
-| # | hypothesis | status |
+| # | hypothesis | where it comes from |
 |---|---|---|
-| 1 | `hL` — the three-term recurrence at `candidateM.rn` | open, B1–B5 (the `MBSolveResult.coords` work) |
-| 2–5 | `h₀`–`h₃` — `Pⱼ.eval n = B.eval n · αⱼ n` | open, same row |
+| 1 | `hL` — the four-term recurrence at `candidateM.rn` | a hypothesis here |
+| 2–5 | `h₀`–`h₃` — `Pⱼ.eval n = B.eval n · αⱼ n` | a hypothesis here |
 | 6 | `hP₃ : P₃ ≠ 0` | **here**, `degree_lead_of_coeff` (see below) |
 | 7–9 | `hd₀`–`hd₂` — equal degrees | **here**, `candidate_rn_growth_of_recurrence` |
 | 10–12 | `hA₀`–`hA₂` — leading-coefficient ratio bounds | **here**, `hA0`/`hA1`/`hA2` |
@@ -17,8 +17,8 @@ hypotheses** were, and they do not all belong to the same row:
 
 What is discharged here is everything that depends only on the operator's DEGREE and its four
 LEADING COEFFICIENTS, and it is discharged at the certified operator's own exact integers
-(`Zeta2XL1Data`, generated from `chain_close_design/results/solution_a.txt`).  The remaining five
-are the recurrence itself.
+(`Zeta2XL1Data`, generated from `chain_close_design/results/solution_a.txt`).  The other five
+are the recurrence itself, which `candidate_rn_growth_of_recurrence` takes as hypotheses.
 
 **`hchar` was already proved and is NOT re-proved here.**  It is the landed `zeta2_L5_char` —
 D1's 146-digit cleared integer inequality at the certified operator's own leading coefficients —
@@ -30,23 +30,23 @@ reconcile.
 STRONGER fact about the same polynomial (`cleared_3` has no natural-number root at all, by a
 dominance criterion above `m₀ = 1127` and an exact mod-p scan below it), and reading the census
 quickly it looks like `hP₃` already done.  It is not: it is stated about a `List ℤ` through
-`Zeta2L4.hornerZ`, and no `List ℤ → ℝ[X]` bridge exists anywhere in this corpus.  X-L1's `hP₃` is
+`Zeta2L4.hornerZ`, and reaching `ℝ[X]` from it takes a `List ℤ → ℝ[X]` bridge.  X-L1's `hP₃` is
 only `P₃ ≠ 0`, which `degree_lead_of_coeff` delivers from the top coefficient directly — so this
 file proves it that way rather than building the bridge, and records here that the two facts are
 about the same object so nobody proves it twice.
 
-**The degree-510 coefficient data IS in the repo.**  `Zeta2D4.lean`'s header says "the
-candidate's own degree-510 cleared coefficients are NOT in the repo, so the instantiation is not
-available"; that was true when written and is now stale — `chain_close_design/l4_data.py` rebuilds
+**The degree-510 coefficient data is in the source repository.**  `chain_close_design/l4_data.py` rebuilds
 all four `cleared_j` from `results/solution_a.txt` in under a second, and `Zeta2L4.lean` already
 carries two of them in full.  Only four integers of that quadruple are needed here, and
 `gen_xl1_lean.py` extracts them with five cross-checks and a falsifier.
 
+
+
 **The conclusion at these constants is a GROWTH bound.**  `ρ ≈ 1.7987e18` is the certified
 operator's dominant root modulus, and `one_lt_rhoChar` says so inside the kernel.
-`Zeta2Instantiate`'s docstring calls the conclusion "a decay bound on `r_n` itself"; that reading
-is wrong for D1's own `ρ`, and the row that needs this growth statement is L9's `hCq`/`hgrowth`,
-which is about `qn` — no `candidate_qn_growth_of_L1` exists yet.
+
+
+
 
 Elaborated against CURRENT Mathlib (`v4.34.0-rc2`, mathlib `5aedf732`) on the buildbox.
 -/
@@ -70,8 +70,8 @@ what any construction of `cleared_j` from its coefficients hands you.
 /-- **The whole shape bridge.**  A polynomial with no coefficient above index `d` and a nonzero
 coefficient AT `d` is nonzero, has degree `d`, and has that coefficient as its leading one.
 
-This is stated with the hypotheses a caller PRODUCES (LEAN.md §3): whoever builds `cleared_j` from
-its 511 coefficients gets `natDegree ≤ 510` and `coeff 510 = …` for free, and never has to run a
+This is stated with the hypotheses a caller PRODUCES (LEAN.md §3): building `cleared_j` from
+its 511 coefficients gives `natDegree ≤ 510` and `coeff 510 = …` for free, and needs no
 degree computation over the literals. -/
 theorem degree_lead_of_coeff {P : ℝ[X]} {d : ℕ} {c : ℝ}
     (hle : P.natDegree ≤ d) (hc : P.coeff d = c) (hc0 : c ≠ 0) :
@@ -259,8 +259,8 @@ theorem int_lt_div {c p q : ℤ} (hq : 0 < q) (h : c * q < p) : (c : ℝ) < (p :
   exact_mod_cast h
 
 /-- **`1 < ρ`.**  The conclusion X-L1 delivers at D1's constants is a GROWTH bound: `ρ` is the
-certified operator's dominant root modulus, ≈ 1.7987e18.  Recorded because the landed
-`Zeta2Instantiate` docstring reads it the other way. -/
+certified operator's dominant root modulus, ≈ 1.7987e18.
+-/
 theorem one_lt_rhoChar : 1 < rhoChar := one_lt_div_of_int cden_pos cden_lt_rhoNum
 
 /-- **`ρ` lies strictly above `Zeta2D4Data.chiOp_root_enclosure`'s upper endpoint.**  That
@@ -276,9 +276,9 @@ proved above are the ones `Zeta2Instantiate.candidate_rn_growth_of_L1` assumes, 
 `candidateM.rn`, with no re-statement anywhere.
 
 Of the capstone's fourteen hypotheses it supplies **nine** — `hP₃`, `hd₀`–`hd₂`, `hA₀`–`hA₂`, `hρ`
-and `hchar`.  The **five** that remain are `hL` and `h₀`–`h₃`, the recurrence and the clearing
-identity, which are B1–B5 and depend on the `αⱼ` the `MBSolveResult.coords` work emits.  In their
-place this row asks for eight facts that are strictly smaller and that any construction of the
+and `hchar`.  The other **five**, `hL` and `h₀`–`h₃` (the recurrence and the clearing
+identity), are hypotheses of the theorem below, and in place of `hP₃`, `hd` and `hA` it asks
+for eight facts that are strictly smaller and that any construction of the
 `cleared_j` from their coefficients produces directly: `natDegree ≤ 510` and `coeff 510 = leadⱼ`.
 -/
 

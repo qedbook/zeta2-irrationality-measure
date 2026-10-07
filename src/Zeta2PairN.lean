@@ -17,17 +17,17 @@ this is exactly one of them:
 
   * **`al3` (deg 154) — THIS ROW.**  The hat solve's clearing factor; `α̃₃ = L` exactly,
     because the uncleared `α₃ = A₃/B₃` is the constant 1 (measured, both solves).
-  * `L_t1` (deg 132) — the CHAIN side's, owed by STAR-ID and L1-ASM.  Not proved here.
-  * `λden` (deg 58) — PAIR-8's own, from PAIR-7's `β̂ⱼ·λden = γⱼ·λnum`.  Not proved here.
+  * `L_t1` (deg 132) — the CHAIN side's, from STAR-ID and L1-ASM; not this file's.
+  * `λden` (deg 58) — PAIR-8's own, from PAIR-7's `β̂ⱼ·λden = γⱼ·λnum`; not this file's.
 
 **The range.**  `∀ n : ℕ`, with nothing excluded: the scan covers `n ≤ 364` and the
 dominance criterion covers every RATIONAL `x ≥ 364`, and the two overlap at `n = 364`.
 PAIR-8 needs the `j = 3` entry at every `n` its induction steps through (`n ≥ N₀`, whatever
 number L1-ASM exports), so the theorem is strictly wider than its consumer.
 
-**What this row does NOT discharge.**  `hatQ n = qnInt n` is PAIR-8; `Zeta2Target.zeta2_not_
-liouvilleWith` is still `sorry`.  This row also does not touch `λden ≠ 0` or `L_t1 ≠ 0`, and
-nothing here says `Zeta2Pair7J<j>.alHat = al<j>` — that tie is PAIR-8's, still a measurement.
+**What this row does NOT discharge.**  `hatQ n = qnInt n` is PAIR-8.  This row also does not
+touch `λden ≠ 0` or `L_t1 ≠ 0`, and nothing here says `Zeta2Pair7J<j>.alHat = al<j>` — that tie
+is `Zeta2Pair8Tie`'s.
 
 **The instrument is not new.**  Sections 1 and 2 below are `Zeta2L4`'s dominance criterion
 and its Horner/scan bridges, SPLICED verbatim by `gen_pairn_lean.py` (not copied by hand) so
@@ -45,7 +45,7 @@ LINE LENGTH: the coefficient literals in section 3 run to 255 digits each, so th
 lines cannot be wrapped at 100 columns without splitting a single numeral.  Everything else
 is within 100.
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2PairN.lean
 

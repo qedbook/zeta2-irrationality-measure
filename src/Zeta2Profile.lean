@@ -2,9 +2,9 @@
 THE CANDIDATE'S phi~ PROFILE, encoded — the data leg B's theorems are instantiated at.
 
 Source: `extract_profile.py`, which pulls this table from the landed `z2a` engine and gates itself
-on the archived density pin `dmax = 15.98087907`. Cross-checked back against that output by
-`check_profile_encoding.py`, which parses THIS file and compares triple by triple — a data-entry
-error here would otherwise be SILENT, since every theorem below would still compile.
+on the archived density pin `dmax = 15.98087907`, and `check_profile_encoding.py` compares this
+file with that output triple by triple.  In Lean the table is a definition: no theorem here
+assumes that it equals anything outside this file.
 
 Candidate: alpha = (13,11,9,15), beta = (0,2,4,26); gamma = (16,15);
 Whipple hat = (20,5,7,9)/(3,0,18,20).

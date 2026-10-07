@@ -44,10 +44,10 @@ Two structural facts make this small (both are algebra, not machinery):
 * **π cancels out of `g`.**  Identically `g(w) = c + ½(Σ qᵢ log(qᵢ²+w²) - D log(D²+w²))
   + w·g'(w)` (`phase_eq_logpart`), so the only enclosures C7 needs are LOGS at rationals.
 
-Mathlib has no `Real.arctan` enclosure, no `Real.log` enclosure at a general rational, no
-`norm_num` extension for either and no interval arithmetic — but it does have
-`Real.abs_log_sub_add_sum_range_le` (the `log (1-x)` Taylor remainder), which is all §2
-needs, and `Real.arctan_add` + `Real.le_tan`, which is all §1 and §3 need.
+From Mathlib, §2 needs only `Real.abs_log_sub_add_sum_range_le` (the `log (1-x)` Taylor
+remainder), and §1 and §3 only `Real.arctan_add` + `Real.le_tan`.
+
+
 -/
 
 namespace Zeta2C7
@@ -60,7 +60,7 @@ noncomputable def wsB : ℝ := ((5376575494857187629 : ℝ) / 250000000000000000
 /-- The bracket half-width `r`. -/
 noncomputable def rB : ℝ := ((1 : ℝ) / 1000000000)
 
-/-- `ε`, C6's certified value.  The delivered slack is far better — see `heps_tight`. -/
+/-- `ε`, C6's certified value.  The delivered slack is far better — see `c7_heps_tight`. -/
 noncomputable def epsB : ℝ := ((1 : ℝ) / 1000000000)
 
 /-- The certified supremum cap `G`, proved here rather than assumed. -/
@@ -76,7 +76,7 @@ noncomputable def kappaPi : ℝ :=
 /-! ## §1. Primitives
 
 `arctan_le_self` is the only arctan bound C7 needs, and it is two lines from
-`Real.le_tan`.  `logNear_of_series` is Mathlib's remainder bound with the series value
+`Real.le_tan`.  `logNear_of_series` restates Mathlib's remainder bound with the series value
 and the error both supplied as literals, which is what makes it `norm_num`-able. -/
 
 /-- `arctan t ≤ t` for `t ≥ 0` — Mathlib has `Real.le_tan`, read at `t = arctan x`. -/
@@ -1086,13 +1086,13 @@ deliverable.  What L7 exports to L8/L9/L11 is one level up: `Zeta2L7Assembly.rou
 which takes the same six numeric hypotheses PLUS `hrep` (L7 Theorem 5 composed with Lemma 9 and
 the identification of `rₙ` with the line integral).  This file applies that landed theorem to
 the six C7 theorems, so the kernel checks the match there too — and the resulting statement
-names exactly what is left open: `hrep`, i.e. the `L7-mid` row, and nothing numeric.
+has exactly one hypothesis: `hrep`, i.e. the `L7-mid` row, and nothing numeric.
 -/
 
 namespace Zeta2C7
 
 open Filter in
-/-- **X-L7 at route B with every numeric hypothesis discharged.**  The only hypothesis left is
+/-- **X-L7 at route B with every numeric hypothesis discharged.**  Its one hypothesis is
 `hrep` — L7's Lemmas 2/3/5/9, the `L7-mid` row.  Before C7 there were seven. -/
 theorem routeB_l7_rate_numeric {rn : ℕ → ℝ} {C : ℝ}
     (hrep : ∀ n : ℕ, 1 ≤ n → |rn n| ≤ (n : ℝ) * (Real.exp C / Real.pi)
@@ -1133,14 +1133,14 @@ The sequence bounded here is `L7MidM5.rLine`, the **real part of M5's §1 line i
 contour, `rLine n = ((1/2π) ∫_{ℝ} H_n(−σ̃n − ½ + is) ds).re`.  It is **NOT** the chain's remainder
 `r_n = q_n·ζ(2) − p_n`.
 
-Connecting the two is *separate* work that has not landed: Lemma 9's contour move (M6) plus the
-L1/A2 arithmetic identification of the line integral with `q_n ζ(2) − p_n`.  So:
+Connecting the two is not in this file — it is Lemma 9's contour move (M6) plus the L1/A2
+identification — and `Zeta2PpolMoment.rn_eq_neg_rLine_uncond` proves it, at `1 ≤ n`.  So:
 
 * **Claimed:** route B's L7 rate holds unconditionally for the σ̃ line integral.
-* **NOT claimed:** that L7 is closed, or anything at all about the chain's `r_n`.
+* **NOT claimed here:** anything at all about the chain's `r_n`.
 
-`L7MidM5.routeB_l7_rate_of_le_norm` is the interface that row will use — it takes any real
-sequence dominated by `‖rIntC n‖` — so nothing here has to be reopened when it lands.
+`L7MidM5.routeB_l7_rate_of_le_norm` states the rate, from the same six numeric facts, for any
+real sequence dominated by `‖rIntC n‖`.
 
 ## THE COMPOSITION COST ZERO ITERATIONS, AND THE FRICTION I PREDICTED WAS NOT REAL
 
@@ -1234,7 +1234,7 @@ For every `ε > 0`, eventually in `n`,
 
 `rLine` is `L7MidM5.rLine`, the real part of the σ̃-contour line integral of §1 — **not** the chain's
 `r_n = q_n ζ(2) − p_n`.  See the scope section of this file's header: identifying the two is
-M6 (Lemma 9's contour move) plus L1/A2, and neither has landed.  What IS closed is that
+`Zeta2PpolMoment.rn_eq_neg_rLine_uncond`, at `1 ≤ n`.  What IS closed here is that
 `Zeta2L7Assembly.routeB_l7_rate` — the theorem the chain consumes — now stands with no
 hypotheses at all for this `r`, where it entered the day with seven. -/
 theorem routeB_l7_rate_sigmaTilde {ε : ℝ} (hε : 0 < ε) :

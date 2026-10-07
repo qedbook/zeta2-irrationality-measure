@@ -1,15 +1,15 @@
 /-
 # The arithmetic clearing, layer 0 — `D k = lcm(1..k)` as a Lean object
 
-The chain (`Zeta2L9L11Instantiate.candidate_not_liouvilleWith`) binds `Δ : ℕ → ℝ` and
-`hQ : ∀ n, (Q n : ℝ) = Δ n * qn n` as HYPOTHESES. The scope audit graded this the program's
-largest unscoped row: no Lean object for `Δ` existed anywhere. This file is the first
-bankable increment — the denominator-clearing object every later statement is built from,
-with the two facts every use of it needs, typechecked against current Mathlib.
+This file defines `D k = lcm(1..k)`, the denominator-clearing object, and the naive clearing
+factor `Δ c₁ c₂ n = D (c₁ n) · D (c₂ n)` built from it, with their basic facts: `D k ≠ 0`,
+`0 < D k`, `Δ ≠ 0` (also cast to `ℝ`), `0 < Δ`, `m ∣ D k` for `1 ≤ m ≤ k`, `D j ∣ D k` for
+`j ≤ k`, and `D 1 = 1`.
 
-Increment 1 of N. Nothing here is candidate-specific. `Δ n = D (16 n) * D (15 n)` (the
-naive form) is increment 2; the `Φ̃`-divisibility refinement that makes the number work is
-later and is the part that carries mathematical content.
+
+Nothing here is candidate-specific.
+
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/
@@ -50,11 +50,11 @@ theorem D_pos (k : ℕ) : 0 < D k := Nat.pos_of_ne_zero (D_ne_zero k)
 
 /-! ## The naive clearing factor, parametrised by the member's constants
 
-`zeta2-arith-layer.md` derives, per member, two constants `c₁ c₂` from `(a, b)` such that
-`D (c₁ n) * D (c₂ n) * pₙ ∈ ℤ` (tale-1: `(9, 8)`, measured at every `n ≤ 10`; R3: `(7, 7)`).
-`qₙ ∈ ℤ` needs no clearing at all. The constants are NOT fixed here: they are pinned when the
-integrality proof is attempted, because the doc's own transcription of them wobbled once
-(`9n` vs `9n+1`, resolved only by the constant term of `d`). -/
+`Δ` is parametrised by two constants `c₁ c₂`, which depend on the member's `(a, b)`.
+`qₙ ∈ ℤ` needs no clearing at all. The constants are NOT fixed here: `Δ` takes them as
+arguments.
+
+-/
 
 /-- The naive clearing factor. The `Φ̃`-divisibility refinement that recovers the RATE is not
 this object; `zeta2-scope-audit.md` records that with this `Δ` alone `u = C0 − 31 < 0`. -/

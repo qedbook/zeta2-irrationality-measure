@@ -51,9 +51,9 @@ of the other five leaves measured holes.  The carry-min over each box is exactly
 
 ## What this file does NOT claim
 
-`Zeta2Target.zeta2_not_liouvilleWith` is `sorry` and stays `sorry`.  These are two of the five
-gap cells.  The `φ̃ ≤ max(φ, φ̂)` dispatch over the refinement and `PhiT_dvd_qnInt` are not
-here; `Zeta2HatAssemble` has them.
+These are two of the five gap cells.  The `φ̃ ≤ max(φ, φ̂)` dispatch over the refinement and
+`PhiT_dvd_qnInt` are not here; `Zeta2HatAssemble` has them.
+
 
 VINTAGE: toolchain leanprover/lean4:v4.34.0-rc2, mathlib 5aedf732 (current), buildbox.
 -/

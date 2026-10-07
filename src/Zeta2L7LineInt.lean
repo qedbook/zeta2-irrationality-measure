@@ -2,7 +2,7 @@
   `Zeta2L7LineInt.lean` — row **L7ID-0**, the VALUE half, **piece (a)**: the per-`m` complex
   line integral.
 
-  THE ROW'S NAMED NEXT PROBE, and the reason this file exists: on the contour `t = −½ + is`
+  THE ROW'S NAMED PROBE, and the reason this file exists: on the contour `t = −½ + is`
   the hinge `Zeta2MB.pi_sq_div_sin_sq_eq_tsum` expands `H₀(t) = π²/((t+1)·sin²(πt))` into
   `Σ_{m∈ℤ} 1/((t+m)²(t+1))`, whose `m`-th term is the real-line integral
 
@@ -49,7 +49,7 @@
   **Pieces (b), (c), (d) of the row are NOT in this file** — the hinge's lower-half-line
   extension by conjugation, the summability estimate feeding
   `integral_tsum_of_summable_integral_norm`, and integrability of the `n = 0` integrand.  This
-  is piece (a) alone, and `Zeta2Target.zeta2_not_liouvilleWith` remains `sorry`.
+  is piece (a) alone.
 
   Toolchain: Lean `v4.34.0-rc2`, Mathlib `5aedf732` (the buildbox `~/mathlib-current` pin).
   No local dependencies — `import Mathlib` only.  Falsifier: `falsify_l7lineint.sh`.
@@ -91,10 +91,10 @@ theorem norm_sq_lin (a s : ℝ) : ‖lin a s‖ ^ 2 = s ^ 2 + a ^ 2 := by
 theorem lin_sub_lin (a b s : ℝ) : lin a s - lin b s = ((a - b : ℝ) : ℂ) := by
   simp only [lin]; push_cast; ring
 
-/-- `∫ ↑(f s) = ↑(∫ f)` for a `ℂ`-valued real integral.  Mathlib's `integral_ofReal` is stated
-through `RCLike.ofReal` and does not rewrite against `Complex.ofReal` (there is an explicit
-`TODO` in `IntervalIntegral/Basic.lean` asking for the `Complex` version), so the corpus's
-three-line `ContinuousLinearMap.integral_comp_comm` route is spelled once, here. -/
+/-- `∫ ↑(f s) = ↑(∫ f)` for a `ℂ`-valued real integral, when `f : ℝ → ℝ` is integrable.
+It is proved here by applying `ContinuousLinearMap.integral_comp_comm` to
+`Complex.ofRealCLM : ℝ →L[ℝ] ℂ`.
+-/
 theorem integral_ofReal_eq {f : ℝ → ℝ} (hf : Integrable f) :
     ∫ s : ℝ, ((f s : ℝ) : ℂ) = ((∫ s : ℝ, f s : ℝ) : ℂ) := by
   simpa using ContinuousLinearMap.integral_comp_comm Complex.ofRealCLM hf
@@ -422,7 +422,7 @@ theorem integral_line_two_pole {a b : ℝ} (ha : a ≠ 0) (hb : b ≠ 0) (hab : 
 
 /-! ### §6. The two named instances, and the per-`m` corollaries -/
 
-/-- **THE ROW'S NAMED NEXT PROBE**, verbatim from the L7ID-0 cell: the single line integral
+/-- **THE ROW'S NAMED PROBE**, verbatim from the L7ID-0 cell: the single line integral
 `∫_ℝ ds/((3/2+is)²(1/2+is))`, elaborated on its own before any assembly.
 
 **Its value is `0`** — and that is a finding about the row, not about this lemma: `a = 3/2`

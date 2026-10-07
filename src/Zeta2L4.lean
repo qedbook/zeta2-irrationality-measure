@@ -1510,8 +1510,8 @@ theorem c3_ne_zero (n : ℕ) : hornerZ c3 (n : ℤ) ≠ 0 := by
 
 /--
 **L9's finite residue.**  The exact `q_{1127}` produced by the chain-close propagation is
-nonzero (`results/qrow_mstar.txt`, 20567 digits), which is the whole content of the L9
-row's remaining hypothesis at this index.
+nonzero (`results/qrow_mstar.txt`, 20567 digits), which this theorem proves by
+`decide +kernel`.
 -/
 theorem q1127_ne_zero : q1127 ≠ 0 := by decide +kernel
 
@@ -1525,10 +1525,10 @@ Nothing under the binder depends on `k`, so `∃ k` is decoration: the statement
 named the very shape it failed to have, which is why reading the two lines together is the check
 that catches it and reading either alone is not.
 
-Why it degenerates is the part worth keeping: **there is no `q : ℕ → ℤ` in this corpus to write
-`q k` with.**  What exists is the single numeral `q1127` (20567 digits) from the
-chain-close propagation.  Discharging `hrow` needs that function AND a bridge from it to
-`candidateM.qn`, and neither is built.  Do not cite this theorem as closing the L9 row.
+Why it degenerates is the part worth keeping: **this file has no `q : ℕ → ℤ` to write `q k`
+with.**  What it has is the single numeral `q1127` (20567 digits) from the
+chain-close propagation.  `hrow`, at the chain's own `candidateM.qn`, is `Zeta2L4Br.hrow`.
+Do not cite this theorem as closing the L9 row.
 -/
 theorem exists_nonzero_row : ∃ k : ℕ, 1127 ≤ k ∧ q1127 ≠ 0 :=
   ⟨1127, le_refl _, q1127_ne_zero⟩

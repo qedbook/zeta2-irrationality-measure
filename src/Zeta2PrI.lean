@@ -9,11 +9,11 @@
 reach them by importing the HAT base or by copying them.  A copy of a landed lemma is the defect
 `/review` caught in PAIR-7's diff, so the block is lifted here, VERBATIM, and STAR-ID imports it.
 
-`Zeta2Pair6Runs.lean` still carries its own §1.  Re-pointing it at this module renames
-`Zeta2Pair6Runs.prI` to `Zeta2PrI.prI` under a receipted row and its downstream `Zeta2Pair6`, so
-that is recorded as a `found_arch` entry rather than done inside STAR-ID's landing.
+`Zeta2Pair6Runs.lean` carries its own §1.
 
-**How to elaborate** — Lean NEVER runs on the laptop (owner rule 2026-09-07):
+
+
+**How to elaborate** — Lean NEVER runs on the laptop:
 
     sh external_tests/zeta2_star_b1/run_probe.sh Zeta2PrI.lean
 

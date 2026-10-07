@@ -1,18 +1,18 @@
 /-
-# Row PHI-REP — `Φ` linear on tale-1's `Rep`, and `rep_injective`
+# Row PHI-REP — `Φ` linear on tale-1's `Rep`, and `evalRep_inj`
 
-`docs/future/zeta2-lean-chain.md` row PHI-REP: *`Φ` on the representation, ℚ×ℚ-valued, linear,
-with `Φ_add`, `Φ_smul`; `rep_injective`; and `rec_of_telescoping_of_linear` RESTATED at
-`Φ : Rep → ℚ × ℚ`.*
+`docs/future/zeta2-lean-chain.md` row PHI-REP: `Φ` on the representation, ℚ×ℚ-valued, linear,
+with `Φ_add`, `Φ_smul`; the injectivity of `evalRep` (`evalRep_inj`); and
+`rec_of_telescoping_of_linear` RESTATED at `Φ : Rep → ℚ × ℚ`.
 
-**Three of the row's four deliverables were already on `main` when this file was written, and
-one of them is the whole of its definitional half.**  `Zeta2T1Shift` (row PHI-BDY, landed
+**One of the row's four deliverables, the whole of its definitional half, is in
+`Zeta2T1Shift`.**  `Zeta2T1Shift` (row PHI-BDY, landed
 2026-09-14) declares `Rep`, `evalRep`, `Φ`, `shiftRep`, `repDelta` *exactly as this row states
 them*, and proves `Φ_sub` and `evalRep_shiftRep`.  So this file adds the three pieces that were
-missing — `Φ`'s ADD and SMUL halves, `rep_injective`, and the restatement — and states nothing
+missing — `Φ`'s ADD and SMUL halves, `evalRep_inj`, and the restatement — and states nothing
 twice.
 
-## What `rep_injective` costs here, and why the polynomial part is not the obstacle it reads as
+## What `evalRep_inj` costs here, and why the polynomial part is not the obstacle it reads as
 
 The row's cell says tale-1's `Rep` carries a POLYNOMIAL part that `Rep̂` has not, *"so the
 clearing here has a numerator of degree ≥ the denominator and `clr`'s shape must gain a
@@ -32,7 +32,7 @@ tale-1's poles are simple (`Zeta2T1Shift`'s header; `../zeta2_star_b1/t1_bdy_pro
 measures it at both landed members).  **This row is strictly cheaper than its order-2 twin, not
 dearer.**
 
-`Polynomial.modByMonic` is named nowhere in this file and is not owed by it.  The row's cell
+`Polynomial.modByMonic` is named nowhere in this file and is not needed by it.  The row's cell
 imports that need from PHI-BDY's census, where it is real — `Zeta2HatRepOf.evalRep_repOf`
 presumes a proper fraction, so the CONSTRUCTION of `repS n` must split off the improper part.
 Injectivity has no such presumption: `clr_eval` is stated for an arbitrary `(P, c)`.
@@ -102,8 +102,8 @@ theorem Lpoly_smul (M : ℤ) (c : ℚ) (p : Polynomial ℚ) :
   | monomial j a =>
       rw [Polynomial.smul_monomial, Lpoly_monomial, Lpoly_monomial, smul_eq_mul]; ring
 
-/-- `p ↦ (c • p).eval t` is `c ·` the evaluation.  Mathlib's `Polynomial.eval_smul` is not
-available at this import set (censused 2026-09-14), and the monomial induction is three lines. -/
+/-- `p ↦ (c • p).eval t` is `c ·` the evaluation, for polynomials over `ℚ`.  It is proved
+here by induction on monomials. -/
 theorem eval_smul_rat (c t : ℚ) (p : Polynomial ℚ) : (c • p).eval t = c * p.eval t := by
   induction p using Polynomial.induction_on' with
   | add p q hp hq => rw [smul_add, eval_add, eval_add, hp, hq]; ring
@@ -113,7 +113,7 @@ theorem eval_smul_rat (c t : ℚ) (p : Polynomial ℚ) : (c • p).eval t = c * 
 /-! ## §2 — `evalRep` and `Φ` are linear on `Rep`
 
 `Zeta2T1Shift` already proves `Phi_sub`; the ADD and SMUL halves the row names as `Φ_add` /
-`Φ_smul` are here, and `evalRep`'s matching four are what `rep_injective`'s consumers need to
+`Φ_smul` are here, and `evalRep`'s matching four are what `evalRep_inj`'s consumers need to
 put a relation between EVALUATIONS into `Rep`. -/
 
 theorem evalRep_zero (t : ℚ) : evalRep (0 : Rep) t = 0 := by
@@ -200,7 +200,7 @@ theorem Phi_sum {ι : Type*} (m : ℕ) (s : Finset ι) (α : ι → ℚ) (rf : �
   | insert a s ha ih =>
       rw [Finset.sum_insert ha, Finset.sum_insert ha, Phi_add, Phi_smul, ih]
 
-/-! ## §3 — the cleared numerator, and `rep_injective`
+/-! ## §3 — the cleared numerator, and `evalRep_inj`
 
 Order 1, so `W = ∏_{j∈S}(X + j)` is the FIRST power and `cof` its cofactor; the hat's `^2` and
 its derivative step are gone.  The polynomial part rides as `r.1 * denom S`, which vanishes at
@@ -320,7 +320,7 @@ theorem eq_zero_of_evalRep_vanishes (r : Rep) (E : Finset ℚ)
     exact (mul_eq_zero.1 hcl).resolve_right (denom_ne_zero _)
   exact Prod.ext hz1 hz2
 
-/-- **`rep_injective`** — row PHI-REP's content lemma.  Two representations whose evaluations
+/-- **`evalRep_inj`** — row PHI-REP's content lemma.  Two representations whose evaluations
 agree off ANY finite set are the same representation: the partial-fraction data of a rational
 function with a polynomial part and SIMPLE poles at negative integers is unique.  This is
 `Zeta2HatInj.evalRep_inj` one pole order down. -/
@@ -375,7 +375,7 @@ theorem rec_of_telescoping_of_linear (m : ℕ) (ρ₀ ρ₁ ρ₂ ρ₃ Sr : Rep
   exact hΦ
 
 /-- **The composition executed**, the tale-1 twin of `Zeta2XL1B.hL_at_one_n_of_star`: this row's
-`rep_injective` and PHI-BDY's landed `Zeta2T1Shift.hbdy` compose with nothing between them, so
+`evalRep_inj` and PHI-BDY's landed `Zeta2T1Shift.hbdy` compose with nothing between them, so
 the assembly L1-ASM performs is this theorem with `ρⱼ`, `Sr` supplied. -/
 theorem rec_of_telescoping (m : ℕ) (ρ₀ ρ₁ ρ₂ ρ₃ Sr : Rep) (a₀ a₁ a₂ a₃ : ℚ) (E : Finset ℚ)
     (hsupp : ∀ k ∈ Sr.2.support, m + 1 ≤ k)

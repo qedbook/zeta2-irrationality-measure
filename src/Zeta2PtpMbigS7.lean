@@ -20,8 +20,8 @@ every `n` (`ptp_mbig_probe.out`: 42 such rows at `n ≤ 4000`, the first `(717, 
 `RestAboveOpen` narrows to the four φ̃ = 2 strata: `restAboveOpen_of_S2 : RestAboveS2Open →
 RestAboveOpen`, `polyHalfOpen_of_S2 : RestAboveS2Open → PolyHalfOpen` — carried in the TYPE.
 
-WHAT IS NOT CLAIMED.  The four φ̃ = 2 strata at `m ≥ p²` (`RestAboveS2Open`).  Row PT-P does not
-close and `Zeta2Target.zeta2_not_liouvilleWith` is `sorry`.
+WHAT IS NOT CLAIMED.  The four φ̃ = 2 strata at `m ≥ p²` (`RestAboveS2Open`).
+
 
 Probe: `ptp_mbig_probe.py` / `.out`.  Falsifier: `falsify_ptpfold.sh` / `out_ptpfold_falsify.txt`.
 Runner: `run_resid.sh`.

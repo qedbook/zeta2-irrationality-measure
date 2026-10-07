@@ -43,7 +43,7 @@ Everything the kernel checks here is exact rational arithmetic; the only roundin
 Taylor truncation, which is one-signed (below).
 
 Elaborated against CURRENT Mathlib (`v4.34.0-rc2`, mathlib `5aedf732`) on the buildbox; Lean
-never runs on the laptop (owner ruling 2026-09-07).
+never runs on the laptop.
 -/
 import Zeta2LegBCand
 

@@ -17,12 +17,12 @@ a pointwise-positive function is `≥ 0`; or it is not and Lean's `∫` is the j
 
     theorem rn_eq_neg_rLine_zero : Zeta2Defs.candidateM.rn 0 = -L7MidM5.rLine 0
 
-which this file does NOT prove: `rn 0 = −ζ(2)` is proved here, `rLine 0 = +ζ(2)` is the VALUE half
-and is not (it is the row's remaining work — see the row's cell and the L7ID-0 design notes).
-What is measured numerically, at three `n` and to 161 / 131 / 100 agreeing digits, is
-`l7id0_sign_check.py` → `l7id0_sign_check.out`.  `n = 1` and `n = 2` were MEASURED rather than
-extrapolated, because `zeta2-integral-free.md` §3.5 records that `sign(rₙ)` is not eventually
-constant, so a ratio read off `n = 0` alone would have been a guess.
+of which this file proves the arithmetic side, `rn 0 = −ζ(2)`; the VALUE half, `rLine 0 = +ζ(2)`,
+is `Zeta2L7Id0Val.rLine_zero`, the identity is `Zeta2L7Id0Val.rn_eq_neg_rLine_zero`, and at every
+`n ≥ 1` it is `Zeta2PpolMoment.rn_eq_neg_rLine_uncond`.  A numerical cross-check beside them, at
+three `n` to 161 / 131 / 100 agreeing digits, is `l7id0_sign_check.py` → `l7id0_sign_check.out`;
+`n = 1` and `n = 2` were MEASURED rather than extrapolated, because `zeta2-integral-free.md` §3.5
+records that `sign(rₙ)` is not eventually constant, so a ratio read off `n = 0` would be a guess.
 
 **WHY THE ROW WAS WRONG — a convention clash between two layers that had never met.**  Two sign
 factors, each constant at the candidate and each correct in its own corpus:
@@ -112,8 +112,8 @@ theorem lineB_zero (s : ℝ) :
 
 /-- On `Re t = −1/2` the kernel's sine is real and never zero: `sin(π(−1/2 + is)) = −cosh(πs)`.
 The MINUS is real and is measured, not decorative — `falsify_l7id0.sh` arm A2 reds without it —
-even though `Hn` squares it, because the same identity is what `L7ID` will meet at general `n`
-with the sign no longer squared away. -/
+even though `Hn` squares it.
+-/
 theorem sin_pi_lineB_zero (s : ℝ) :
     Complex.sin ((Real.pi : ℂ) * L7MidM5.lineB 0 s)
       = -((Real.cosh (Real.pi * s) : ℝ) : ℂ) := by
@@ -244,9 +244,9 @@ theorem rLine_zero_nonneg : 0 ≤ L7MidM5.rLine 0 := by
     simp [Complex.mul_re]
   rw [hre]
   by_cases hint : Integrable (fun s : ℝ => L7MidM123.Hn 0 (L7MidM5.lineB 0 s)) volume
-  · -- `Complex.re` through a real-line integral has NO named lemma in Mathlib
-    -- (`MeasureTheory.integral_re`, `Complex.re_integral`, `RCLike.re_integral` are all unknown
-    -- identifiers and `exact?` fails).  This is the three-line route, and its price is the
+  · -- `Complex.re` through a real-line integral: Mathlib states it as the root-level `integral_re`,
+    -- for `RCLike.re` (`MeasureTheory.integral_re`, `Complex.re_integral`, `RCLike.re_integral` are
+    -- not names).  This is the three-line route, and its price is the
     -- `Integrable` hypothesis — which is why the case split above exists.
     have hswap : (∫ s : ℝ, L7MidM123.Hn 0 (L7MidM5.lineB 0 s)).re
         = ∫ s : ℝ, (L7MidM123.Hn 0 (L7MidM5.lineB 0 s)).re := by
@@ -263,8 +263,8 @@ theorem rLine_zero_nonneg : 0 ≤ L7MidM5.rLine 0 := by
 
 /-- **THE VERDICT.**  Row L7ID-0's target theorem `rn_eq_rLine_zero` is FALSE, with no side
 condition: `candidateM.rn 0 < 0 ≤ rLine 0`.  The corrected statement is
-`candidateM.rn 0 = -L7MidM5.rLine 0`; its VALUE half (`rLine 0 = +ζ(2)`) is the row's remaining
-work and is not proved here. -/
+`candidateM.rn 0 = -L7MidM5.rLine 0`; its VALUE half (`rLine 0 = +ζ(2)`) is
+`Zeta2L7Id0Val.rLine_zero`. -/
 theorem row_target_is_false : Zeta2Defs.candidateM.rn 0 ≠ L7MidM5.rLine 0 := by
   have h1 := rn_zero_neg
   have h2 := rLine_zero_nonneg
@@ -276,9 +276,9 @@ theorem row_target_is_false : Zeta2Defs.candidateM.rn 0 ≠ L7MidM5.rLine 0 := b
 
 `Hn` is `L7MidM123.Hn` — the row's input cell says `L7MidM5.Hn`, which does not exist.  These
 `#check`s fail the elaboration if that ever stops being true, so the correction is executed rather
-than written down.  The three names the row's risk cell would have needed and that do NOT exist —
-`MeasureTheory.integral_re`, `Complex.re_integral`, `RCLike.re_integral` — cannot be `#check`ed;
-their absence is recorded in the L7ID-0 design notes and in §5's comment above. -/
+than written down.  The three names the row's risk cell would have needed —
+`MeasureTheory.integral_re`, `Complex.re_integral`, `RCLike.re_integral` — are not names at this
+pin and cannot be `#check`ed; the lemma is the root-level `integral_re` (see §5's comment above). -/
 section Names
 #check @L7MidM123.Hn
 #check @L7MidM123.Hn_eq_kernel_form

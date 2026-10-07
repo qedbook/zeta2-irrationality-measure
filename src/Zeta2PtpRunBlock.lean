@@ -2,8 +2,8 @@
 # Row PT-P, layer 15 — `h_m` IN `p`-BLOCKS OF ITS INDEX: the generic φ̃ = 1 block lemma for the
 # polar rows below `p²`, for both halves of the sum (LO `i ≤ 13n`, TAIL `i > 26n`)
 
-`Zeta2PtpResPair` left `ResidualRunOpen`: the polar rows (`p ∣ r+1`) whose residue `n % p` lies on
-one of the five run strata.  At `m = 11n + 1 + r < p²` every term of
+`Zeta2PtpResPair` reduced the residual to `ResidualRunOpen`: the polar rows (`p ∣ r+1`) whose
+residue `n % p` lies on one of the five run strata.  At `m = 11n + 1 + r < p²` every term of
 `h_m = Σ_i (−1)^{m−i} C(m,i) H(i)` is a product of four ordinary binomials with ONE units digit
 each, and `ptp_resid_narrow_probe.out` (arms S1–S3) measured the cancellation: the LO part and —
 once `m > 26n` — the TAIL part vanish separately, and block by block in `i = t·p + u`.
@@ -27,7 +27,7 @@ Wilson's reflection makes `(−1)^u C(m mod p, u)` a polynomial of degree `p −
 
 WHAT IS NOT HERE.  No stratum (`Zeta2PtpRunS7` is the φ̃ = 1 one); no φ̃ = 2 block lemma (the four
 φ̃ = 2 strata need `term/p`, Anton and a quotient, as `Zeta2PtpS2Kit` does for the harmonic side);
-nothing at `m ≥ p²`.  Row PT-P does not close and `Zeta2Target.zeta2_not_liouvilleWith` is `sorry`.
+nothing at `m ≥ p²`.
 
 Runner: `run_resid.sh`.  Falsifier: `falsify_ptprunlo.sh` / `out_ptprunlo_falsify.txt`.
 

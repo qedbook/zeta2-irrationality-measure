@@ -13,27 +13,27 @@ produce, and this file is the test of that claim: it goes through with no re-sta
 repair and no index shift, which is the thing that failed both times it was tried earlier in
 this program.
 
-**What it does NOT buy.**  Nothing here is unconditional.  Five inputs remain open and are
+**What the theorems below take as hypotheses.**  Nothing here is unconditional.  Five inputs are
 named as hypotheses: `hrecq`/`hrecp` (L1, rows B1–B5), `hα₃`/`hα₀` and `hrow` (L4 + the exact
-`m₀ = 1120` / `q_1127 ≠ 0` residue, row D4-L4 — **that data is not in the repo**), `hdecay`
-(L7 + L8, the blocker), `hgrowth` (L5 + L10), and `hgap` (L12's certified arithmetic).  The
-honest position of this row is: the interface is fitted, the inputs are named, and the inputs
-are the work.
+`m₀ = 1120` / `q_1127 ≠ 0` residue, row D4-L4), `hdecay`
+(L7 + L8), `hgrowth` (L5 + L10), and `hgap` (L12's certified arithmetic).
 
-**CORRECTED 2026-09-09 — "that data is not in the repo" is spent, and the replacement is a
-DIFFERENT obligation, not the same one.**  It was true when this file was written (2026-09-08).
-Hours later `533c3b114` landed `external_tests/chain_close_design/results/solution_a.txt` plus
-`l4_data.py`, which rebuilds all four degree-510 `cleared_j` from it in ~0.4 s, and
-`external_tests/zeta2_small_rows/Zeta2L4.lean` proves `c0_ne_zero`, `c3_ne_zero` and
-`q1127_ne_zero` axiom-clean.  `hα₃`/`hα₀`/`hrow` are still hypotheses below, but the reason has
-changed: `Zeta2L4` speaks about `List ℤ` through `Zeta2L4.hornerZ`, this file wants `ℕ → ℝ`,
-and `Zeta2XL1.lean` records that **no `List ℤ → ℝ[X]` bridge exists anywhere in this corpus**.
-`zeta2-l9-l11.md` §5's *"landing D4-L4 discharges `hα₀`, `hα₃`, `hrow` and `hM₀`/`hN₁`
-verbatim, with no restatement"* is therefore NOT established — the same over-claim
-`Zeta2XL1B` §3 found in A5's `hL` sentence, and it is corrected there too.
+
+
+`Zeta2L4` proves `c0_ne_zero`, `c3_ne_zero` and `q1127_ne_zero`.  It speaks about `List ℤ`
+through `Zeta2L4.hornerZ` while this file wants `ℕ → ℝ`; the `List ℤ → ℝ[X]` bridge between
+them is `Zeta2L4Br`'s `ofList`.
+
+
+
+
+
+
+
+
 
 Elaborated against CURRENT Mathlib (`v4.34.0-rc2`, mathlib `5aedf732`) on the buildbox; Lean
-never runs on the laptop (owner ruling 2026-09-07).
+never runs on the laptop.
 -/
 import Zeta2L9L11
 import Zeta2Defs
@@ -59,14 +59,14 @@ is about, from the chain's own inputs at `candidateM.qn` / `.pn` / `.rn`.
 
 Hypothesis census — every one of these is a NAMED row of `zeta2-integral-free.md` §5.3:
 
-| hypothesis | row | status in the repo |
+| hypothesis | row | what it states |
 |---|---|---|
-| `hrecq`, `hrecp` | B1–B5 (L1) | open |
-| `hΔne`, `hQ`, `hP` | A1–A4 / L10 clearing | open (definitional once the certificate tier lands) |
-| `hα₃`, `hα₀`, `hrow` | D4 (L4) — `m₀ = 1120`, `q_1127 ≠ 0` | **in the repo and PROVED** since `533c3b114` (`Zeta2L4.c0_ne_zero` / `c3_ne_zero` / `q1127_ne_zero`); open here only for want of a `List ℤ → ℝ[X]` bridge — CORRECTED 2026-09-09, this cell read "computed, **not in the repo**" |
-| `hdecay` | C1–C7 (L7) + L8 + L10 | the blocker |
-| `hgrowth` | D1 (L5) + L10 | L5 closed abstractly; not yet at `qn` |
-| `hgap` | L12 | certified numerically |
+| `hrecq`, `hrecp` | B1–B5 (L1) | the four-term recurrence at `candidateM.qn`, `.pn` from `N₀` |
+| `hΔne`, `hQ`, `hP` | A1–A4 / L10 clearing | `Δ n ≠ 0`, `Q n = Δ n · qₙ`, `P n = Δ n · pₙ` |
+| `hα₃`, `hα₀`, `hrow` | D4 (L4) — `m₀ = 1120`, `q_1127 ≠ 0` | `α₃ ≠ 0` from `n₁`, `α₀ ≠ 0` from `m₀`, some `k ≥ m₀` with `qₖ ≠ 0` |
+| `hdecay` | C1–C7 (L7) + L8 + L10 | the bound `Cr · ρr ^ n` on the size of `Δ n · rₙ`, from `Nr` |
+| `hgrowth` | D1 (L5) + L10 | the bound `Cq · ρq ^ n` on the size of `Q n`, from `Nq` |
+| `hgap` | L12 | `ρq · ρr ^ (p₀ − 1) < 1` |
 
 The decay hypothesis is deliberately stated on `Δ n * candidateM.rn n` rather than on
 `Q n · ζ − P n`: those are equal (`cleared_linear_form`), but only the first is in the
@@ -107,8 +107,8 @@ theorem candidate_not_liouvilleWith
 
 /-- **The literal §5.1 target, conditional on the named rows.**  With the rates written the way
 the chain writes them — `ρr = e^(−u)`, `ρq = e^v` — and L12's certified `1 + v/u < 5.0495243`,
-this is `Zeta2Target.zeta2_not_liouvilleWith` with its `sorry` replaced by an explicit list of
-what is still owed.
+this is the statement of `Zeta2Target.zeta2_not_liouvilleWith`, with the named rows as
+explicit hypotheses.
 
 `5.0495243` is the constant of `zeta2-integral-free.md` §5.1: strictly above the certified
 `1 + v/(u−δ) = 5.049524290530377` and strictly below the record's certified `5.095411785826`. -/
@@ -147,15 +147,15 @@ theorem candidate_target_of_rates
     (Zeta2L9L11.gap_of_rate_bound hu hmu)
 
 /-- The headline as an irrationality-measure bound, exactly as `Zeta2Target` derives it — but
-here from the conditional statement above rather than from a `sorry`. -/
+here from the conditional statement above. -/
 theorem candidate_measure_le (h : ¬ LiouvilleWith (5.0495243 : ℝ) zeta2) :
     ∀ p : ℝ, (5.0495243 : ℝ) ≤ p → ¬ LiouvilleWith p zeta2 :=
   Zeta2L9L11.measure_le_of_not_liouvilleWith h
 
 /-! ## Receipts
 
-Every line must read `[propext, Classical.choice, Quot.sound]`.  `Zeta2Target.lean`'s deliberate
-`sorry` is NOT in this file's dependency graph: nothing here imports it. -/
+Every line must read
+`[propext, Classical.choice, Quot.sound]`. -/
 
 #print axioms cleared_linear_form
 #print axioms candidate_not_liouvilleWith
