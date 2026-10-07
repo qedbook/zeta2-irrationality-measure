@@ -1,0 +1,32 @@
+# receipts/build-stats.txt, written by scripts/measure_build.py from one run's own measurements; nothing in it is typed by hand.
+commit: 01a83635b8903afc1d67b9e9c6e6fe49dba24419
+exported from: 0df42692526b1d7ffe7978ec844b69ffdfd1dbd1, the commit receipts/COUNTS.json names
+local changes: none to tracked files
+toolchain: leanprover/lean4:v4.34.0-rc2; lean --version: Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)
+LEAN_NUM_THREADS: 6
+machine: Linux x86_64
+logical CPUs: 12, from os.cpu_count()
+memory: 67341017088 bytes (65762712 KiB, 62.7 GiB), from the MemTotal line of /proc/meminfo, in KiB
+commands: lake build Zeta2
+lake exit status: 0
+wall clock: 8069.3 s (2:14:29), from the first lake command's start to the last one's end
+CPU time: 39876.8 s = 11.08 CPU-hours (user 33914.0 s + system 5962.8 s), of lake and every process it waited for
+largest single process, peak resident memory: 21331873792 bytes (20831908 KiB, 19.9 GiB), the largest of lake and every process it waited for (wait4's ru_maxrss: KiB on Linux, bytes on macOS)
+Lake "Built" lines: 748, each "<mark> [<i>/<n>] Built <name>" in Lake's output (build.log): one per job Lake ran to completion, whatever its mark
+lakefile roots: 748; with a "Built" line: 748; without one: 0
+"Built" names that are not roots: 0
+lean processes below lake, sampled with ps every 1 s (resident memory, which ps reports in KiB): 7235 samples read, 0 unreadable
+most lean processes running at once (sampled): 6
+largest sum of resident memory over the lean processes running at once (sampled): 51142995968 bytes (49944332 KiB, 47.6 GiB)
+the 10 lean processes with the largest sampled peak resident memory, each with the module it was compiling:
+  1. 21264896000 bytes (20766500 KiB, 19.8 GiB) Zeta2CarryFull
+  2. 16773902336 bytes (16380764 KiB, 15.6 GiB) Zeta2PtpRunSa1
+  3. 11783974912 bytes (11507788 KiB, 11.0 GiB) Zeta2PtpKumS1
+  4. 11326676992 bytes (11061208 KiB, 10.5 GiB) Zeta2PtpRunSa2
+  5. 10182459392 bytes (9943808 KiB, 9.5 GiB) Zeta2PtpRunSb
+  6. 8309866496 bytes (8115104 KiB, 7.7 GiB) Zeta2Target
+  7. 8292311040 bytes (8097960 KiB, 7.7 GiB) Zeta2Unconditional
+  8. 8250822656 bytes (8057444 KiB, 7.7 GiB) Receipts
+  9. 8136278016 bytes (7945584 KiB, 7.6 GiB) Zeta2PtpRunSd
+  10. 7996628992 bytes (7809208 KiB, 7.4 GiB) Zeta2Final
+disk after the build, as du counts it (st_blocks x 512, a file with several hard links once): .lake/build 5076234240 bytes (4957260 KiB, 4.7 GiB); .lake/packages 8514002944 bytes (8314456 KiB, 7.9 GiB); both 13590237184 bytes (13271716 KiB, 12.7 GiB)

@@ -1,0 +1,22 @@
+# scripts/verify.sh, commit: 01a83635b8903afc1d67b9e9c6e6fe49dba24419
+# toolchain: leanprover/lean4:v4.34.0-rc2; lean --version: Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)
+'Zeta2Target.zeta2_not_liouvilleWith' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Target.zeta2_not_liouvilleWith : ¬LiouvilleWith 5.0495243 Zeta2Defs.zeta2
+'Zeta2Target.zeta2_irrationality_measure_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Target.zeta2_irrationality_measure_le : ∀ (p : ℝ), 5.0495243 ≤ p → ¬LiouvilleWith p Zeta2Defs.zeta2
+'Zeta2Unconditional.zeta2_rational_approximation' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Unconditional.zeta2_rational_approximation : ∀ (C : ℝ),
+  ∀ᶠ (n : ℕ) in Filter.atTop, ∀ (m : ℤ), Zeta2Defs.zeta2 ≠ ↑m / ↑n → C / ↑n ^ 5.0495243 ≤ |Zeta2Defs.zeta2 - ↑m / ↑n|
+'Zeta2Hpsi.hψ' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Hpsi.hψ : Zeta2LegA.psiErrorBoundStatement
+'MediumPNT' depends on axioms: [propext, Classical.choice, Quot.sound]
+MediumPNT : ∃ c > 0, (Chebyshev.psi - id) =O[Filter.atTop] fun x => x * Real.exp (-c * Real.log x ^ (1 / 10))
+'Zeta2Final.zeta2_eq_riemannZeta_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.zeta2_eq_riemannZeta_two : ↑Zeta2Defs.zeta2 = riemannZeta 2
+'Zeta2Final.zeta2_eq_tsum_from_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+Zeta2Final.zeta2_eq_tsum_from_one : Zeta2Defs.zeta2 = ∑' (n : ℕ), 1 / (↑n + 1) ^ 2
+def Zeta2Defs.zeta2 : ℝ :=
+Real.pi ^ 2 / 6
+def LiouvilleWith : ℝ → ℝ → Prop :=
+fun p x => ∃ C, ∃ᶠ (n : ℕ) in Filter.atTop, ∃ m, x ≠ ↑m / ↑n ∧ |x - ↑m / ↑n| < C / ↑n ^ p
+# lean exit status: 0
